@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <!--
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+
+    <changeSet id="prevent-transmission-09-02-2018" author="BOGUI SERGE">
+
+        <createTable tableName="ptme_pregnant_patient">
+            <column name="pregnant_patient_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="family_name" type="varchar(65)"/>
+            <column name="given_name" type="varchar(65)"/>
+            <column name="pregnant_number" type="varchar(65)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="hiv_care_number" type="varchar(65)"/>
+            <column name="patient_id" type="int"/>
+            <column name="screening_number" type="varchar(65)"/>
+            <column name="age" type="int"/>
+            <column name="marital_status" type="int"/>
+            <column name="spousal_screening" type="int"/>
+            <column name="spousal_screening_result" type="int"/>
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_pregnant_patient_patient"
+                                 baseTableName="ptme_pregnant_patient" baseColumnNames="patient_id"
+                                 referencedTableName="patient" referencedColumnNames="patient_id"/>
+        <addForeignKeyConstraint constraintName="ptme_pregnant_patient_creator"
+                                 baseTableName="ptme_pregnant_patient" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_pregnant_patient_changed_by"
+                                 baseTableName="ptme_pregnant_patient" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_pregnant_patient_voided_by"
+                                 baseTableName="ptme_pregnant_patient" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_pregnant_patient_location"
+                                 baseTableName="ptme_pregnant_patient" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+
+        <!--Table Consultation -->
+        <createTable tableName="ptme_consultation">
+            <column name="consultation_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="pregnant_patient_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consultation_date" type="date" >
+                <constraints nullable="false"/>
+            </column>
+            <!--<column name="consultation_type" type="varchar(100)" >-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_consultation_pregnant_patient"
+                                 baseTableName="ptme_consultation" baseColumnNames="pregnant_patient_id"
+                                 referencedTableName="ptme_pregnant_patient" referencedColumnNames="pregnant_patient_id"/>
+        <addForeignKeyConstraint constraintName="ptme_consultation_creator"
+                                 baseTableName="ptme_consultation" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_consultation_changed_by"
+                                 baseTableName="ptme_consultation" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_consultation_voided_by"
+                                 baseTableName="ptme_consultation" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_consultation_location"
+                                 baseTableName="ptme_consultation" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+        <!--Table Prenatal -->
+        <createTable tableName="ptme_prenatal">
+            <!--<column name="prenatal_id" type="int" autoIncrement="true">-->
+                <!--<constraints nullable="false" primaryKey="true"/>-->
+            <!--</column>-->
+            <column name="consultation_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rank" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="week_of_amenorrhea" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="spousal_screening" type="int"/>
+            <column name="spousal_screening_result" type="int"/>
+            <column name="appointment_date" type="date"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_prenatal_consultation"
+                                 baseTableName="ptme_prenatal" baseColumnNames="consultation_id"
+                                 referencedTableName="ptme_consultation" referencedColumnNames="consultation_id"/>
+
+        <!--Table Birth-->
+        <createTable tableName="ptme_birth">
+            <column name="consultation_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="delivery_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="home_birth" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pregnancy_issue" type="int"/>
+            <column name="child_state" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_birth_consultation"
+                                 baseTableName="ptme_birth" baseColumnNames="consultation_id"
+                                 referencedTableName="ptme_consultation" referencedColumnNames="consultation_id"/>
+
+        <!-- Table Prenatal -->
+        <createTable tableName="ptme_postnatal">
+            <column name="consultation_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_postnatal_consultation"
+                                 baseTableName="ptme_postnatal" baseColumnNames="consultation_id"
+                                 referencedTableName="ptme_consultation" referencedColumnNames="consultation_id"/>
+
+
+        <!--Table HIV service -->
+        <createTable tableName="ptme_hiv_service">
+            <!--<column name="hiv_service_id" type="int" autoIncrement="true">-->
+                <!--<constraints nullable="false" primaryKey="true"/>-->
+            <!--</column>-->
+            <column name="hiv_service_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="hiv_status_at_reception" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test_proposal" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test_result" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result_announcement" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arv_status" type="int"/>
+            <column name="arv_treatment" type="int"/>
+            <column name="arv_discount" type="int"/>
+            <column name="child_arv_prophylaxis" type="int"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_hiv_service_consultation"
+                                 baseTableName="ptme_hiv_service" baseColumnNames="hiv_service_id"
+                                 referencedTableName="ptme_consultation" referencedColumnNames="consultation_id"/>
+        <addForeignKeyConstraint constraintName="ptme_hiv_service_creator"
+                                 baseTableName="ptme_hiv_service" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_hiv_service_changed_by"
+                                 baseTableName="ptme_hiv_service" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_hiv_service_voided_by"
+                                 baseTableName="ptme_hiv_service" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_hiv_service_location"
+                                 baseTableName="ptme_hiv_service" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+
+        <!--Table Child -->
+        <createTable tableName="ptme_child">
+            <column name="child_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="child_followup_number" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="family_name" type="varchar(65)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="given_name" type="varchar(65)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mother" type="int"/>
+
+            <column name="patient_id" type="int"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_child_mother"
+                                 baseTableName="ptme_child" baseColumnNames="mother"
+                                 referencedTableName="patient" referencedColumnNames="patient_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_patient"
+                                 baseTableName="ptme_child" baseColumnNames="patient_id"
+                                 referencedTableName="patient" referencedColumnNames="patient_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_creator"
+                                 baseTableName="ptme_child" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_changed_by"
+                                 baseTableName="ptme_child" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_voided_by"
+                                 baseTableName="ptme_child" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_location"
+                                 baseTableName="ptme_child" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+
+        <!--Table Mother followup -->
+        <createTable tableName="ptme_mother_followup">
+            <column name="mother_followup_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="pregnant_patient_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date"/>
+            <column name="arv_status_at_registering" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_delivery_date" type="date"/>
+            <column name="pregnancy_outcome" type="int"/>
+            <column name="spousal_screening_result" type="int"/>
+            <column name="spousal_screening_date" type="date"/>
+            <column name="delivery_type" type="int"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_pregnant_patient"
+                                 baseTableName="ptme_mother_followup" baseColumnNames="pregnant_patient_id"
+                                 referencedTableName="ptme_pregnant_patient" referencedColumnNames="pregnant_patient_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_creator"
+                                 baseTableName="ptme_mother_followup" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_changed_by"
+                                 baseTableName="ptme_mother_followup" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_voided_by"
+                                 baseTableName="ptme_mother_followup" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_location"
+                                 baseTableName="ptme_mother_followup" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+
+        <!--Table Mother Followup Visit -->
+        <createTable tableName="ptme_mother_followup_visit">
+            <column name="mother_followup_visit_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="mother_followup_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gestational_age" type="int"/>
+            <column name="continuing_arv" type="int"/>
+            <column name="continuing_ctx" type="int"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_visit_mother_followup"
+                                 baseTableName="ptme_mother_followup_visit" baseColumnNames="mother_followup_id"
+                                 referencedTableName="ptme_mother_followup" referencedColumnNames="mother_followup_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_visit_creator"
+                                 baseTableName="ptme_mother_followup_visit" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_visit_changed_by"
+                                 baseTableName="ptme_mother_followup_visit" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_visit_voided_by"
+                                 baseTableName="ptme_mother_followup_visit" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_mother_followup_visit_location"
+                                 baseTableName="ptme_mother_followup_visit" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+
+        <!--Table Child followup -->
+        <createTable tableName="ptme_child_followup">
+            <column name="child_followup_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="arv_prophylaxis_given" type="int"/>
+            <column name="arv_prophylaxis_given_date" type="date"/>
+            <column name="followup_end_date" type="date"/>
+            <column name="pcr1_sampling_date" type="date"/>
+            <column name="age_in_week_on_pcr1_sampling" type="int"/>
+            <column name="age_in_month_on_pcr1_sampling" type="int"/>
+            <column name="pcr1_result" type="int"/>
+            <column name="pcr2_sampling_date" type="date"/>
+            <column name="age_in_week_on_pcr2_sampling" type="int"/>
+            <column name="age_in_month_on_pcr2_sampling" type="int"/>
+            <column name="pcr2_result" type="int"/>
+            <column name="pcr3_sampling_date" type="date"/>
+            <column name="age_in_week_on_pcr3_sampling" type="int"/>
+            <column name="age_in_month_on_pcr3_sampling" type="int"/>
+            <column name="pcr3_result" type="int"/>
+            <column name="ctx_initiation_date" type="date"/>
+            <column name="age_in_week_on_ctx_initiation" type="int"/>
+            <column name="age_in_month_on_ctx_initiation" type="int"/>
+            <column name="inh_initiation_date" type="date"/>
+            <column name="age_in_week_on_inh_initiation" type="int"/>
+            <column name="age_in_month_on_inh_initiation" type="int"/>
+            <column name="hiv_serology1_date" type="date"/>
+            <column name="age_in_week_on_hiv_serology1" type="int"/>
+            <column name="age_in_month_on_hiv_serology1" type="int"/>
+            <column name="hiv_serology1_result" type="int"/>
+            <column name="hiv_serology2_date" type="date"/>
+            <column name="age_in_week_on_hiv_serology2" type="int"/>
+            <column name="age_in_month_on_hiv_serology2" type="int"/>
+            <column name="hiv_serology2_result" type="int"/>
+            <column name="followup_result" type="int"/>
+            <column name="followup_result_date" type="date"/>
+            <column name="reference_location" type="varchar(225)"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_child"
+                                 baseTableName="ptme_child_followup" baseColumnNames="child_followup_id"
+                                 referencedTableName="ptme_child" referencedColumnNames="child_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_creator"
+                                 baseTableName="ptme_child_followup" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_changed_by"
+                                 baseTableName="ptme_child_followup" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_voided_by"
+                                 baseTableName="ptme_child_followup" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_location"
+                                 baseTableName="ptme_child_followup" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+        
+        <createTable tableName="ptme_child_followup_visit">
+            <column name="child_followup_visit_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="child_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_date" type="date" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="age_in_day" type="int" />
+            <column name="age_in_week" type="int"/>
+            <column name="age_in_month" type="int" />
+
+            <column name="eating_type" type="int" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="modern_contraceptive_method" type="tinyint(1)"/>
+            <column name="continuing_ctx" type="int"/>
+            <column name="continuing_inh" type="int"/>
+
+            <column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_visit_child_followup"
+                                 baseTableName="ptme_child_followup_visit" baseColumnNames="child_id"
+                                 referencedTableName="ptme_child" referencedColumnNames="child_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_visit_creator"
+                                 baseTableName="ptme_child_followup_visit" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_visit_changed_by"
+                                 baseTableName="ptme_child_followup_visit" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_visit_voided_by"
+                                 baseTableName="ptme_child_followup_visit" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_child_followup_visit_location"
+                                 baseTableName="ptme_child_followup_visit" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+    </changeSet>
+
+    <changeSet id="data-migration-prevent1-transmission-05-08-2018" author="BOGUI SERGE">
+
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="ptme_ptme"/>
+                <columnExists tableName="ptme_ptme" columnName="age"/>
+                <not>
+                    <sqlCheck expectedResult="0">select count(*) from ptme_ptme</sqlCheck>
+                </not>
+            </and>
+        </preConditions>
+        <sql>
+
+            UPDATE ptme_ptme
+            SET numero_depistage = CONCAT_WS('/', '12345', YEAR(encounter_date), CONCAT('00', ptme_id))
+            WHERE ((numero_depistage IS NULL AND numero_pec IS NULL) OR (numero_depistage = '' AND numero_pec = ''));
+
+            UPDATE ptme_ptme SET
+            numero_pec = numero_depistage
+            WHERE numero_pec = '' AND numero_depistage REGEXP '^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?[1-9]?$';
+
+            INSERT INTO ptme_pregnant_patient (pregnant_number, hiv_care_number, screening_number, age, location_id, uuid, creator, date_created, voided)
+            SELECT
+            pregnant_number,
+            numero_pec AS hiv_care_number,
+            numero_depistage AS screening_number,
+            age,
+            location_id,
+            uuid() uuid,
+            creator,
+            date_created,
+            0 AS voided
+            FROM
+            (
+            SELECT MAX(encounter_date) dateRencontre, pregnant_number FROM
+            (
+            SELECT
+            *, TRIM(IF(numero_pec &lt;> '', numero_pec, numero_depistage )) pregnant_number
+            FROM ptme_ptme
+            ) _
+            GROUP BY pregnant_number
+            ) mp,
+            ptme_ptme
+            WHERE
+            (mp.pregnant_number = ptme_ptme.numero_pec OR mp.pregnant_number = ptme_ptme.numero_depistage) AND
+            mp.dateRencontre = ptme_ptme.encounter_date
+            GROUP BY pregnant_number
+            ;
+
+
+            INSERT INTO ptme_consultation (consultation_id, consultation_date, pregnant_patient_id, location_id, uuid, creator, date_created, voided, date_changed, changed_by)
+            SELECT
+            NULL AS consultation_id,
+            encounter_date AS consultation_date,
+            ppp.pregnant_patient_id,
+            pp.location_id,
+            pp.uuid,
+            pp.creator,
+            pp.date_created,
+            pp.voided,
+            pp.date_changed,
+            pp.changed_by
+            FROM ptme_ptme pp, ptme_pregnant_patient ppp
+            WHERE
+            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            type_ptme = 'CPN';
+
+            INSERT INTO ptme_prenatal (consultation_id, rank, week_of_amenorrhea, spousal_screening, spousal_screening_result,  appointment_date)
+            SELECT
+            consultation_id,
+            type_cpn AS rank,
+            10 AS week_of_amenorrhea,
+            depistage_conjoint,
+            statut_vih_conjoint,
+            ADDDATE(consultation_date, INTERVAL 30 DAY) appointment_date
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'CPN';
+
+            INSERT INTO ptme_hiv_service (hiv_service_id, hiv_status_at_reception, test_proposal, test_result, result_announcement, arv_status, arv_discount, child_arv_prophylaxis, location_id, uuid, creator, date_created, changed_by, date_changed, voided)
+            SELECT
+            consultation_id,
+            pp.statut_vih_accueil AS hiv_status_at_reception,
+            pp.proposition_test AS test_proposal,
+            IF(resultat_test IS NOT NULL , pp.resultat_test, 2) As test_result,
+            if(annonce_resultat IS NOT NULL, pp.annonce_resultat, 2) AS result_announcement,
+            pp.sous_traitement_arv AS arv_status,
+            pp.remise_arv As arv_discount,
+            pp.prophylaxie_arv_enfant As child_arv_prophylaxis,
+            pp.location_id,
+            uuid() AS uuid,
+            pp.creator,
+            pp.date_created,
+            pp.changed_by,
+            pp.date_changed,
+            pp.voided
+
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'CPN';
+
+            INSERT INTO ptme_consultation (consultation_id, consultation_date, pregnant_patient_id, location_id, uuid, creator, date_created, voided, date_changed, changed_by)
+            SELECT
+            NULL AS consultation_id,
+            encounter_date AS consultation_date,
+            ppp.pregnant_patient_id,
+            pp.location_id,
+            pp.uuid,
+            pp.creator,
+            pp.date_created,
+            pp.voided,
+            pp.date_changed,
+            pp.changed_by
+            FROM ptme_ptme pp, ptme_pregnant_patient ppp
+            WHERE
+            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            type_ptme = 'Accouchement';
+
+
+            INSERT INTO ptme_birth(consultation_id, delivery_date, home_birth)
+            SELECT
+            consultation_id,
+            encounter_date AS delivery_date,
+            1 AS home_birth
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'Accouchement';
+
+            INSERT INTO ptme_hiv_service (hiv_service_id, hiv_status_at_reception, test_proposal, test_result, result_announcement, arv_status, arv_discount, child_arv_prophylaxis, location_id, uuid, creator, date_created, changed_by, date_changed, voided)
+            SELECT
+            consultation_id,
+            pp.statut_vih_accueil AS hiv_status_at_reception,
+            pp.proposition_test AS test_proposal,
+            IF(resultat_test IS NOT NULL , pp.resultat_test, 2) As test_result,
+            if(annonce_resultat IS NOT NULL, pp.annonce_resultat, 2) AS result_announcement,
+            pp.sous_traitement_arv AS arv_status,
+            pp.remise_arv As arv_discount,
+            pp.prophylaxie_arv_enfant As child_arv_prophylaxis,
+            pp.location_id,
+            uuid() AS uuid,
+            pp.creator,
+            pp.date_created,
+            pp.changed_by,
+            pp.date_changed,
+            pp.voided
+
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'Accouchement';
+
+            INSERT INTO ptme_consultation (consultation_id, consultation_date, pregnant_patient_id, location_id, uuid, creator, date_created, changed_by, date_changed, voided)
+            SELECT
+            NULL AS consultation_id,
+            encounter_date AS consultation_date,
+            ppp.pregnant_patient_id,
+            pp.location_id,
+            pp.uuid,
+            pp.creator,
+            pp.date_created,
+            pp.changed_by,
+            pp.date_changed,
+            pp.voided
+
+            FROM ptme_ptme pp, ptme_pregnant_patient ppp
+            WHERE
+            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            type_ptme = 'CPoN';
+
+
+            INSERT INTO ptme_postnatal(consultation_id)
+            SELECT
+            consultation_id
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'CPoN';
+
+            INSERT INTO ptme_hiv_service (hiv_service_id, hiv_status_at_reception, test_proposal, test_result, result_announcement, arv_status, arv_discount, child_arv_prophylaxis, location_id, uuid, creator, date_created, changed_by, date_changed, voided)
+            SELECT
+            consultation_id,
+            pp.statut_vih_accueil AS hiv_status_at_reception,
+            pp.proposition_test AS test_proposal,
+            IF(resultat_test IS NOT NULL , pp.resultat_test, 2) As test_result,
+            if(annonce_resultat IS NOT NULL, pp.annonce_resultat, 2) AS result_announcement,
+            pp.sous_traitement_arv AS arv_status,
+            pp.remise_arv As arv_discount,
+            pp.prophylaxie_arv_enfant As child_arv_prophylaxis,
+            pp.location_id,
+            uuid() AS uuid,
+            pp.creator,
+            pp.date_created,
+            pp.changed_by,
+            pp.date_changed,
+            pp.voided
+            FROM ptme_ptme pp, ptme_consultation pc
+            WHERE pp.uuid = pc.uuid AND pp.type_ptme = 'CPoN';
+
+            INSERT INTO ptme_pregnant_patient (family_name, given_name, pregnant_number, hiv_care_number, patient_id, age, location_id, uuid, creator, date_created, voided)
+            SELECT
+            pn.family_name,
+            pn.given_name,
+            pi.identifier AS pregnant_number,
+            pi.identifier AS hiv_care_number,
+            pi.patient_id,
+            FLOOR(DATEDIFF(DatePremiereVisite, p.birthdate)/365.15) Age,
+            pi.location_id,
+            uuid() uuid,
+            p.creator,
+            p.date_created,
+            p.voided
+            FROM
+            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 GROUP BY patient_id) MV
+            LEFT JOIN (SELECT patient_id, identifier, location_id FROM patient_identifier WHERE preferred = 1 AND voided = 0 GROUP BY patient_id, location_id) pi ON MV.patient_id = pi.patient_id
+            LEFT JOIN person_name pn ON pi.patient_id = pn.person_id
+            LEFT JOIN person p ON pn.person_id = p.person_id
+            LEFT JOIN ptme_pregnant_patient ppp
+            ON ppp.patient_id = pi.patient_id
+            WHERE
+            pi.identifier NOT IN (SELECT ppp.hiv_care_number FROM ptme_pregnant_patient WHERE hiv_care_number = pi.identifier)
+            GROUP BY pi.identifier;
+
+            UPDATE ptme_pregnant_patient ppp
+            INNER JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE preferred = 1 AND voided = 0 GROUP BY patient_id) pi ON pi.identifier = ppp.hiv_care_number
+            INNER JOIN person_name pn ON pn.person_id = pi.patient_id
+            INNER JOIN person p ON p.person_id = pn.person_id
+            SET
+            ppp.family_name = pn.family_name,
+            ppp.given_name = pn.given_name,
+            ppp.age = FLOOR(DATEDIFF(ppp.date_created, p.birthdate)/365.15),
+            ppp.patient_id = pi.patient_id
+            WHERE ppp.patient_id IS NULL ;
+
+        </sql>
+    </changeSet>
+    <changeSet id="data-migration-prevent2-transmission-05-08-2018" author="BOGUI SERGE">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 15</sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+
+            INSERT INTO ptme_mother_followup(mother_followup_id, pregnant_patient_id, start_date, end_date, arv_status_at_registering, pregnancy_outcome, spousal_screening_result, spousal_screening_date, delivery_type, location_id, uuid, creator, date_created,voided)
+            SELECT
+            NULL AS mother_followup_id,
+            pregnant_patient_id,
+            DATE(encounter_datetime) AS start_date,
+            DATE(DateDerniereVisite) AS end_date,
+            IF(arv_status_at_registration IS NOT NULL, arv_status_at_registration, 2) arv_status_at_registration,
+            pregnancy_outcome,
+            RD.spousal_screening_result,
+            spousal_screening_date,
+            delivery_type,
+            e.location_id,
+            uuid() uuid,
+            e.creator,
+            e.date_created,
+            e.voided
+            FROM
+            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 GROUP BY patient_id) MV
+            INNER JOIN
+            (SELECT * FROM encounter WHERE encounter_type = 16 AND form_id = 15) e
+            ON e.encounter_datetime = MV.DatePremiereVisite AND e.patient_id = MV.patient_id
+            LEFT JOIN ptme_pregnant_patient ppp
+            ON ppp.patient_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 164688, 2,
+            IF(value_coded = 164687, 1,
+            IF(value_coded = 164686, 0, NULL ))) arv_status_at_registration, encounter_id FROM obs WHERE concept_id = 164689) SA
+            ON ppp.patient_id = SA.person_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 1404, 0,
+            IF(value_coded = 138571, 1, NULL )) spousal_screening_result FROM obs WHERE concept_id = 164683) RD
+            ON ppp.patient_id = RD.person_id
+            LEFT JOIN (SELECT person_id, value_datetime spousal_screening_date FROM obs WHERE concept_id = 164684) DD
+            ON ppp.patient_id = DD.person_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 1395, 1,
+            IF(value_coded = 159896, 2,
+            IF(value_coded = 126127, 3,
+            IF(value_coded = 164774, 4,
+            IF(value_coded = 164775, 5, NULL ) ) ))) pregnancy_outcome FROM obs WHERE concept_id = 161033) IG
+            ON ppp.patient_id = IG.person_id
+            LEFT JOIN (SELECT patient_id, MAX(encounter_datetime) DateDerniereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 GROUP BY patient_id) MXV
+            ON MXV.patient_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 126449, 1,
+            IF(value_coded = 123955, 2, NULL )) delivery_type FROM obs WHERE concept_id = 162588) A
+            ON ppp.patient_id = A.person_id
+            WHERE
+            ppp.pregnant_patient_id NOT IN (SELECT pregnant_patient_id FROM ptme_mother_followup)
+            GROUP BY ppp.pregnant_patient_id;
+
+            INSERT INTO ptme_mother_followup_visit (mother_followup_visit_id, mother_followup_id, visit_date, gestational_age, continuing_arv, continuing_ctx, location_id, uuid, creator, date_created, voided)
+            SELECT
+            NULL AS mother_followup_visit_id,
+            mother_followup_id,
+            encounter_datetime AS visit_date,
+            gestational_age,
+            continuing_arv,
+            continuing_ctx,
+            location_id,
+            uuid() uuid,
+            creator,
+            date_created,
+            voided
+            FROM
+            (SELECT * FROM encounter WHERE encounter_type = 16 AND form_id = 15) e
+            LEFT JOIN
+            (SELECT patient_id, pregnant_patient_id FROM ptme_pregnant_patient) pt
+            ON e.patient_id = pt.patient_id
+            LEFT JOIN (SELECT mother_followup_id, pregnant_patient_id FROM ptme_mother_followup) pmf
+            ON pmf.pregnant_patient_id = pt.pregnant_patient_id
+            LEFT JOIN (SELECT encounter_id, value_numeric gestational_age FROM obs WHERE concept_id = 1409) AG
+            ON AG.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, IF(value_coded = 1, 1,
+            IF(value_coded = 2, 0, 2)) continuing_arv FROM obs WHERE concept_id = 5576) ARV
+            ON ARV.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, IF(value_coded = 164503, 0, IF(value_coded = 164504, 1, NULL)) continuing_ctx FROM obs WHERE concept_id = 164502) CTX
+            ON CTX.encounter_id = e.encounter_id
+            ;
+
+        </sql>
+    </changeSet>
+    <changeSet id="data-migration-prevent3-transmission-05-08-2018" author="BOGUI SERGE">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 14</sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO ptme_child (child_followup_number, birth_date, gender, family_name, given_name, mother/*, patient_id*/, location_id, uuid, creator, date_created, voided)
+            SELECT
+            pi1.identifier child_followup_number,
+            birthdate birth_date,
+            gender,
+            family_name,
+            given_name,
+            pi2.patient_id AS mother,
+            ME.location_id,
+            uuid() uuid,
+            p.creator,
+            p.date_created,
+            p.voided
+            FROM
+            patient_identifier pi1
+            LEFT JOIN patient_identifier pi2 ON pi1.identifier LIKE CONCAT(pi2.identifier, 'E%')
+            LEFT JOIN person p ON p.person_id = pi1.patient_id
+            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) ME
+            ON ME.patient_id = pi1.patient_id
+            LEFT JOIN person_name pn ON p.person_id = pn.person_id
+            WHERE
+            pi1.identifier REGEXP '^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E[1-9]?$' AND
+            ME.patient_id IS NOT NULL
+            ORDER BY pi1.identifier
+            ;
+
+            INSERT INTO ptme_child_followup (child_followup_id, arv_prophylaxis_given, arv_prophylaxis_given_date, followup_end_date, pcr1_sampling_date, age_in_week_on_pcr1_sampling, age_in_month_on_pcr1_sampling, pcr1_result, pcr2_sampling_date, age_in_week_on_pcr2_sampling, age_in_month_on_pcr2_sampling, pcr2_result, pcr3_sampling_date, age_in_week_on_pcr3_sampling, age_in_month_on_pcr3_sampling, pcr3_result, ctx_initiation_date, age_in_week_on_ctx_initiation, age_in_month_on_ctx_initiation, inh_initiation_date, age_in_week_on_inh_initiation, age_in_month_on_inh_initiation, hiv_serology1_date, age_in_week_on_hiv_serology1, age_in_month_on_hiv_serology1, hiv_serology1_result, hiv_serology2_date, age_in_week_on_hiv_serology2, age_in_month_on_hiv_serology2, hiv_serology2_result, followup_result, followup_result_date, reference_location, location_id, uuid, creator, date_created, voided)
+            SELECT
+            child_id AS child_followup_id,
+            arv_prophylaxis_given,
+            arv_prophylaxis_given_date,
+            followup_end_date,
+            pcr1_sampling_date,
+            age_in_week_on_pcr1_sampling,
+            age_in_month_on_pcr1_sampling,
+            pcr1_result,
+            pcr2_sampling_date,
+            age_in_week_on_pcr2_sampling,
+            age_in_month_on_pcr2_sampling,
+            pcr2_result,
+            pcr3_sampling_date,
+            age_in_week_on_pcr3_sampling,
+            age_in_month_on_pcr3_sampling,
+            pcr3_result,
+            ctx_initiation_date,
+            age_in_week_on_ctx_initiation,
+            age_in_month_on_ctx_initiation,
+            inh_initiation_date,
+            age_in_week_on_inh_initiation,
+            age_in_month_on_inh_initiation,
+            hiv_serology1_date,
+            age_in_week_on_hiv_serology1,
+            age_in_month_on_hiv_serology1,
+            hiv_serology1_result,
+            hiv_serology2_date,
+            age_in_week_on_hiv_serology2,
+            age_in_month_on_hiv_serology2,
+            hiv_serology2_result,
+            followup_result,
+            followup_result_date,
+            reference_location,
+            e.location_id,
+            uuid() uuid,
+            e.creator,
+            e.date_created,
+            e.voided
+            FROM
+            (SELECT MIN(encounter_datetime) DateInitFollowup, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) ME
+            LEFT JOIN (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16) e
+            ON e.patient_id = ME.patient_id AND ME.DateInitFollowup = e.encounter_datetime
+            INNER JOIN patient_identifier pi ON e.patient_id = pi.patient_id
+            INNER JOIN ptme_child pc ON pc.child_followup_number = pi.identifier
+            LEFT JOIN (SELECT person_id, IF(value_coded = 1065, 1,
+            IF(value_coded = 1066, 0, NULL)) arv_prophylaxis_given FROM obs WHERE concept_id = 163605) PARV
+            ON PARV.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_datetime arv_prophylaxis_given_date FROM obs WHERE concept_id = 165019) DPARV
+            ON DPARV.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_datetime pcr1_sampling_date FROM obs WHERE concept_id = 163507) DPCR1
+            ON DPCR1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr1_sampling FROM obs WHERE concept_id = 164695) SPCR1
+            ON SPCR1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr1_sampling FROM obs WHERE concept_id = 164698) MPCR1
+            ON MPCR1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
+            IF(value_coded = 664, 0, NULL )) pcr1_result FROM obs WHERE concept_id = 164485) RPCR1
+            ON RPCR1.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime pcr2_sampling_date FROM obs WHERE concept_id = 164482) DPCR2
+            ON DPCR2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr2_sampling FROM obs WHERE concept_id = 164696) SPCR2
+            ON SPCR2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr2_sampling FROM obs WHERE concept_id = 164699) MPCR2
+            ON MPCR2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
+            IF(value_coded = 664, 0, NULL )) pcr2_result FROM obs WHERE concept_id = 164486) RPCR2
+            ON RPCR2.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime pcr3_sampling_date FROM obs WHERE concept_id = 164708) DPCR3
+            ON DPCR3.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr3_sampling FROM obs WHERE concept_id = 164697) SPCR3
+            ON SPCR3.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr3_sampling FROM obs WHERE concept_id = 164700) MPCR3
+            ON MPCR3.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
+            IF(value_coded = 664, 0, NULL )) pcr3_result FROM obs WHERE concept_id = 164709) RPCR3
+            ON RPCR3.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime ctx_initiation_date FROM obs WHERE concept_id = 163504) DCTX
+            ON DCTX.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_ctx_initiation FROM obs WHERE concept_id = 164702) SCTX
+            ON SCTX.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_ctx_initiation FROM obs WHERE concept_id = 164701) MCTX
+            ON MCTX.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime inh_initiation_date FROM obs WHERE concept_id = 163505) DINH
+            ON DINH.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_inh_initiation FROM obs WHERE concept_id = 164706) SINH
+            ON SINH.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_inh_initiation FROM obs WHERE concept_id = 164707) MINH
+            ON MINH.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime hiv_serology1_date FROM obs WHERE concept_id = 164128) DS1
+            ON DS1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology1 FROM obs WHERE concept_id = 164714) SS1
+            ON SS1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology1 FROM obs WHERE concept_id = 164715) MS1
+            ON MS1.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
+            IF(value_coded = 664, 0, NULL )) hiv_serology1_result FROM obs WHERE concept_id = 1401) RS1
+            ON RS1.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime hiv_serology2_date FROM obs WHERE concept_id = 164710) DS2
+            ON DS2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology2 FROM obs WHERE concept_id = 164713) SS2
+            ON SS2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology2 FROM obs WHERE concept_id = 164712) MS2
+            ON MS2.person_id = e.patient_id
+            LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
+            IF(value_coded = 664, 0, NULL )) hiv_serology2_result FROM obs WHERE concept_id = 164711) RS2
+            ON RS2.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, IF(value_coded = 164723, 0,
+            IF(value_coded = 164717, 1,
+            IF(value_coded = 160432, 2,
+            IF(value_coded = 164718, 3,
+            IF(value_coded = 164720, 4,
+            IF(value_coded = 164721, 5, NULL ) ) ) ) ))
+            followup_result FROM obs WHERE concept_id = 164724) RF
+            ON RF.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_text reference_location FROM obs WHERE concept_id = 164722) ST
+            ON ST.person_id = e.patient_id
+
+            LEFT JOIN (SELECT person_id, value_datetime followup_result_date FROM obs WHERE concept_id = 164726) DRF
+            ON DRF.person_id = e.patient_id
+            LEFT JOIN (SELECT MAX(encounter_datetime) followup_end_date, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) XV
+            ON XV.patient_id = e.patient_id
+            GROUP BY child_followup_id
+            ;
+
+            INSERT INTO ptme_child_followup_visit (child_id, visit_date, age_in_day, age_in_week, age_in_month, eating_type, modern_contraceptive_method, continuing_ctx, continuing_inh, location_id, uuid, creator, date_created, voided)
+            SELECT
+            child_id,
+            encounter_datetime visit_date,
+            NULL AS age_in_day,
+            age_in_week,
+            age_in_month,
+            IF(eating_type IS NULL, 1, eating_type) eating_type,
+            modern_contraceptive_method,
+            continuing_ctx,
+            continuing_inh,
+            e.location_id,
+            uuid() uuid,
+            e.creator,
+            e.date_created,
+            e.voided
+            FROM
+            (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16) e
+            INNER JOIN patient_identifier pi ON e.patient_id = pi.patient_id
+            INNER JOIN ptme_child pc ON pc.child_followup_number = pi.identifier
+            LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id
+            LEFT JOIN (SELECT encounter_id, IF(value_coded = 1065, 1,
+            IF(value_coded = 1066, 0, NULL)) modern_contraceptive_method FROM obs WHERE concept_id = 164685) MC
+            ON MC.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, value_numeric age_in_week FROM obs WHERE concept_id = 164691) SV
+            ON SV.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, value_numeric age_in_month FROM obs WHERE concept_id = 164690) MV
+            ON MV.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT  encounter_id, IF(value_coded = 5526, 1,
+            IF(value_coded = 164692, 0,
+            IF(value_coded = 164693, 0,
+            IF(value_coded = 164052, 0, NULL)))) eating_type FROM obs WHERE concept_id = 164694) TA
+            ON TA.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, IF(value_coded = 1, 1,
+            IF(value_coded = 2, 0, NULL )) continuing_ctx FROM obs WHERE concept_id = 164703) CTX
+            ON CTX.encounter_id = e.encounter_id
+            LEFT JOIN (SELECT encounter_id, IF(value_coded = 1, 1,
+            IF(value_coded = 2, 0, NULL )) continuing_inh FROM obs WHERE concept_id = 164704) INH
+            ON INH.encounter_id = e.encounter_id
+            ;
+        </sql>
+    </changeSet>
+    <changeSet id="data-migration-prevent3-transmission-07-17-2018" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">select count(*) from ptme_birth</sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            UPDATE ptme_birth SET home_birth = 0 WHERE 1 = 1;
+            UPDATE ptme_birth SET child_state = 1 WHERE 1 = 1;
+            UPDATE ptme_birth SET pregnancy_issue = 1 WHERE 1 = 1;
+        </sql>
+    </changeSet>
+
+    <changeSet id="data-to-xml-prevent-transmission-09-10-2018" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_serialized_data"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_serialized_data">
+            <column name="serialized_id" autoIncrement="true" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serialized_xml_data" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_sent" type="date"/>
+            <column name="date_received" type="date"/>
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-indicator" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_indicator"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_indicator">
+            <column name="indicator_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+
+            <column name="indicator_sql_script" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template_code" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_indicator_creator"
+                                 baseTableName="ptme_reporting_indicator" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_indicator_changed_by"
+                                 baseTableName="ptme_reporting_indicator" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_indicator_voided_by"
+                                 baseTableName="ptme_reporting_indicator" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_indicator_location"
+                                 baseTableName="ptme_reporting_indicator" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-dataset" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_dataset"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_dataset">
+            <column name="dataset_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="code" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="dataset_headers" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_line" type="int"/>
+            <column name="number_of_column" type="int"/>
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_creator"
+                                 baseTableName="ptme_reporting_dataset" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_changed_by"
+                                 baseTableName="ptme_reporting_dataset" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_voided_by"
+                                 baseTableName="ptme_reporting_dataset" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_dataset_location"
+                                 baseTableName="ptme_reporting_dataset" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-dataset-indicator" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_dataset_indicator"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_dataset_indicator">
+            <column name="indicator_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="dataset_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="label" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="code" type="varchar(100)"/>
+
+            <column name="dataset_line" type="int"/>
+            <column name="dataset_column" type="int"/>
+
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataet_indicator_indicator"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="indicator_id"
+                                 referencedTableName="ptme_reporting_indicator" referencedColumnNames="indicator_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_dataset"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="dataset_id"
+                                 referencedTableName="ptme_reporting_dataset" referencedColumnNames="dataset_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_creator"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_changed_by"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_voided_by"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_location"
+                                 baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-template" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_template"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_template">
+            <column name="template_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(100)"/>
+
+            <column name="content" type="longblob">
+                <constraints nullable="false"/>
+            </column>
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_template_creator"
+                                 baseTableName="ptme_reporting_template" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_template_changed_by"
+                                 baseTableName="ptme_reporting_template" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_template_voided_by"
+                                 baseTableName="ptme_reporting_template" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_template_location"
+                                 baseTableName="ptme_reporting_template" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-report" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_report"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_report">
+            <column name="report_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="report_label" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+
+            <column name="reporting_template_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_creator"
+                                 baseTableName="ptme_reporting_report" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_changed_by"
+                                 baseTableName="ptme_reporting_report" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_voided_by"
+                                 baseTableName="ptme_reporting_report" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_report_location"
+                                 baseTableName="ptme_reporting_report" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-report-dataset" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_report_dataset"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_report_dataset">
+            <column name="report_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="dataset_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_dataset_report"
+                                 baseTableName="ptme_reporting_report_dataset" baseColumnNames="report_id"
+                                 referencedTableName="ptme_reporting_report" referencedColumnNames="report_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_dataset_dataset"
+                                 baseTableName="ptme_reporting_report_dataset" baseColumnNames="dataset_id"
+                                 referencedTableName="ptme_reporting_dataset" referencedColumnNames="dataset_id"/>
+    </changeSet>
+
+    <changeSet id="prevent-transmission-reporting-report-generation" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ptme_reporting_report_generation"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ptme_reporting_report_generation">
+            <column name="generation_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="generation_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="report_period_start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="report_location" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_generated" type="longblob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="report_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="saved" type="tinyint(1)" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <!--<column name="location_id" type="int">
+                <constraints nullable="false"/>
+            </column>-->
+            <column name="uuid" type="varchar(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int" >
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int" />
+            <column name="date_changed" type="datetime" />
+            <column name="voided" type="tinyint" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int" />
+            <column name="date_voided" type="datetime" />
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_generation_location"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="report_location"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_generation_report"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="report_id"
+                                 referencedTableName="ptme_reporting_report" referencedColumnNames="report_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_generation_creator"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_generation_changed_by"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="ptme_reporting_report_generation_voided_by"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_report_genenation_location"
+                                 baseTableName="ptme_reporting_report_generation" baseColumnNames="location_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"/>-->
+    </changeSet>
+</databaseChangeLog>
