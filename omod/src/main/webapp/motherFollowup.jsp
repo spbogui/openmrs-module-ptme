@@ -4,6 +4,8 @@
 <openmrs:require privilege="Manage PTME" otherwise="/login.htm" redirect="/module/ptme/motherFollowup.form" />
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/localHeader.jsp"%>
+
 <script type="application/javascript">
     if (jQuery) {
         $(document).ready(function () {
@@ -34,7 +36,6 @@
     }
 </script>
 
-<%@ include file="template/localHeader.jsp"%>
 <%@ include file="template/motherFollowupHeader.jsp"%>
 
 <%--<div class="box">--%>
