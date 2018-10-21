@@ -742,14 +742,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  given_name as givenName " +
 						"FROM" +
 						"  ptme_mother_followup pmf" +
-						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY mother_followup_id) lpmfv" +
+						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit WHERE voided = 0 GROUP BY mother_followup_id) lpmfv" +
 						"    ON pmf.mother_followup_id = lpmfv.mother_followup_id" +
 						"  LEFT JOIN (SELECT *," +
 						"               ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate," +
 						"               IF(ADDDATE(visit_date, INTERVAL 1 MONTH) > NOW(), 0, " +
-						"                  IF(ADDDATE(visit_date, INTERVAL 1 MONTH) = DATE(NOW()), 1, 2)) passed FROM ptme_mother_followup_visit) pmfv ON pmf.mother_followup_id = lpmfv.mother_followup_id AND lpmfv.lastVisitDate = pmfv.visit_date" +
+						"                  IF(ADDDATE(visit_date, INTERVAL 1 MONTH) = DATE(NOW()), 1, 2)) passed FROM ptme_mother_followup_visit WHERE voided = 0) pmfv ON pmf.mother_followup_id = lpmfv.mother_followup_id AND lpmfv.lastVisitDate = pmfv.visit_date" +
 						"  LEFT JOIN ptme_pregnant_patient ppp ON pmf.pregnant_patient_id = ppp.pregnant_patient_id" +
-						"  LEFT JOIN (SELECT COUNT(mother_followup_visit_id) numberOfVisit, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY mother_followup_id) nbv" +
+						"  LEFT JOIN (SELECT COUNT(mother_followup_visit_id) numberOfVisit, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND voided = 0 GROUP BY mother_followup_id) nbv" +
 						"    ON nbv.mother_followup_id = pmf.mother_followup_id " +
 						"WHERE" +
 						"  pmf.pregnancy_outcome IS NULL GROUP BY hiv_care_number " +

@@ -10,7 +10,26 @@
 <script type="text/javascript">
 
     if (jQuery) {
+
         $j(document).ready(function () {
+            jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+                "date-uk-pre": function ( a ) {
+                    if (a == null || a == "") {
+                        return 0;
+                    }
+                    var ukDatea = a.split('/');
+                    return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+                },
+
+                "date-uk-asc": function ( a, b ) {
+                    return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+
+                "date-uk-desc": function ( a, b ) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                }
+            } );
+
             $j.datepicker.setDefaults($j.datepicker.regional["fr"]);
             $j(".datepickerPtme").datepicker({dateFormat: 'dd/mm/yy'});
 
@@ -181,6 +200,14 @@
 	}
 	table.dataTable tr.odd { background-color: white;  border:1px lightgrey;}
 	table.dataTable tr.even{ background-color: #bbccf7; /*border:1px lightgrey;*/ }
+
+	table.dataTable tr td table.button-table tr {
+		background-color: transparent;
+	}
+
+	table.dataTable tr td table.button-table td {
+		background-color: transparent;
+	}
 
 </style>
 

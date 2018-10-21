@@ -11,26 +11,29 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-child-followup-table").dataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-//                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
+        $(document).ready(function () {
+            $("#list-child-followup-table").dataTable({
+
+                /*dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
+                },*/
+                "pageLength": 20,
+                "order": [[1, "asc"]],
+                "language": {
+                    "zeroRecords": "Aucun suivi d'enfant n'est en cours sur le site",
+                    //"emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
                     },
-                    "sZeroRecords": "Aucun suivi d'enfant n'est en cours sur le site",
-                    "sInfo": "Affichage de _START_ - _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les visites"
                 },
-                "aaSorting": [[1, "asc"]]
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
+
             });
         });
     }
@@ -96,7 +99,7 @@
                 <td>${followupOn.visitCount}</td>
                 <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                 <td width="50px">
-                    <table cellspacing="0" cellpadding="0">
+                    <table cellspacing="0" cellpadding="0" class="button-table">
                         <tr>
                             <td>
                                 <c:url value="/module/ptme/childFollowup.form" var="url">

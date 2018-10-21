@@ -7,26 +7,22 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-child-to-follow").dataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
+        $(document).ready(function () {
+            $("#list-child-to-follow").dataTable({
+                "pageLength": 20,
+                "order": [[1, "asc"]],
+                "language": {
+                    "zeroRecords": "Aucun enregistrement trouv&eacute;",
+                    //"emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
                     },
-                    "sZeroRecords": "Aucun enregistrement trouv&eacute;",
-                    "sInfo": "Affichage de _START_ a _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les enfants expos&eacute;"
                 },
-                "aaSorting": [[0, "desc"]]
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
         });
     }
@@ -84,7 +80,7 @@
                             ${child.mother.givenName}</td>
                     <td>${child.mother.age} ${ not empty child.mother.age ? 'ans' : '' }</td>
                     <td>
-                        <table cellpadding="0" cellspacing="0">
+                        <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/childManage.form" var="url">

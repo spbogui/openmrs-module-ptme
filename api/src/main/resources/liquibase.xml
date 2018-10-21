@@ -863,25 +863,35 @@
             SELECT
             pi1.identifier child_followup_number,
             birthdate birth_date,
-            gender,
-            family_name,
-            given_name,
+            p.gender,
+            pn.family_name,
+            pn.given_name,
             pi2.patient_id AS mother,
-            ME.location_id,
+            pi1.location_id,
             uuid() uuid,
             p.creator,
             p.date_created,
             p.voided
+
             FROM
             patient_identifier pi1
             LEFT JOIN patient_identifier pi2 ON pi1.identifier LIKE CONCAT(pi2.identifier, 'E%')
             LEFT JOIN person p ON p.person_id = pi1.patient_id
-            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) ME
+            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE encounter_type = 1 GROUP BY patient_id) PE
+            ON PE.patient_id = pi1.patient_id
+            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id LIMIT 1) ME
             ON ME.patient_id = pi1.patient_id
             LEFT JOIN person_name pn ON p.person_id = pn.person_id
+            LEFT JOIN ptme_child pc ON pi1.identifier = pc.child_followup_number
             WHERE
-            pi1.identifier REGEXP '^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E[1-9]?$' AND
-            ME.patient_id IS NOT NULL
+            pi1.identifier REGEXP '^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E[1-9]?$'
+            AND pc.child_followup_number IS NULL
+            AND (
+            (PE.patient_id IS NULL AND ME.patient_id IS NULL ) OR
+            (PE.patient_id IS NOT NULL  AND ME.patient_id IS NOT NULL ) OR
+            (PE.patient_id IS NULL AND ME.patient_id IS NOT NULL )
+            )
+            GROUP BY pi1.identifier
             ORDER BY pi1.identifier
             ;
 
@@ -927,77 +937,77 @@
             e.voided
             FROM
             (SELECT MIN(encounter_datetime) DateInitFollowup, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) ME
-            LEFT JOIN (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16) e
+            LEFT JOIN (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0) e
             ON e.patient_id = ME.patient_id AND ME.DateInitFollowup = e.encounter_datetime
             INNER JOIN patient_identifier pi ON e.patient_id = pi.patient_id
             INNER JOIN ptme_child pc ON pc.child_followup_number = pi.identifier
             LEFT JOIN (SELECT person_id, IF(value_coded = 1065, 1,
-            IF(value_coded = 1066, 0, NULL)) arv_prophylaxis_given FROM obs WHERE concept_id = 163605) PARV
+            IF(value_coded = 1066, 0, NULL)) arv_prophylaxis_given FROM obs WHERE concept_id = 163605 AND voided = 0) PARV
             ON PARV.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_datetime arv_prophylaxis_given_date FROM obs WHERE concept_id = 165019) DPARV
+            LEFT JOIN (SELECT person_id, value_datetime arv_prophylaxis_given_date FROM obs WHERE concept_id = 165019 AND voided = 0) DPARV
             ON DPARV.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_datetime pcr1_sampling_date FROM obs WHERE concept_id = 163507) DPCR1
+            LEFT JOIN (SELECT person_id, value_datetime pcr1_sampling_date FROM obs WHERE concept_id = 163507 AND voided = 0) DPCR1
             ON DPCR1.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr1_sampling FROM obs WHERE concept_id = 164695) SPCR1
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr1_sampling FROM obs WHERE concept_id = 164695 AND voided = 0) SPCR1
             ON SPCR1.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr1_sampling FROM obs WHERE concept_id = 164698) MPCR1
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr1_sampling FROM obs WHERE concept_id = 164698 AND voided = 0) MPCR1
             ON MPCR1.person_id = e.patient_id
             LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
-            IF(value_coded = 664, 0, NULL )) pcr1_result FROM obs WHERE concept_id = 164485) RPCR1
+            IF(value_coded = 664, 0, NULL )) pcr1_result FROM obs WHERE concept_id = 164485 AND voided = 0) RPCR1
             ON RPCR1.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime pcr2_sampling_date FROM obs WHERE concept_id = 164482) DPCR2
+            LEFT JOIN (SELECT person_id, value_datetime pcr2_sampling_date FROM obs WHERE concept_id = 164482 AND voided = 0) DPCR2
             ON DPCR2.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr2_sampling FROM obs WHERE concept_id = 164696) SPCR2
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr2_sampling FROM obs WHERE concept_id = 164696 AND voided = 0) SPCR2
             ON SPCR2.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr2_sampling FROM obs WHERE concept_id = 164699) MPCR2
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr2_sampling FROM obs WHERE concept_id = 164699 AND voided = 0) MPCR2
             ON MPCR2.person_id = e.patient_id
             LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
-            IF(value_coded = 664, 0, NULL )) pcr2_result FROM obs WHERE concept_id = 164486) RPCR2
+            IF(value_coded = 664, 0, NULL )) pcr2_result FROM obs WHERE concept_id = 164486 AND voided = 0) RPCR2
             ON RPCR2.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime pcr3_sampling_date FROM obs WHERE concept_id = 164708) DPCR3
+            LEFT JOIN (SELECT person_id, value_datetime pcr3_sampling_date FROM obs WHERE concept_id = 164708 AND voided = 0) DPCR3
             ON DPCR3.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr3_sampling FROM obs WHERE concept_id = 164697) SPCR3
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_pcr3_sampling FROM obs WHERE concept_id = 164697 AND voided = 0) SPCR3
             ON SPCR3.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr3_sampling FROM obs WHERE concept_id = 164700) MPCR3
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_pcr3_sampling FROM obs WHERE concept_id = 164700 AND voided = 0) MPCR3
             ON MPCR3.person_id = e.patient_id
             LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
-            IF(value_coded = 664, 0, NULL )) pcr3_result FROM obs WHERE concept_id = 164709) RPCR3
+            IF(value_coded = 664, 0, NULL )) pcr3_result FROM obs WHERE concept_id = 164709 AND voided = 0) RPCR3
             ON RPCR3.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime ctx_initiation_date FROM obs WHERE concept_id = 163504) DCTX
+            LEFT JOIN (SELECT person_id, value_datetime ctx_initiation_date FROM obs WHERE concept_id = 163504 AND voided = 0) DCTX
             ON DCTX.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_ctx_initiation FROM obs WHERE concept_id = 164702) SCTX
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_ctx_initiation FROM obs WHERE concept_id = 164702 AND voided = 0) SCTX
             ON SCTX.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_ctx_initiation FROM obs WHERE concept_id = 164701) MCTX
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_ctx_initiation FROM obs WHERE concept_id = 164701 AND voided = 0) MCTX
             ON MCTX.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime inh_initiation_date FROM obs WHERE concept_id = 163505) DINH
+            LEFT JOIN (SELECT person_id, value_datetime inh_initiation_date FROM obs WHERE concept_id = 163505 AND voided = 0) DINH
             ON DINH.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_inh_initiation FROM obs WHERE concept_id = 164706) SINH
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_inh_initiation FROM obs WHERE concept_id = 164706 AND voided = 0) SINH
             ON SINH.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_inh_initiation FROM obs WHERE concept_id = 164707) MINH
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_inh_initiation FROM obs WHERE concept_id = 164707 AND voided = 0) MINH
             ON MINH.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime hiv_serology1_date FROM obs WHERE concept_id = 164128) DS1
+            LEFT JOIN (SELECT person_id, value_datetime hiv_serology1_date FROM obs WHERE concept_id = 164128 AND voided = 0) DS1
             ON DS1.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology1 FROM obs WHERE concept_id = 164714) SS1
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology1 FROM obs WHERE concept_id = 164714 AND voided = 0) SS1
             ON SS1.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology1 FROM obs WHERE concept_id = 164715) MS1
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology1 FROM obs WHERE concept_id = 164715 AND voided = 0) MS1
             ON MS1.person_id = e.patient_id
             LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
-            IF(value_coded = 664, 0, NULL )) hiv_serology1_result FROM obs WHERE concept_id = 1401) RS1
+            IF(value_coded = 664, 0, NULL )) hiv_serology1_result FROM obs WHERE concept_id = 1401 AND voided = 0) RS1
             ON RS1.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime hiv_serology2_date FROM obs WHERE concept_id = 164710) DS2
+            LEFT JOIN (SELECT person_id, value_datetime hiv_serology2_date FROM obs WHERE concept_id = 164710 AND voided = 0) DS2
             ON DS2.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology2 FROM obs WHERE concept_id = 164713) SS2
+            LEFT JOIN (SELECT person_id, value_numeric age_in_week_on_hiv_serology2 FROM obs WHERE concept_id = 164713 AND voided = 0) SS2
             ON SS2.person_id = e.patient_id
-            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology2 FROM obs WHERE concept_id = 164712) MS2
+            LEFT JOIN (SELECT person_id, value_numeric age_in_month_on_hiv_serology2 FROM obs WHERE concept_id = 164712 AND voided = 0) MS2
             ON MS2.person_id = e.patient_id
             LEFT JOIN (SELECT person_id, IF(value_coded = 703, 1,
-            IF(value_coded = 664, 0, NULL )) hiv_serology2_result FROM obs WHERE concept_id = 164711) RS2
+            IF(value_coded = 664, 0, NULL )) hiv_serology2_result FROM obs WHERE concept_id = 164711 AND voided = 0) RS2
             ON RS2.person_id = e.patient_id
 
             LEFT JOIN (SELECT person_id, IF(value_coded = 164723, 0,
@@ -1006,15 +1016,15 @@
             IF(value_coded = 164718, 3,
             IF(value_coded = 164720, 4,
             IF(value_coded = 164721, 5, NULL ) ) ) ) ))
-            followup_result FROM obs WHERE concept_id = 164724) RF
+            followup_result FROM obs WHERE concept_id = 164724  AND voided = 0) RF
             ON RF.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_text reference_location FROM obs WHERE concept_id = 164722) ST
+            LEFT JOIN (SELECT person_id, value_text reference_location FROM obs WHERE concept_id = 164722 AND voided = 0) ST
             ON ST.person_id = e.patient_id
 
-            LEFT JOIN (SELECT person_id, value_datetime followup_result_date FROM obs WHERE concept_id = 164726) DRF
+            LEFT JOIN (SELECT person_id, value_datetime followup_result_date FROM obs WHERE concept_id = 164726 AND voided = 0) DRF
             ON DRF.person_id = e.patient_id
-            LEFT JOIN (SELECT MAX(encounter_datetime) followup_end_date, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) XV
+            LEFT JOIN (SELECT MAX(encounter_datetime) followup_end_date, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0 GROUP BY patient_id) XV
             ON XV.patient_id = e.patient_id
             GROUP BY child_followup_id
             ;
@@ -1041,22 +1051,22 @@
             INNER JOIN ptme_child pc ON pc.child_followup_number = pi.identifier
             LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id
             LEFT JOIN (SELECT encounter_id, IF(value_coded = 1065, 1,
-            IF(value_coded = 1066, 0, NULL)) modern_contraceptive_method FROM obs WHERE concept_id = 164685) MC
+            IF(value_coded = 1066, 0, NULL)) modern_contraceptive_method FROM obs WHERE concept_id = 164685 AND voided = 0) MC
             ON MC.encounter_id = e.encounter_id
-            LEFT JOIN (SELECT encounter_id, value_numeric age_in_week FROM obs WHERE concept_id = 164691) SV
+            LEFT JOIN (SELECT encounter_id, value_numeric age_in_week FROM obs WHERE concept_id = 164691 AND voided = 0) SV
             ON SV.encounter_id = e.encounter_id
-            LEFT JOIN (SELECT encounter_id, value_numeric age_in_month FROM obs WHERE concept_id = 164690) MV
+            LEFT JOIN (SELECT encounter_id, value_numeric age_in_month FROM obs WHERE concept_id = 164690 AND voided = 0) MV
             ON MV.encounter_id = e.encounter_id
             LEFT JOIN (SELECT  encounter_id, IF(value_coded = 5526, 1,
             IF(value_coded = 164692, 0,
             IF(value_coded = 164693, 0,
-            IF(value_coded = 164052, 0, NULL)))) eating_type FROM obs WHERE concept_id = 164694) TA
+            IF(value_coded = 164052, 0, NULL)))) eating_type FROM obs WHERE concept_id = 164694 AND voided = 0) TA
             ON TA.encounter_id = e.encounter_id
             LEFT JOIN (SELECT encounter_id, IF(value_coded = 1, 1,
-            IF(value_coded = 2, 0, NULL )) continuing_ctx FROM obs WHERE concept_id = 164703) CTX
+            IF(value_coded = 2, 0, NULL )) continuing_ctx FROM obs WHERE concept_id = 164703 AND voided = 0) CTX
             ON CTX.encounter_id = e.encounter_id
             LEFT JOIN (SELECT encounter_id, IF(value_coded = 1, 1,
-            IF(value_coded = 2, 0, NULL )) continuing_inh FROM obs WHERE concept_id = 164704) INH
+            IF(value_coded = 2, 0, NULL )) continuing_inh FROM obs WHERE concept_id = 164704 AND voided = 0) INH
             ON INH.encounter_id = e.encounter_id
             ;
         </sql>

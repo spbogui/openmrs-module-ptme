@@ -9,26 +9,27 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-child-followup").dataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
-                    },
-                    "sZeroRecords": "Aucun enregistrement trouv&eacute;",
-                    "sInfo": "Affichage de _START_ a _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+        $(document).ready(function () {
+            $("#list-child-followup").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
                 },
-                "aaSorting": [[0, "desc"]]
+                "pageLength": 20,
+                "order": [[1, "asc"]],
+                "language": {
+                    "zeroRecords": "Aucun enregistrement trouv&eacute;",
+                    //"emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
+                    },
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les visites"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
         });
     }
@@ -110,7 +111,7 @@
                     <td><fmt:formatDate type="date" value="${followup.resultDate}" pattern="dd/MM/yyyy" /></td>
                 </c:if>
                 <td>
-                    <table>
+                    <table class="button-table">
                         <tr>
                             <td>
                                 <c:url value="/module/ptme/childFollowup.form" var="url">

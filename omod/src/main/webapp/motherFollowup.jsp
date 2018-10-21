@@ -12,11 +12,11 @@
 //            $j.fn.dataTable.moment('dd/MM/yyyy');
 
             $("#list-mother-followup-table").dataTable({
-                dom: 'B<"clear">lfrtip',
+                /*dom: 'B<"clear">lfrtip',
                 buttons: {
                     name: 'primary',
                     buttons: [ 'copy', 'csv', 'excel' ]
-                },
+                },*/
                 "pageLength": 20,
                 "order": [[1, "desc"]],
                 "language": {
@@ -91,8 +91,8 @@
                 <td><fmt:formatDate type="date" value="${followupOn.spousalScreeningDate}" pattern="dd/MM/yyyy" /></td>
                 <td>${followupOn.visitCount}</td>
                 <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
-                <td>
-                    <table cellpadding="0" cellspacing="0">
+                <td width="30">
+                    <table cellpadding="0" cellspacing="0" class="button-table">
                         <tr>
                             <td>
                                 <c:url value="/module/ptme/motherFollowup.form" var="url">

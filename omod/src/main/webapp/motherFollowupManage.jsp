@@ -8,26 +8,27 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-mother-followup-table").dataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-//                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
-                    },
-                    "sZeroRecords": "Aucune femme suivi",
-                    "sInfo": "Affichage de _START_ - _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+        $(document).ready(function () {
+            $("#list-mother-followup-table").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
                 },
-                "aaSorting": [[0, "asc"]]
+                "pageLength": 20,
+                "order": [[1, "desc"]],
+                "language": {
+                    "zeroRecords": "Aucune donn&eacute;e &agrave; afficher",
+                    //"emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
+                    },
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les suivis"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
         });
     }

@@ -109,8 +109,8 @@
                     <td>${indicator.templateCode}</td>
                     <td>${indicator.name}</td>
                     <td>${indicator.description}</td>
-                    <td>
-                        <table cellpadding="0" cellspacing="0" style="background-color: transparent">
+                    <td width="30">
+                        <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/reportIndicator.form" var="url">

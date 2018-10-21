@@ -10,39 +10,35 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-register-table").dataTable({
-                "bPaginate": true,
+        $(document).ready(function () {
+            $("#list-register-table").dataTable({
+                "pageLength": 20,
                 "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-//                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
+                "language": {
+                    "zeroRecords": "Aucun enregistrement ce jour",
+                    "emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
                     },
-                    "sZeroRecords": "Aucun enregistrement ce jour",
-                    "sInfo": "Affichage de _START_ - _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les consultations"
                 },
-                "aaSorting": [[1, "desc"]]
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
 
-            $j("#hivCareNumber").change(function (e) {
-                var num = $j(this).val();
+            $("#hivCareNumber").change(function (e) {
+                var num = $(this).val();
                 if (num !== "" || num !== undefined || num !== null) {
                     if (num === '${consultationForm.hivCareNumber}') {
-                        $j("#familyName").prop('enable', true);
-                        $j("#givenName").prop('enable', true);
-                        $j("#age").prop('enable', true);
+                        $("#familyName").prop('enable', true);
+                        $("#givenName").prop('enable', true);
+                        $("#age").prop('enable', true);
                     } else {
-                        $j("#familyName").prop('enable', false);
-                        $j("#givenName").prop('enable', false);
-                        $j("#age").prop('enable', false);
+                        $("#familyName").prop('enable', false);
+                        $("#givenName").prop('enable', false);
+                        $("#age").prop('enable', false);
                     }
                 }
 

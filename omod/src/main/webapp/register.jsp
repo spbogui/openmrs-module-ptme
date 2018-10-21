@@ -6,32 +6,34 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-register").dataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
-                    },
-                    "sZeroRecords": "Aucun enregistrement trouv&eacute;",
-                    "sInfo": "Affichage de _START_ a _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+        $(document).ready(function () {
+            $("#list-register").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
                 },
-                "aaSorting": [[0, "desc"]]
+                "pageLength": 20,
+                "order": [[1, "desc"]],
+                "language": {
+                    "zeroRecords": "Aucune donn&eacute;e &agrave; afficher",
+                    "emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
+                    },
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les consultations"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
         });
     }
 </script>
 
 <%@ include file="template/registerHeader.jsp"%>
+
 <div class="box" style="padding-bottom: 20px">
     <h2><b>Historique des consultations</b></h2>
     <div class="line"></div>
@@ -94,7 +96,7 @@
         </h2>
         <div class="line"></div>
     </c:if>
-    <table style="border-collapse: collapse; border: 1px solid #1aac9b;" id="list-register" width="100%" align="center" cellspacing="0" cellpadding="5">
+    <table style="border-collapse: collapse; border: 1px solid #1aac9b;" id="list-register" width="100%" align="center" cellspacing="0" cellpadding="0">
         <c:if test="${ not empty consultationList }" >
             <thead>
             <tr style="background-color: #1aac9b; color: #ffffff;">
@@ -130,8 +132,8 @@
                     <td align="center">${ (consult.hivService.testResult == 0) ? 'Negatif': (consult.hivService.testResult == 1 ? 'Positif' : 'N/A') }</td>
                     <td align="center">${ (consult.hivService.resultAnnouncement == 0) ? 'Non' : (consult.hivService.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
                     <td align="center">${ (consult.hivService.arvDiscount == 0) ? 'Non' : (consult.hivService.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
-                    <td align="center">
-                        <table cellspacing="0" cellpadding="0">
+                    <td align="center" width="30">
+                        <table cellspacing="0" cellpadding="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/registerList.form" var="url">

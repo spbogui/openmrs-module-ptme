@@ -11,26 +11,27 @@
 
 <script type="application/javascript">
     if (jQuery) {
-        $j(document).ready(function () {
-            $j("#list-patient-to-follow").dataTable({
-                "bPaginate": true,
+        $(document).ready(function () {
+            $("#list-patient-to-follow").dataTable({
+                /*dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
+                },*/
+                "pageLength": 20,
                 "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
+                "language": {
+                    "zeroRecords": "Aucune donn&eacute;e &agrave; afficher",
+                    "emptyTable": "Aucune donn&eacute;e",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
                     },
-                    "sZeroRecords": "Aucun enregistrement trouv&eacute;",
-                    "sInfo": "Affichage de _START_ a _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les femmes enceintes"
                 },
-                "aaSorting": [[0, "desc"]]
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
             });
         });
     }
