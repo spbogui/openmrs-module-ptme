@@ -6,6 +6,8 @@
 
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/localHeader.jsp"%>
+
 <script type="application/javascript">
     if (jQuery) {
         $(document).ready(function () {
@@ -34,7 +36,6 @@
     }
 </script>
 
-<%@ include file="template/localHeader.jsp"%>
 
 <%@ include file="template/motherFollowupHeader.jsp"%>
 

@@ -198,8 +198,10 @@
 	.dataTableEvenRow {
 		background-color: #a2aec7;
 	}
-	table.dataTable tr.odd { background-color: white;  border:1px lightgrey;}
+	table.dataTable tr.odd { background-color: white;/*  border:1px lightgrey;*/}
 	table.dataTable tr.even{ background-color: #bbccf7; /*border:1px lightgrey;*/ }
+
+	table.dataTable tr td {padding: 5px}
 
 	table.dataTable tr td table.button-table tr {
 		background-color: transparent;
