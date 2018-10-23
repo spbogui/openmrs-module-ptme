@@ -37,8 +37,8 @@ public class ReportingManageIndicatorController {
     @RequestMapping(value = "/module/ptme/reportIndicator.form")
     public void manage(HttpServletRequest request,
                        @RequestParam(required = false, defaultValue = "") String add,
-                       @RequestParam(required = false, defaultValue = "") String delId,
-                       @RequestParam(required = false, defaultValue = "") String indicatorId,
+                       @RequestParam(required = false, defaultValue = "0") Integer delId,
+                       @RequestParam(required = false, defaultValue = "") Integer indicatorId,
                        ModelMap modelMap) {
 
         if (!Context.isAuthenticated()){
@@ -49,14 +49,33 @@ public class ReportingManageIndicatorController {
 
         String mode = "list";
 
-        if (!add.isEmpty()){
+        if (!add.isEmpty() || indicatorId != null){
             mode = "form";
+        }
+
+        if (delId != 0) {
+            ReportingIndicator reportingIndicator = getPreventTransmissionService().getIndicatorById(delId);
+            if (reportingIndicator != null) {
+                getPreventTransmissionService().voidIndicator(delId);
+                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Indicateur supprimé avec succès !");
+            }
         }
 
         if (mode.equals("form")) {
             IndicatorFrom indicatorFrom = new IndicatorFrom();
 
-            modelMap.addAttribute("indicatorForm", indicatorFrom);
+            if (indicatorId != null) {
+                ReportingIndicator ri = getPreventTransmissionService().getIndicatorById(indicatorId);
+                if (ri == null && add.isEmpty()) {
+                    mode = "list";
+                } else {
+                    indicatorFrom.setIndicator(ri);
+                }
+            }
+            if (!add.isEmpty() && indicatorId == null)
+                modelMap.addAttribute("indicatorForm", indicatorFrom);
+            else
+                mode = "list";
         }
 
         if (mode.equals("list")){
@@ -65,7 +84,7 @@ public class ReportingManageIndicatorController {
             modelMap.addAttribute("indicators", getPreventTransmissionService().getAllIndicators(false));
         }
 
-        modelMap.addAttribute("pageName", "Indicator.jsp");
+        //modelMap.addAttribute("pageName", "Indicator.jsp");
         modelMap.addAttribute("mode", mode);
     }
 

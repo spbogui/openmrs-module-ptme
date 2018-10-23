@@ -11,7 +11,7 @@
 
     if (jQuery) {
 
-        $j(document).ready(function () {
+        $(document).ready(function () {
             jQuery.extend( jQuery.fn.dataTableExt.oSort, {
                 "date-uk-pre": function ( a ) {
                     if (a == null || a == "") {
@@ -30,21 +30,27 @@
                 }
             } );
 
-            $j.datepicker.setDefaults($j.datepicker.regional["fr"]);
-            $j(".datepickerPtme").datepicker({dateFormat: 'dd/mm/yy'});
+            $.datepicker.setDefaults({
+                showOn: "button",
+                buttonImageOnly: true,
+                buttonImage: "${pageContext.request.contextPath}/moduleResources/ptme/images/calendar.gif",
+                buttonText: "Calendar"
+            });
+            $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 
-            $j('input[type=radio]').click(function(e){
-                if (e.ctrlKey) {
-                    $j(this).prop('checked', false);
-                }
+            $(".datepickerPtme").datepicker({
+				dateFormat: 'dd/mm/yy'
+//                dayNames: [ "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" ],
+//                dayNamesShort: [ "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" ],
+//                monthNamesShort: [ "Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec" ],
+//                monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" ]
             });
 
-            function resetRadio(name) {
-                $j('input:radio[name=' + name + ']:checked').each(function () {
-                    // var $this = $j(this);
-                    $j(this).attr("checked", false);
-                });
-            }
+            $('input[type=radio]').click(function(e){
+                if (e.ctrlKey) {
+                    $(this).prop('checked', false);
+                }
+            });
 
             $j('input:radio').live('dblclick', function () {
                 var name = $j(this).attr('name');
@@ -60,6 +66,10 @@
 //                    status: this.checked
 //                };
 //            });
+			$('button').button();
+			$('select').selectmenu();
+			$('input[type=submit]').button();
+			$('input[type=button]').button();
 
         });
     }

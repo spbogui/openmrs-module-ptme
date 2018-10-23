@@ -6,6 +6,10 @@
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/reporting/scripts/jquery/dataTables/css/table.css"/>--%>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/reporting/scripts/jquery/dataTables/css/custom.css"/>--%>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/datatables.min.css"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jqueryui/jquery-ui.min.css"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jqueryui/jquery-ui.theme.min.css"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jqueryui/jquery-ui.structure.min.css"/>
+
 
 <!-- Include javascript from core. Not needed on most pages unless they don't include the header -->
 <%--<openmrs:htmlInclude file="/scripts/jquery/jquery.min.js" />--%>
@@ -19,6 +23,7 @@
 <!-- Include javascript from reporting module -->
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/reporting/scripts/jquery/dataTables/jquery.dataTables.min.js"/>--%>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/jQuery-3.3.1/jquery-3.3.1.min.js"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jqueryui/jquery-ui.min.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/datatables.min.js"/>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables-1.10.18/js/dataTables.jqueryui.js"/>--%>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatables.min.js"/>--%>

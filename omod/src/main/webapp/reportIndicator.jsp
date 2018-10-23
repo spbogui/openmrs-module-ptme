@@ -32,7 +32,7 @@
                     name: 'primary',
                     buttons: [ 'copy', 'csv', 'excel' ]
                 },
-                "pageLength": 50,
+                "pageLength": 20,
                 "order": [[1, "desc"]],
                 "language": {
                     "zeroRecords": "Aucun indicateur &agrave; afficher",
