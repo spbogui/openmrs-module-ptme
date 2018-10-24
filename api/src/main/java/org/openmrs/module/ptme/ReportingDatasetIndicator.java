@@ -6,30 +6,30 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "ReportingDatasetIndicator")
-@Table(name = "ptme_reporting_dataset_indicator")
+//@Entity(name = "ReportingDatasetIndicator")
+//@Table(name = "ptme_reporting_dataset_indicator")
 public class ReportingDatasetIndicator implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
     private static final Logger log = LoggerFactory.getLogger(ReportingDatasetIndicator.class);
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "dataset_id")
+//    @Id
+//    @ManyToOne
+//    @JoinColumn(name = "dataset_id")
     private ReportingDataset reportingDataset;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "indicator_id")
+//    @Id
+//    @ManyToOne
+//    @JoinColumn(name = "indicator_id")
     private ReportingIndicator indicator;
 
-    @Column(name = "label", nullable = false, unique = true, length = 255)
+//    @Column(name = "label", nullable = false, unique = true)
     private String label;
-    @Column(name = "code", nullable = false)
+//    @Column(name = "code", nullable = false)
     private String code;
-    @Column(name = "dataset_line", nullable = false)
+//    @Column(name = "dataset_line", nullable = false)
     private Integer datasetLine;
-    @Column(name = "dataset_column", nullable = false, unique = true)
+//    @Column(name = "dataset_column", nullable = false)
     private Integer datasetColumn;
 
     public ReportingDatasetIndicator() {

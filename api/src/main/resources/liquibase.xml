@@ -1486,4 +1486,24 @@
                                  baseTableName="ptme_reporting_report_generation" baseColumnNames="location_id"
                                  referencedTableName="location" referencedColumnNames="location_id"/>-->
     </changeSet>
+
+    <changeSet id="prevent-transmission-remove-column-ptme_reporting-dataset-indicator" author="BOGUI SERGE">
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="label"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="code"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="dataset_line"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="dataset_column"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="location"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="uuid"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="creator"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_created"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="changed_by"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_changed"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided_by"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_voided"/>
+        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided_reason"/>
+        <dropColumn tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
+        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
+        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
+    </changeSet>
 </databaseChangeLog>

@@ -48,28 +48,7 @@
                 "stripeClasses": [ 'odd', 'even' ]
 
             });
-           /* $j("#list-indicator").DataTable({
-                "bPaginate": true,
-                "order": [[1, "desc"]],
-                "iDisplayLength": 20,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": true,
-                "bJQueryUI": true,
-                "oLanguage": {
-                    "oPaginate": {
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant"
-                    },
-                    "sZeroRecords": "Aucun enregistrement trouv&eacute;",
-                    "sInfo": "Affichage de _START_ a _END_ sur _TOTAL_ ",
-                    "sSearch": "Chercher"
-                },
-                "aaSorting": [[1, "asc"]]
-            });*/
 
-//            $j(".textarea-c").css('overflow', 'hidden').autogrow();
             $('textarea').autogrow();
         });
     }
@@ -100,6 +79,8 @@
                 <th>code</th>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>Cr&eacute;&eacute; par</th>
+                <th>Cr&eacute;&eacute; le</th>
                 <th></th>
             </tr>
             </thead>
@@ -109,6 +90,14 @@
                     <td>${indicator.templateCode}</td>
                     <td>${indicator.name}</td>
                     <td>${indicator.description}</td>
+                    <td>
+                        <c:forEach var="name" items="${ indicator.creator.person.names }">
+                            <c:if test="${ name.preferred }">
+                            ${name.familyName} ${name.givenName}
+                            </c:if>
+                        </c:forEach>
+                    </td>
+                    <td><fmt:formatDate type="date" value="${indicator.dateCreated}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                     <td width="30">
                         <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>

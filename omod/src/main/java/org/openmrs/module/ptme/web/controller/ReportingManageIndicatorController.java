@@ -49,8 +49,13 @@ public class ReportingManageIndicatorController {
 
         String mode = "list";
 
-        if (!add.isEmpty() || indicatorId != null){
+        if (!add.isEmpty()){
             mode = "form";
+        }
+
+        if (indicatorId != null){
+            if (getPreventTransmissionService().getIndicatorById(indicatorId) != null )
+                mode = "form";
         }
 
         if (delId != 0) {
@@ -65,17 +70,11 @@ public class ReportingManageIndicatorController {
             IndicatorFrom indicatorFrom = new IndicatorFrom();
 
             if (indicatorId != null) {
-                ReportingIndicator ri = getPreventTransmissionService().getIndicatorById(indicatorId);
-                if (ri == null && add.isEmpty()) {
-                    mode = "list";
-                } else {
-                    indicatorFrom.setIndicator(ri);
-                }
+                indicatorFrom.setIndicator(getPreventTransmissionService().getIndicatorById(indicatorId));
             }
-            if (!add.isEmpty() && indicatorId == null)
-                modelMap.addAttribute("indicatorForm", indicatorFrom);
-            else
-                mode = "list";
+
+            modelMap.addAttribute("indicatorForm", indicatorFrom);
+
         }
 
         if (mode.equals("list")){

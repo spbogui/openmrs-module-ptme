@@ -74,13 +74,13 @@
     <h3><b>Ensembles de donn&eacute;es</b></h3>
 
     <div class="line"></div>
-    <%--<form:form action="" commandName="getIndicatorFromFrom" id="form" method="get" >--%>
+    <form:form action="" commandName="getDataSetFromFrom" id="form" method="get" >
         <table cellspacing="0" cellpadding="5">
             <tr>
                 <td><input type="submit" value="Nouveau" name="add"></td>
             </tr>
         </table>
-    <%--</form:form>--%>
+    </form:form>
 </div>
 <div class="boxHeader"></div>
 <div class="box">

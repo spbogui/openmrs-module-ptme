@@ -24,14 +24,20 @@ public class ReportingDataset extends PreventTransmissionAbstract {
     private String description;
     @Column(name = "code", nullable = false)
     private String code;
-    @Column(name = "dataset_headers", nullable = false)
-    private String datasetHeaders;
-    @Column(name = "number_of_line")
-    private Integer numberOfLine;
-    @Column(name = "number_of_column")
-    private Integer numberOfColumn;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "reportingDataset")
-    private Set<ReportingDatasetIndicator> reportingDatasetIndicators;
+//    @Column(name = "dataset_headers", nullable = false)
+//    private String datasetHeaders;
+//    @Column(name = "number_of_line")
+//    private Integer numberOfLine;
+//    @Column(name = "number_of_column")
+//    private Integer numberOfColumn;
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "reportingDataset")
+//    private Set<ReportingDatasetIndicator> reportingDatasetIndicators;
+
+    @ManyToMany
+    @JoinTable(name = "ptme_reporting_dataset_indicator",
+            joinColumns = @JoinColumn(name = "dataset_id"),
+            inverseJoinColumns = @JoinColumn(name = "indicator_id"))
+    public Set<ReportingIndicator> reportingIndicators;
 
     public ReportingDataset() {
     }
@@ -78,35 +84,43 @@ public class ReportingDataset extends PreventTransmissionAbstract {
         this.code = code;
     }
 
-    public String getDatasetHeaders() {
-        return datasetHeaders;
+//    public String getDatasetHeaders() {
+//        return datasetHeaders;
+//    }
+//
+//    public void setDatasetHeaders(String datasetHeaders) {
+//        this.datasetHeaders = datasetHeaders;
+//    }
+//
+//    public Integer getNumberOfLine() {
+//        return numberOfLine;
+//    }
+//
+//    public void setNumberOfLine(Integer numberOfLine) {
+//        this.numberOfLine = numberOfLine;
+//    }
+//
+//    public Integer getNumberOfColumn() {
+//        return numberOfColumn;
+//    }
+//
+//    public void setNumberOfColumn(Integer numberOfColumn) {
+//        this.numberOfColumn = numberOfColumn;
+//    }
+
+//    public Set<ReportingDatasetIndicator> getReportingDatasetIndicators() {
+//        return reportingDatasetIndicators;
+//    }
+//
+//    public void setReportingDatasetIndicators(Set<ReportingDatasetIndicator> reportingDatasetIndicators) {
+//        this.reportingDatasetIndicators = reportingDatasetIndicators;
+//    }
+
+    public Set<ReportingIndicator> getReportingIndicators() {
+        return reportingIndicators;
     }
 
-    public void setDatasetHeaders(String datasetHeaders) {
-        this.datasetHeaders = datasetHeaders;
-    }
-
-    public Integer getNumberOfLine() {
-        return numberOfLine;
-    }
-
-    public void setNumberOfLine(Integer numberOfLine) {
-        this.numberOfLine = numberOfLine;
-    }
-
-    public Integer getNumberOfColumn() {
-        return numberOfColumn;
-    }
-
-    public void setNumberOfColumn(Integer numberOfColumn) {
-        this.numberOfColumn = numberOfColumn;
-    }
-
-    public Set<ReportingDatasetIndicator> getReportingDatasetIndicators() {
-        return reportingDatasetIndicators;
-    }
-
-    public void setReportingDatasetIndicators(Set<ReportingDatasetIndicator> reportingDatasetIndicators) {
-        this.reportingDatasetIndicators = reportingDatasetIndicators;
+    public void setReportingIndicators(Set<ReportingIndicator> reportingIndicators) {
+        this.reportingIndicators = reportingIndicators;
     }
 }
