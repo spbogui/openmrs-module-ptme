@@ -827,10 +827,10 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"               ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate," +
 						"               IF(ADDDATE(visit_date, INTERVAL 1 MONTH) > NOW(), 0, " +
 						"                  IF(ADDDATE(visit_date, INTERVAL 1 MONTH) = DATE(NOW()), 1, 2)) passed FROM ptme_child_followup_visit) pcfv ON pc.child_id = pcfv.child_id AND pcfv.visit_date = lpcfv.lastVisitDate" +
-						"  LEFT JOIN (SELECT COUNT(child_followup_visit_id) numberOfVisit, child_id FROM ptme_child_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY child_id) cpcfv" +
+						"  LEFT JOIN (SELECT COUNT(child_followup_visit_id) numberOfVisit, child_id FROM ptme_child_followup_visit GROUP BY child_id) cpcfv" +
 						"    ON cpcfv.child_id = pc.child_id " +
 						"WHERE" +
-						"  pcf.followup_result IS NULL AND lastVisitDate NOT BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) " +
+						"  pcf.followup_result IS NULL AND (lastVisitDate IS NULL OR NOT (lastVisitDate BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())))) " +
 						"  GROUP BY child_followup_number " +
 						"HAVING (lastVisitDate IS NOT NULL AND ADDDATE(lastVisitDate, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW()))) OR " +
 						"       (lastVisitDate IS NULL AND (ADDDATE(birth_date, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) ))" +
