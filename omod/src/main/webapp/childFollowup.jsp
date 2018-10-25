@@ -198,7 +198,7 @@
             <table class="table-child-followup" align="center" cellspacing="0" cellpadding="5" style="background-color: #efefef">
                 <thead>
                 <tr>
-                    <th rowspan="5"<%-- width="160px" --%> height="170px"></th>
+                    <%--<th rowspan="5"&lt;%&ndash; width="160px" &ndash;%&gt; height="170px"></th>--%>
                     <th rowspan="5">Methode de <br>contraception <br>moderne <br>(Oui / Non)</th>
                     <th rowspan="2">Prophylaxie ARV <br>Remise a l'enfant? <br>(Oui / Non)</th>
                     <th rowspan="5">Date de <br>la visite</th>
@@ -258,28 +258,28 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="bordered-green" rowspan="${constRowspan}"
-                        height="${firstColHeight}px" >
-                            <%--height="${(visitFormHeight + visitHeight * nbVisit ) < firstColHeight ? firstColHeight : firstColHeight + nbVisit * visitHeight }px" >--%>
+                    <%--<td class="bordered-green" rowspan="${constRowspan}"--%>
+                        <%--height="${firstColHeight}px" >--%>
+                            <%--&lt;%&ndash;height="${(visitFormHeight + visitHeight * nbVisit ) < firstColHeight ? firstColHeight : firstColHeight + nbVisit * visitHeight }px" >&ndash;%&gt;--%>
 
-                            <%--Nom de l'enfant: <br><br>--%>
+                            <%--&lt;%&ndash;Nom de l'enfant: <br><br>&ndash;%&gt;--%>
 
-                            <%--<br>--%>
-                            <%--<br><br>--%>
-                            <%--N&compfn; d'identification <br>--%>
-                            <%--unique :<br><br>--%>
-                            <%--<b class="colored-blue"></b>--%>
-                            <%--<br>--%>
-                            <%--<br><br>--%>
-                            <%--Date de naissance :<br><br>--%>
-                            <%--<b class="colored-blue"></b>--%>
-                            <%--<br>--%>
-                            <%--<br><br>--%>
-                            <%--Sexe :--%>
-                            <%--<br><br>--%>
-                            <%--<b class="colored-blue"></b><br>--%>
+                            <%--&lt;%&ndash;<br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;N&compfn; d'identification <br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;unique :<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<b class="colored-blue"></b>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;Date de naissance :<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<b class="colored-blue"></b>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;Sexe :&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<br><br>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;<b class="colored-blue"></b><br>&ndash;%&gt;--%>
 
-                    </td>
+                    <%--</td>--%>
                     <td class="bordered-green" height="${visitFormHeight}px">
                         <table align="center" cellspacing="0" cellpadding="5">
                             <tr>
@@ -292,7 +292,8 @@
                             </tr>
                         </table>
                     </td>
-                    <td class="bordered-green" rowspan="${constRowspan}"  align="center">
+                    <td class="bordered-green" rowspan="${constRowspan}"
+                        height="${firstColHeight}px" align="center">
                         <table align="center" cellspacing="0" cellpadding="5">
                             <tr>
                                 <td align="center"><form:radiobutton value="1" path="arvProphylaxisGiven" cssClass=""/></td>
