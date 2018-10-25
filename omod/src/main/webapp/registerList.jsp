@@ -107,7 +107,7 @@
                     <td align="center">${ (consult.resultAnnouncement == 0) ? 'Non' : (consult.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
                     <td align="center">${ (consult.arvDiscount == 0) ? 'Non' : (consult.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
                     <td align="center">
-                        <table cellpadding="0" cellspacing="0">
+                        <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/registerList.form" var="url">
