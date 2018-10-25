@@ -860,7 +860,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"FROM" +
 						"  ptme_child pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
-						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY child_id) lpcfv" +
+						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit GROUP BY child_id) lpcfv" +
 						"    ON pc.child_id = lpcfv.child_id" +
 						"  LEFT JOIN (SELECT *, ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate FROM ptme_child_followup_visit) pcfv ON pc.child_id = pcfv.child_id AND pcfv.visit_date = lpcfv.lastVisitDate" +
 						"  LEFT JOIN (SELECT COUNT(child_followup_visit_id) numberOfVisit, child_id FROM ptme_child_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY child_id) cpcfv" +
