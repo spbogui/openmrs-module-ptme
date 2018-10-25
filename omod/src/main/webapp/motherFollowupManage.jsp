@@ -86,13 +86,23 @@
                 <th class="centered">Date d&eacute;pistage Conjoint</th>
                 <th class="centered">Nombre de visite</th>
                 <th class="centered">Date de derni&egrave;re visite</th>
-                <th width="100px"></th>
+                <th width="20px"></th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="followupOn" items="${ listMotherFollowupOn }">
                 <tr>
-                    <td>${followupOn.hivCareNumber}</td>
+                    <td>
+                        <c:if test="${followupOn.pregnancyOutcome == null}">
+                            <c:url value="/module/ptme/motherFollowup.form" var="url_followup">
+                                <c:param name="hivCareNumber" value="${followupOn.hivCareNumber}"/>
+                            </c:url>
+                            <a href="${ url_followup }">${followupOn.hivCareNumber}</a>
+                        </c:if>
+                        <c:if test="${followupOn.pregnancyOutcome != null}">
+                            ${followupOn.hivCareNumber}
+                        </c:if>
+                    </td>
                     <td>${followupOn.familyName}</td>
                     <td>${followupOn.givenName}</td>
                     <td><fmt:formatDate type="date" value="${followupOn.startDate}" pattern="dd/MM/yyyy" /></td>
@@ -102,7 +112,7 @@
                     <td>${followupOn.visitCount}</td>
                     <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                     <td class="centered ">
-                        <table cellspacing="0" cellpadding="0">
+                        <table cellspacing="0" cellpadding="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/motherFollowupManage.form" var="url">
@@ -110,7 +120,7 @@
                                     </c:url>
                                     <a href="${ url }"><img src="/openmrs/images/file.gif" alt="Voir" title="Voir la fiche"></a>
                                 </td>
-                                <c:if test="${followupOn.pregnancyOutcome == null}">
+                                <%--<c:if test="${followupOn.pregnancyOutcome == null}">
                                     <td>|</td>
                                     <td>
                                         <c:url value="/module/ptme/motherFollowup.form" var="url">
@@ -118,7 +128,7 @@
                                         </c:url>
                                         <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
                                     </td>
-                                </c:if>
+                                </c:if>--%>
                                 <td>|</td>
                                 <td>
                                     <c:url value="/module/ptme/motherFollowup.form" var="urlsup">

@@ -86,7 +86,12 @@
             <tbody>
             <c:forEach var="followupOn" items="${ currentChildFollowup }">
             <tr>
-                <td>${followupOn.childFollowupNumber}</td>
+                <td>
+                    <c:url value="/module/ptme/childFollowup.form" var="url">
+                        <c:param name="childFollowupNumber" value="${followupOn.childFollowupNumber}"/>
+                    </c:url>
+                    <a href="${ url }">${followupOn.childFollowupNumber}</a>
+                </td>
                 <td>${followupOn.familyName}</td>
                 <td>${followupOn.givenName}</td>
                 <td>${followupOn.gender}</td>
@@ -98,8 +103,8 @@
                 <td><fmt:formatDate type="date" value="${followupOn.inhInitiationDate}" pattern="dd/MM/yyyy" /></td>
                 <td>${followupOn.visitCount}</td>
                 <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
-                <td width="50px">
-                    <table cellspacing="0" cellpadding="0" class="button-table">
+                <td width="10px">
+                    <%--<table cellspacing="0" cellpadding="0" class="button-table">
                         <tr>
                             <td>
                                 <c:url value="/module/ptme/childFollowup.form" var="url">
@@ -108,16 +113,16 @@
                                 <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
                             </td>
                             <td>|</td>
-                            <td>
+                            <td>--%>
                                 <c:url value="/module/ptme/childFollowup.form" var="urlsup">
                                     <c:param name="delFollowupId" value="${followupOn.childId}"/>
                                 </c:url>
                                 <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
                                     <img src="/openmrs/images/trash.gif" alt="Supprimer">
                                 </a>
-                            </td>
+                           <%-- </td>
                         </tr>
-                    </table>
+                    </table>--%>
                 </td>
             </tr>
             </c:forEach>

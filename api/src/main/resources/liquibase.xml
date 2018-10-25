@@ -1237,7 +1237,7 @@
             <column name="dataset_id" type="int">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="label" type="varchar(255)">
+            <!--<column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="code" type="varchar(100)"/>
@@ -1245,9 +1245,9 @@
             <column name="dataset_line" type="int"/>
             <column name="dataset_column" type="int"/>
 
-            <!--<column name="location_id" type="int">
+            &lt;!&ndash;<column name="location_id" type="int">
                 <constraints nullable="false"/>
-            </column>-->
+            </column>&ndash;&gt;
             <column name="uuid" type="varchar(38)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -1264,7 +1264,7 @@
             </column>
             <column name="voided_by" type="int" />
             <column name="date_voided" type="datetime" />
-            <column name="void_reason" type="varchar(255)" defaultValue="null"/>
+            <column name="void_reason" type="varchar(255)" defaultValue="null"/>-->
         </createTable>
         <addForeignKeyConstraint constraintName="ptme_reporting_dataet_indicator_indicator"
                                  baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="indicator_id"
@@ -1272,7 +1272,7 @@
         <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_dataset"
                                  baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="dataset_id"
                                  referencedTableName="ptme_reporting_dataset" referencedColumnNames="dataset_id"/>
-        <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_creator"
+        <!--<addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_creator"
                                  baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="creator"
                                  referencedTableName="users" referencedColumnNames="user_id"/>
         <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_changed_by"
@@ -1280,7 +1280,7 @@
                                  referencedTableName="users" referencedColumnNames="user_id"/>
         <addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_voided_by"
                                  baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="voided_by"
-                                 referencedTableName="users" referencedColumnNames="user_id"/>
+                                 referencedTableName="users" referencedColumnNames="user_id"/>-->
         <!--<addForeignKeyConstraint constraintName="ptme_reporting_dataset_indicator_location"
                                  baseTableName="ptme_reporting_dataset_indicator" baseColumnNames="location_id"
                                  referencedTableName="location" referencedColumnNames="location_id"/>-->
@@ -1487,23 +1487,4 @@
                                  referencedTableName="location" referencedColumnNames="location_id"/>-->
     </changeSet>
 
-    <changeSet id="prevent-transmission-remove-column-ptme_reporting-dataset-indicator" author="BOGUI SERGE">
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="label"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="code"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="dataset_line"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="dataset_column"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="location"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="uuid"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="creator"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_created"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="changed_by"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_changed"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided_by"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="date_voided"/>
-        <dropColumn tableName="ptme_reporting_dataset_indicator" columnName="voided_reason"/>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
-    </changeSet>
 </databaseChangeLog>

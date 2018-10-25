@@ -69,7 +69,7 @@
     }
 </script>
 
-
+<c:if test="${mode == 'list' || empty(mode)}">
 <div class="box">
     <h3><b>Ensembles de donn&eacute;es</b></h3>
 
@@ -92,19 +92,105 @@
             <th>code</th>
             <th>Nom</th>
             <th>Description</th>
+            <th>Cr&eacute;&eacute; par</th>
+            <th>Cr&eacute;&eacute; le</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        <c:forEach var="dataSet" items="${ dataSets }">
+            <tr>
+                <td>${dataSet.templateCode}</td>
+                <td>${dataSet.name}</td>
+                <td>${dataSet.description}</td>
+                <td>
+                    <c:forEach var="name" items="${ dataSet.creator.person.names }">
+                        <c:if test="${ name.preferred }">
+                            ${name.familyName} ${name.givenName}
+                        </c:if>
+                    </c:forEach>
+                </td>
+                <td><fmt:formatDate type="date" value="${dataSet.dateCreated}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
+                <td width="30">
+                    <table cellpadding="0" cellspacing="0" class="button-table">
+                        <tr>
+                            <td>
+                                <c:url value="/module/ptme/reportDataset.form" var="url">
+                                    <c:param name="indicatorId" value="${dataSet.datasetId}"/>
+                                </c:url>
+                                <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
+                            </td>
+                            <td>|</td>
+                            <td>
+                                <c:url value="/module/ptme/reportDataset.form" var="urlsup">
+                                    <c:param name="delId" value="${dataSet.datasetId}"/>
+                                </c:url>
+                                <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
+                                    <img src="/openmrs/images/trash.gif" alt="Supprimer">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>
 
+</c:if>
 
+<c:if test="${mode == 'form'}">
+    <div class="box">
+        <h3><b>Saisie des ensembles de donn&eacute;es</b></h3>
+        <div class="line"></div>
+        <form:form action="" commandName="datasetForm" id="form" method="post" >
+            <form:hidden path="datasetId"/>
+            <table cellspacing="0" cellpadding="5" align="">
+                <tr>
+                    <td>
+                        <table cellpadding="5" cellspacing="0" width="100%">
+                            <tr>
+                                <td class="boldText">Code <b class="required">*</b> : </td>
+                                <td><form:input path="code"  size="10" cssClass=""/></td>
+                                <td><form:errors cssClass="error" path="code"/></td>
+                            </tr>
+                            <tr>
+                                <td class="boldText">Nom <b class="required">*</b> : </td>
+                                <td><form:input path="name" size="80" cssClass=""/></td>
+                                <td><form:errors cssClass="error" path="name"/></td>
+
+                            </tr>
+                            <tr>
+                                <td class="boldText">Description  : </td>
+                                <td><form:textarea path="description" rows="5" cssClass="textarea-c" /></td>
+                                <td><form:errors cssClass="error" path="description"/></td>
+                            </tr>
+                            <%--<tr>
+                                <td class="boldText">Script SQL <b class="required">*</b> :</td>
+                                <td><form:errors cssClass="error" path="indicatorSqlScript"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><form:textarea path="indicatorSqlScript" cssClass="script-textarea-c" /></td>
+                            </tr>--%>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="line"></div>
+            <table cellspacing="0" cellpadding="5">
+                <tr>
+                    <td>
+                        <c:if test="${ empty datasetForm.datasetId }">
+                            <input type="submit" value="Enregistrer" name="action"/>
+                        </c:if>
+                        <c:if test="${ not empty datasetForm.datasetId }">
+                            <input type="submit" value="Modifier" name="action"/>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+        </form:form>
+    </div>
+</c:if>
 <%@ include file="template/localFooter.jsp"%>

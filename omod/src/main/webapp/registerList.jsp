@@ -16,7 +16,7 @@
                 "order": [[1, "desc"]],
                 "language": {
                     "zeroRecords": "Aucun enregistrement ce jour",
-                    "emptyTable": "Aucune donn&eacute;e",
+                    //"emptyTable": "Aucune donn&eacute;e",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
                         next:     'Suivant'

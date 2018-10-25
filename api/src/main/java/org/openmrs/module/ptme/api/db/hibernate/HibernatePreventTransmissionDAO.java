@@ -814,9 +814,10 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  family_name familyName," +
 						"  given_name AS givenName," +
 						"  lastVisitDate," +
-						"  numberOfVisit," +
+						"  IF(numberOfVisit IS NULL, 0, numberOfVisit) numberOfVisit," +
 						"  AppointmentDate, " +
-						"  passed " +
+						"  passed," +
+						"  birth_date " +
 						"FROM" +
 						"  ptme_child pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
@@ -830,7 +831,8 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"    ON cpcfv.child_id = pc.child_id " +
 						"WHERE" +
 						"  pcf.followup_result IS NULL GROUP BY child_followup_number " +
-						"HAVING ADDDATE(lastVisitDate, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) " +
+						"HAVING (ADDDATE(lastVisitDate, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW()))) OR " +
+						"       (lastVisitDate IS NULL AND (ADDDATE(birth_date, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) ))" +
 						"ORDER BY AppointmentDate";
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
 				.addScalar("childFollowupNumber", StandardBasicTypes.STRING)

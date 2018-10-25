@@ -22,7 +22,7 @@
                 "order": [[1, "desc"]],
                 "language": {
                     "zeroRecords": "Aucune donn&eacute;e &agrave; afficher",
-                    "emptyTable": "Aucune donn&eacute;e",
+                    //"emptyTable": "Aucune donn&eacute;e",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
                         next:     'Suivant'
@@ -82,10 +82,10 @@
                 <tr>
                     <td align="center">${ pregnant.pregnantNumber }</td>
                     <td align="center">
-                        <c:url value="/module/ptme/motherFollowup.form" var="url">
+                        <c:url value="/module/ptme/motherFollowup.form" var="url_followup">
                             <c:param name="hivCareNumber" value="${pregnant.hivCareNumber}"/>
                         </c:url>
-                        <a href="${url}">${pregnant.hivCareNumber}</a>
+                        <a href="${url_followup}">${pregnant.hivCareNumber}</a>
                     </td>
                     <td>${pregnant.screeningNumber}</td>
                     <td>${pregnant.familyName}</td>
@@ -96,7 +96,7 @@
                     <td align="center">${ pregnant.age } ans</td>
 
                     <td align="center">
-                        <table cellpadding="0" cellspacing="0">
+                        <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>
                                 <td>
                                     <c:url value="/module/ptme/motherFollowupPatient.form" var="url">

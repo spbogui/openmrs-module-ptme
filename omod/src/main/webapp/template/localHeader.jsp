@@ -90,6 +90,10 @@
 		border-collapse: collapse;
 	}
 
+	a {
+		text-decoration: none;
+	}
+
 	.tableHeader a {
 		text-decoration: none;
 		text-align: center;
@@ -215,10 +219,22 @@
 
 	table.dataTable tr td table.button-table tr {
 		background-color: transparent;
+		/*padding:0;*/
 	}
 
 	table.dataTable tr td table.button-table td {
 		background-color: transparent;
+		/*padding:0;*/
+	}
+
+	table.dataTable tr td a {
+		text-transform: none;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	table.dataTable tr td a:hover {
+		color: #1aac9b;
 	}
 
 </style>

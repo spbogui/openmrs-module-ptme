@@ -19,7 +19,7 @@
                 "pageLength": 20,
                 "order": [[1, "asc"]],
                 "language": {
-                    "zeroRecords": "Aucun enregistrement trouv&eacute;",
+                    "zeroRecords": "Aucune donn&eacutee trouv&eacute;",
                     //"emptyTable": "Aucune donn&eacute;e",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
@@ -52,8 +52,8 @@
                 <td>|</td>
                 <td>P&eacute;riode du r&eacute;sultat final :</td>
                 <td>
-                    D&eacute;but : <form:input path="followupResultStartDate" cssClass="datepickerPtme" />
-                    Fin : <form:input path="followupResultEndDate" cssClass="datepickerPtme" />
+                    D&eacute;but : <form:input path="followupResultStartDate" cssClass="datepickerPtme" size="10px" />
+                    Fin : <form:input path="followupResultEndDate" cssClass="datepickerPtme" size="10px" />
                 </td>
                 <td><input type="submit" value="Valider"></td>
                 <td><input type="button" value="Vider" onclick="document.location.href='${pageContext.request.contextPath}/module/ptme/childFollowupManage.form'"></td>
@@ -87,7 +87,12 @@
         <tbody>
         <c:forEach var="followup" items="${ childFollowupList }">
             <tr>
-                <td>${followup.childFollowupNumber}</td>
+                <td>
+                    <c:url value="/module/ptme/childFollowup.form" var="url">
+                        <c:param name="childFollowupNumber" value="${followup.childFollowupNumber}"/>
+                    </c:url>
+                    <a href="${ url }">${followup.childFollowupNumber}</a>
+                </td>
                 <td>${followup.familyName}</td>
                 <td>${followup.givenName}</td>
                 <td>${followup.gender}</td>
@@ -113,13 +118,13 @@
                 <td>
                     <table class="button-table">
                         <tr>
-                            <td>
+                            <%--<td>
                                 <c:url value="/module/ptme/childFollowup.form" var="url">
                                     <c:param name="childFollowupNumber" value="${followup.childFollowupNumber}"/>
                                 </c:url>
                                 <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer" title="Editer"></a>
                             </td>
-                            <td>|</td>
+                            <td>|</td>--%>
                             <td>
                                 <c:url value="/module/ptme/childFollowupManage.form" var="v_url">
                                     <c:param name="childFollowupNumber" value="${followup.childFollowupNumber}"/>

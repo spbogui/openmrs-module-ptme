@@ -17,7 +17,7 @@
                 "order": [[1, "desc"]],
                 "language": {
                     "zeroRecords": "Aucune donn&eacute;e &agrave; afficher",
-                    "emptyTable": "Aucune donn&eacute;e",
+                    //"emptyTable": "Aucune donn&eacute;e",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
                         next:     'Suivant'
@@ -97,74 +97,66 @@
         <div class="line"></div>
     </c:if>
     <table style="border-collapse: collapse; border: 1px solid #1aac9b;" id="list-register" width="100%" align="center" cellspacing="0" cellpadding="0">
-        <c:if test="${ not empty consultationList }" >
-            <thead>
-            <tr style="background-color: #1aac9b; color: #ffffff;">
-                <th align="center">Date de <br>consultation</th>
-                <th align="center">Num&eacute;ro de gestante</th>
-                <th align="center">Num&eacute;ro de PEC</th>
-                <th align="center">Num&eacute;ro de D&eacute;pistage</th>
-                <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
-                    <th align="center">Rang de CPN</th>
-                    <th align="center">Semaines <br>d'Amenorrhee</th>
-                </c:if>
-                <th align="center">Statut VIH <br>&agrave; l'accueil</th>
-                <th align="center">Propostion <br>de test</th>
-                <th align="center">R&eacute;sultat <br>du test</th>
-                <th align="center">Annonce du <br>r&eacute;sultat</th>
-                <th align="center">ARV Remise ?</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="consult" items="${ consultationList }">
-                <tr>
-                    <td><fmt:formatDate type="date" value="${ consult.consultationDate }" pattern="dd/MM/yyyy" /></td>
-                    <td>${consult.pregnantPatient.pregnantNumber}</td>
-                    <td>${consult.pregnantPatient.hivCareNumber}</td>
-                    <td>${consult.pregnantPatient.screeningNumber}</td>
-                    <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
-                        <td>${consult.rank}</td>
-                        <td align="center">${consult.weekOfAmenorrhea}</td>
-                    </c:if>
-                    <td align="center">${(consult.hivService.hivStatusAtReception == 0) ? 'Negatif': (consult.hivService.hivStatusAtReception == 1 ? 'Positif': 'Inconnu')}</td>
-                    <td align="center">${ (consult.hivService.testProposal == 0) ? 'Non': (consult.hivService.testProposal == 1 ? 'Oui' : 'N/A') }</td>
-                    <td align="center">${ (consult.hivService.testResult == 0) ? 'Negatif': (consult.hivService.testResult == 1 ? 'Positif' : 'N/A') }</td>
-                    <td align="center">${ (consult.hivService.resultAnnouncement == 0) ? 'Non' : (consult.hivService.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
-                    <td align="center">${ (consult.hivService.arvDiscount == 0) ? 'Non' : (consult.hivService.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
-                    <td align="center" width="30">
-                        <table cellspacing="0" cellpadding="0" class="button-table">
-                            <tr>
-                                <td>
-                                    <c:url value="/module/ptme/registerList.form" var="url">
-                                        <c:param name="consultationId" value="${consult.consultationId}"/>
-                                        <c:param name="register" value="${manageConsultationForm.register}"/>
-                                    </c:url>
-                                    <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
-                                </td>
-                                <td>|</td>
-                                <td>
-                                    <c:url value="/module/ptme/registerList.form" var="urlsup">
-                                        <c:param name="delId" value="${consult.consultationId}"/>
-                                        <c:param name="register" value="${manageConsultationForm.register}"/>
-                                    </c:url>
-                                    <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
-                                        <img src="/openmrs/images/trash.gif" alt="Supprimer">
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </c:if>
-
-        <c:if test="${ empty consultationList }" >
+        <thead>
+        <tr style="background-color: #1aac9b; color: #ffffff;">
+            <th align="center">Date de <br>consultation</th>
+            <th align="center">Num&eacute;ro de gestante</th>
+            <th align="center">Num&eacute;ro de PEC</th>
+            <th align="center">Num&eacute;ro de D&eacute;pistage</th>
+            <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
+                <th align="center">Rang de CPN</th>
+                <th align="center">Semaines <br>d'Amenorrhee</th>
+            </c:if>
+            <th align="center">Statut VIH <br>&agrave; l'accueil</th>
+            <th align="center">Propostion <br>de test</th>
+            <th align="center">R&eacute;sultat <br>du test</th>
+            <th align="center">Annonce du <br>r&eacute;sultat</th>
+            <th align="center">ARV Remise ?</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="consult" items="${ consultationList }">
             <tr>
-                <td align="center">Veuillez entrer les param&egrave;tres de votre s&eacute;lection pour voir la liste</td>
+                <td><fmt:formatDate type="date" value="${ consult.consultationDate }" pattern="dd/MM/yyyy" /></td>
+                <td>${consult.pregnantPatient.pregnantNumber}</td>
+                <td>${consult.pregnantPatient.hivCareNumber}</td>
+                <td>${consult.pregnantPatient.screeningNumber}</td>
+                <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
+                    <td>${consult.rank}</td>
+                    <td align="center">${consult.weekOfAmenorrhea}</td>
+                </c:if>
+                <td align="center">${(consult.hivService.hivStatusAtReception == 0) ? 'Negatif': (consult.hivService.hivStatusAtReception == 1 ? 'Positif': 'Inconnu')}</td>
+                <td align="center">${ (consult.hivService.testProposal == 0) ? 'Non': (consult.hivService.testProposal == 1 ? 'Oui' : 'N/A') }</td>
+                <td align="center">${ (consult.hivService.testResult == 0) ? 'Negatif': (consult.hivService.testResult == 1 ? 'Positif' : 'N/A') }</td>
+                <td align="center">${ (consult.hivService.resultAnnouncement == 0) ? 'Non' : (consult.hivService.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
+                <td align="center">${ (consult.hivService.arvDiscount == 0) ? 'Non' : (consult.hivService.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
+                <td align="center" width="30">
+                    <table cellspacing="0" cellpadding="0" class="button-table">
+                        <tr>
+                            <td>
+                                <c:url value="/module/ptme/registerList.form" var="url">
+                                    <c:param name="consultationId" value="${consult.consultationId}"/>
+                                    <c:param name="register" value="${manageConsultationForm.register}"/>
+                                </c:url>
+                                <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
+                            </td>
+                            <td>|</td>
+                            <td>
+                                <c:url value="/module/ptme/registerList.form" var="urlsup">
+                                    <c:param name="delId" value="${consult.consultationId}"/>
+                                    <c:param name="register" value="${manageConsultationForm.register}"/>
+                                </c:url>
+                                <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
+                                    <img src="/openmrs/images/trash.gif" alt="Supprimer">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
-        </c:if>
+        </c:forEach>
+        </tbody>
 
     </table>
 </div>

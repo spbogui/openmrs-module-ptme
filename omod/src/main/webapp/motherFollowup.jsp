@@ -21,7 +21,7 @@
                 "order": [[1, "desc"]],
                 "language": {
                     "zeroRecords": "Aucune visite &agrave; afficher",
-                    "emptyTable": "Aucune donn&eacute;e",
+                    //"emptyTable": "Aucune donn&eacute;e",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
                         next:     'Suivant'
@@ -82,7 +82,12 @@
             <tbody>
             <c:forEach var="followupOn" items="${ listMotherFollowupOn }">
             <tr>
-                <td>${followupOn.hivCareNumber}</td>
+                <td>
+                    <c:url value="/module/ptme/motherFollowup.form" var="url">
+                        <c:param name="hivCareNumber" value="${followupOn.hivCareNumber}"/>
+                    </c:url>
+                    <a href="${ url }">${followupOn.hivCareNumber}</a>
+                </td>
                 <td>${followupOn.familyName}</td>
                 <td>${followupOn.givenName}</td>
                 <td><fmt:formatDate type="date" value="${followupOn.startDate}" pattern="dd/MM/yyyy" /></td>
@@ -91,8 +96,8 @@
                 <td><fmt:formatDate type="date" value="${followupOn.spousalScreeningDate}" pattern="dd/MM/yyyy" /></td>
                 <td>${followupOn.visitCount}</td>
                 <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
-                <td width="30">
-                    <table cellpadding="0" cellspacing="0" class="button-table">
+                <td width="10px">
+                    <%--<table cellpadding="0" cellspacing="0" class="button-table">
                         <tr>
                             <td>
                                 <c:url value="/module/ptme/motherFollowup.form" var="url">
@@ -101,16 +106,16 @@
                                 <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
                             </td>
                             <td>|</td>
-                            <td>
+                            <td>--%>
                                 <c:url value="/module/ptme/motherFollowup.form" var="urlsup">
                                     <c:param name="delFollowupId" value="${followupOn.motherFollowupId}"/>
                                 </c:url>
                                 <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
                                     <img src="/openmrs/images/trash.gif" alt="Supprimer">
                                 </a>
-                            </td>
+                            <%--</td>
                         </tr>
-                    </table>
+                    </table>--%>
                 </td>
             </tr>
             </c:forEach>
