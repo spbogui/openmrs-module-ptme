@@ -234,7 +234,7 @@ public class ChildFollowupManageController {
                 }else {
 
                     if(child.getChildFollowupVisits() == null && childFollowupForm.getVisitDate() == null) {
-                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner les données de la visite de suivi de la patiente SVP !");
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner les données de la visite de suivi de l'enfant SVP !");
                         hasErrors = true;
                     } else if (childFollowupForm.getFollowupResult() != null && childFollowupForm.getFollowupResultDate() == null) {
                         session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date du résultat final du suivi SVP");
@@ -388,9 +388,10 @@ public class ChildFollowupManageController {
 
                         Context.getPatientService().voidPatient(child.getPatient(), "not to be used again");
                         Context.getPersonService().voidPerson(child.getPatient(), "not to be used again");
-                        Relationship relationship = getPreventTransmissionService().getChildRelationship(child.getMother(), child.getPatient());
-                        Context.getPersonService().voidRelationship(relationship, "not to be used again");
-
+                        if (child.getMother() != null) {
+                            Relationship relationship = getPreventTransmissionService().getChildRelationship(child.getMother(), child.getPatient());
+                            Context.getPersonService().voidRelationship(relationship, "not to be used again");
+                        }
                         child.setPatient(null);
                         getPreventTransmissionService().saveChild(child);
                     }

@@ -1487,4 +1487,16 @@
                                  referencedTableName="location" referencedColumnNames="location_id"/>-->
     </changeSet>
 
+    <changeSet id="prevent-transmission-disable-old-forms-25-10-2018" author="BOGUI SERGE">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="2">select count(*) from form WHERE (form_id = 14 AND retired = 1 ) OR (form_id = 15 AND retired = 1)</sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            UPDATE form SET retired = 1, retired_by = 1, retired_reason = 'disponible dans le nouveau module' WHERE form_id = 14;
+            UPDATE form SET retired = 1, retired_by = 1, retired_reason = 'disponible dans le nouveau module' WHERE form_id = 15;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
