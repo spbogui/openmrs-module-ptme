@@ -821,7 +821,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"FROM" +
 						"  ptme_child pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
-						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY child_id) lpcfv" +
+						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit GROUP BY child_id) lpcfv" +
 						"    ON pc.child_id = lpcfv.child_id" +
 						"  LEFT JOIN (SELECT *," +
 						"               ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate," +
@@ -830,8 +830,9 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  LEFT JOIN (SELECT COUNT(child_followup_visit_id) numberOfVisit, child_id FROM ptme_child_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY child_id) cpcfv" +
 						"    ON cpcfv.child_id = pc.child_id " +
 						"WHERE" +
-						"  pcf.followup_result IS NULL GROUP BY child_followup_number " +
-						"HAVING (ADDDATE(lastVisitDate, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW()))) OR " +
+						"  pcf.followup_result IS NULL AND lastVisitDate NOT BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) " +
+						"  GROUP BY child_followup_number " +
+						"HAVING (lastVisitDate IS NOT NULL AND ADDDATE(lastVisitDate, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW()))) OR " +
 						"       (lastVisitDate IS NULL AND (ADDDATE(birth_date, INTERVAL 1 MONTH) BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) ))" +
 						"ORDER BY AppointmentDate";
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
