@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6adda72e-6c3a-40d9-b601-269163baeae8" name="Default" comment="Last update">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/omod/src/main/webapp/motherFollowupFutures.jsp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/src/main/resources/liquibase.xml" afterPath="$PROJECT_DIR$/api/src/main/resources/liquibase.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java" afterPath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/api/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -69,8 +66,18 @@
       <file leaf-file-name="ChildFollowupManageController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="371" column="29" lean-forward="true" selection-start-line="371" selection-start-column="29" selection-end-line="371" selection-end-column="29" />
+            <state relative-caret-position="-285">
+              <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="childFollowup.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childFollowup.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="284" column="32" lean-forward="true" selection-start-line="284" selection-start-column="32" selection-end-line="284" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -79,18 +86,8 @@
       <file leaf-file-name="registerList.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-200">
-              <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/register.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1444">
-              <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state relative-caret-position="190">
+              <caret line="109" column="84" lean-forward="false" selection-start-line="109" selection-start-column="84" selection-end-line="109" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -241,6 +238,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -291,16 +291,16 @@
         <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageDataSetController.java" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/reportDataSet.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/register.jsp" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/childFollowup.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/motherFollowup.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/motherFollowupPatient.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/motherFollowupManage.jsp" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/childFollowupManage.jsp" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp" />
         <option value="$PROJECT_DIR$/api/src/main/resources/liquibase.xml" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/childFollowup.jsp" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp" />
       </list>
     </option>
   </component>
@@ -741,7 +741,7 @@
       <workItem from="1539352397253" duration="63813000" />
       <workItem from="1539766768172" duration="39617000" />
       <workItem from="1540114160970" duration="34388000" />
-      <workItem from="1540411036575" duration="22523000" />
+      <workItem from="1540411036575" duration="24581000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour de liste avec DataTable.js javascript">
       <created>1539940465834</created>
@@ -799,11 +799,25 @@
       <option name="project" value="LOCAL" />
       <updated>1540473764914</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Last update">
+      <created>1540478479836</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1540478479836</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Last update">
+      <created>1540486851735</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1540486851735</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1325334000" />
+    <option name="totallyTimeSpent" value="1327392000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -816,6 +830,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -824,7 +839,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32777777" sideWeight="0.5021482" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32666665" sideWeight="0.49785176" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32777777" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1196,14 +1211,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childFollowup.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="105" column="33" lean-forward="false" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childManage.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -1323,14 +1330,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-200">
-          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/src/main/resources/liquibase.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -1349,10 +1348,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childFollowup.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="284" column="32" lean-forward="true" selection-start-line="284" selection-start-column="32" selection-end-line="284" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="109" column="84" lean-forward="false" selection-start-line="109" selection-start-column="84" selection-end-line="109" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="371" column="29" lean-forward="true" selection-start-line="371" selection-start-column="29" selection-end-line="371" selection-end-column="29" />
+        <state relative-caret-position="-285">
+          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
           <folding />
         </state>
       </provider>
