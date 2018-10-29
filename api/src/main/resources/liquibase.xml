@@ -551,7 +551,7 @@
 
             UPDATE ptme_ptme
             SET numero_depistage = CONCAT_WS('/', '12345', YEAR(encounter_date), CONCAT('00', ptme_id))
-            WHERE ((numero_depistage IS NULL AND numero_pec IS NULL) OR (numero_depistage = '' AND numero_pec = ''));
+            WHERE (numero_depistage IS NULL OR numero_depistage = '' ) AND (numero_pec IS NULL OR numero_pec = '');
 
             UPDATE ptme_ptme SET
             numero_pec = numero_depistage
@@ -573,7 +573,7 @@
             SELECT MAX(encounter_date) dateRencontre, pregnant_number FROM
             (
             SELECT
-            *, TRIM(IF(numero_pec &lt;> '', numero_pec, numero_depistage )) pregnant_number
+            *, TRIM(IF(numero_pec &lt;> '' AND numero_pec IS NOT NULL, numero_pec, numero_depistage )) pregnant_number
             FROM ptme_ptme
             ) _
             GROUP BY pregnant_number
@@ -600,7 +600,7 @@
             pp.changed_by
             FROM ptme_ptme pp, ptme_pregnant_patient ppp
             WHERE
-            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            (pp.numero_pec = ppp.pregnant_number OR pp.numero_depistage = ppp.pregnant_number) AND
             type_ptme = 'CPN';
 
             INSERT INTO ptme_prenatal (consultation_id, rank, week_of_amenorrhea, spousal_screening, spousal_screening_result,  appointment_date)
@@ -649,7 +649,7 @@
             pp.changed_by
             FROM ptme_ptme pp, ptme_pregnant_patient ppp
             WHERE
-            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            (pp.numero_pec = ppp.pregnant_number OR pp.numero_depistage = ppp.pregnant_number) AND
             type_ptme = 'Accouchement';
 
 
@@ -697,7 +697,7 @@
 
             FROM ptme_ptme pp, ptme_pregnant_patient ppp
             WHERE
-            (pp.numero_pec = ppp.hiv_care_number AND pp.numero_depistage = ppp.screening_number) AND
+            (pp.numero_pec = ppp.pregnant_number OR pp.numero_depistage = ppp.pregnant_number) AND
             type_ptme = 'CPoN';
 
 
@@ -741,7 +741,7 @@
             p.date_created,
             p.voided
             FROM
-            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 GROUP BY patient_id) MV
+            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 AND voided = 0 GROUP BY patient_id) MV
             LEFT JOIN (SELECT patient_id, identifier, location_id FROM patient_identifier WHERE preferred = 1 AND voided = 0 GROUP BY patient_id, location_id) pi ON MV.patient_id = pi.patient_id
             LEFT JOIN person_name pn ON pi.patient_id = pn.person_id
             LEFT JOIN person p ON pn.person_id = p.person_id
@@ -790,7 +790,7 @@
             e.date_created,
             e.voided
             FROM
-            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 GROUP BY patient_id) MV
+            (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 AND voided = 0 GROUP BY patient_id) MV
             INNER JOIN
             (SELECT * FROM encounter WHERE encounter_type = 16 AND form_id = 15) e
             ON e.encounter_datetime = MV.DatePremiereVisite AND e.patient_id = MV.patient_id
@@ -834,7 +834,7 @@
             date_created,
             voided
             FROM
-            (SELECT * FROM encounter WHERE encounter_type = 16 AND form_id = 15) e
+            (SELECT * FROM encounter WHERE encounter_type = 16 AND form_id = 15 AND voided = 0) e
             LEFT JOIN
             (SELECT patient_id, pregnant_patient_id FROM ptme_pregnant_patient) pt
             ON e.patient_id = pt.patient_id
@@ -879,7 +879,7 @@
             LEFT JOIN person p ON p.person_id = pi1.patient_id
             LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE encounter_type = 1 GROUP BY patient_id) PE
             ON PE.patient_id = pi1.patient_id
-            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id LIMIT 1) ME
+            LEFT JOIN (SELECT patient_id, location_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0 GROUP BY patient_id LIMIT 1) ME
             ON ME.patient_id = pi1.patient_id
             LEFT JOIN person_name pn ON p.person_id = pn.person_id
             LEFT JOIN ptme_child pc ON pi1.identifier = pc.child_followup_number
@@ -936,7 +936,7 @@
             e.date_created,
             e.voided
             FROM
-            (SELECT MIN(encounter_datetime) DateInitFollowup, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 GROUP BY patient_id) ME
+            (SELECT MIN(encounter_datetime) DateInitFollowup, patient_id FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0 GROUP BY patient_id) ME
             LEFT JOIN (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0) e
             ON e.patient_id = ME.patient_id AND ME.DateInitFollowup = e.encounter_datetime
             INNER JOIN patient_identifier pi ON e.patient_id = pi.patient_id
@@ -1046,7 +1046,7 @@
             e.date_created,
             e.voided
             FROM
-            (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16) e
+            (SELECT * FROM encounter WHERE form_id = 14 AND encounter_type = 16 AND voided = 0) e
             INNER JOIN patient_identifier pi ON e.patient_id = pi.patient_id
             INNER JOIN ptme_child pc ON pc.child_followup_number = pi.identifier
             LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id
