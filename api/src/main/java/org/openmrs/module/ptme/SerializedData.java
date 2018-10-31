@@ -85,4 +85,17 @@ public class SerializedData extends BaseOpenmrsObject implements Serializable {
     public void setDateReceived(Date dateReceived) {
         this.dateReceived = dateReceived;
     }
+
+    @Basic
+    @Access(AccessType.PROPERTY)
+    @Column(name = "uuid", length = 38, unique = true, nullable = false)
+    @Override
+    public String getUuid() {
+        return super.getUuid();
+    }
+
+    @Override
+    public void setUuid(String uuid) {
+        super.setUuid(uuid);
+    }
 }
