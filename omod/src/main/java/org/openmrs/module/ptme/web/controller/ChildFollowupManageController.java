@@ -84,7 +84,9 @@ public class ChildFollowupManageController {
         if (locationId != null) {
             return Context.getLocationService().getLocation(locationId);
         } else {
-            return Context.getLocationService().getLocation(Context.getAdministrationService().getGlobalProperty("default_location"));
+
+//            return Context.getLocationService().getLocation(Context.getAdministrationService().getGlobalProperty("default_location"));
+            return Context.getLocationService().getDefaultLocation();
         }
     }
 
