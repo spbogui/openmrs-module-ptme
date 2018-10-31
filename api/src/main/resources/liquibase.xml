@@ -742,7 +742,7 @@
             p.voided
             FROM
             (SELECT patient_id, MIN(encounter_datetime) DatePremiereVisite FROM encounter WHERE encounter_type = 16 AND form_id = 15 AND voided = 0 GROUP BY patient_id) MV
-            LEFT JOIN (SELECT patient_id, identifier, location_id FROM patient_identifier WHERE preferred = 1 AND voided = 0 GROUP BY patient_id, location_id) pi ON MV.patient_id = pi.patient_id
+            LEFT JOIN (SELECT i.patient_id, identifier, location_id FROM patient_identifier i, patient t WHERE i.patient_id = t.patient_id AND preferred = 1 AND i.voided = 0 AND t.voided = 0 GROUP BY patient_id, location_id) pi ON MV.patient_id = pi.patient_id
             LEFT JOIN person_name pn ON pi.patient_id = pn.person_id
             LEFT JOIN person p ON pn.person_id = p.person_id
             LEFT JOIN ptme_pregnant_patient ppp
@@ -752,7 +752,7 @@
             GROUP BY pi.identifier;
 
             UPDATE ptme_pregnant_patient ppp
-            INNER JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE preferred = 1 AND voided = 0 GROUP BY patient_id) pi ON pi.identifier = ppp.hiv_care_number
+            INNER JOIN (SELECT i.patient_id, identifier, location_id FROM patient_identifier i, patient t WHERE i.patient_id = t.patient_id AND preferred = 1 AND i.voided = 0 AND t.voided = 0 GROUP BY patient_id) pi ON pi.identifier = ppp.hiv_care_number
             INNER JOIN person_name pn ON pn.person_id = pi.patient_id
             INNER JOIN person p ON p.person_id = pn.person_id
             SET
