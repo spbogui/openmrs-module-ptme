@@ -444,7 +444,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	@Override
 	public Patient getPatientByIdentifier(String identifier) {
 		Patient patient = null;
-		PatientIdentifier patientIdentifier = (PatientIdentifier) sessionFactory.getCurrentSession().createQuery("FROM PatientIdentifier p WHERE p.identifier = '"+identifier+"' AND p.voided = false AND p.preferred = true").uniqueResult();
+		PatientIdentifier patientIdentifier = (PatientIdentifier) sessionFactory.getCurrentSession().createQuery("FROM PatientIdentifier p WHERE p.identifier = '"+identifier+"' AND (p.voided = false AND p.patient.voided = false) AND p.preferred = true").uniqueResult();
 		if(patientIdentifier != null) {
 			patient = patientIdentifier.getPatient();
 		}
