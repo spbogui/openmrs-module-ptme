@@ -426,4 +426,30 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     public ReportingIndicator voidIndicator(Integer indicatorId) {
         return dao.voidIndicator(indicatorId);
     }
+
+    @Override
+    public SerializedData getSerializedDataById(Integer id) {
+        return dao.getSerializedDataById(id);
+    }
+
+    @Override
+    public SerializedData getSerializedDataByObjectUuid(String objectUuid) {
+        return dao.getSerializedDataByObjectUuid(objectUuid);
+    }
+
+
+    @Override
+    public List<SerializedData> getAllSerializedData() {
+        return dao.getAllSerializedData();
+    }
+
+    @Override
+    public SerializedData saveSerializedData(SerializedData serializedData) {
+        return dao.saveSerializedData(serializedData);
+    }
+
+    @Override
+    public Boolean removeSerializedDataById(Integer id) {
+        return dao.removeSerializedDataById(id);
+    }
 }

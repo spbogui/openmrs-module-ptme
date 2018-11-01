@@ -950,6 +950,37 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
+	public SerializedData getSerializedDataById(Integer id) {
+		return (SerializedData) sessionFactory.getCurrentSession().get(SerializedData.class, id);
+	}
+
+	@Override
+	public SerializedData getSerializedDataByObjectUuid(String objectUuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(SerializedData.class);
+		return (SerializedData) criteria.add(Restrictions.eq("objectUuid", objectUuid)).uniqueResult();
+	}
+
+	@Override
+	public List<SerializedData> getAllSerializedData() {
+		return (List<SerializedData>) sessionFactory.getCurrentSession().createCriteria(SerializedData.class).list();
+	}
+
+	@Override
+	public SerializedData saveSerializedData(SerializedData serializedData) {
+		sessionFactory.getCurrentSession().saveOrUpdate(serializedData);
+		return serializedData;
+	}
+
+	@Override
+	public Boolean removeSerializedDataById(Integer id) {
+		if (getSerializedDataById(id) != null) {
+			sessionFactory.getCurrentSession().delete(getSerializedDataById(id));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public List<MotherFollowupCurrentlyOn> getMotherFollowupList(Date startDate, Date endDate, String status, Integer pregnancyOutcome, String startOrEnd) {
 		String sqlQuery =
 				"SELECT " +

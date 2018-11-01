@@ -11,7 +11,7 @@ public class LocationXml implements Converter {
     @Override
     public void marshal(Object o, HierarchicalStreamWriter writer, MarshallingContext context) {
         Location location = (Location) o;
-        writer.addAttribute("uuid", location.getLocationId().toString());
+        writer.addAttribute("uuid", location.getUuid());
         writer.addAttribute("name", location.getName());
         writer.addAttribute("postalCode", location.getPostalCode());
         writer.addAttribute("description", location.getDescription());

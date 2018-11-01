@@ -1,5 +1,7 @@
 package org.openmrs.module.ptme.web.controller;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -10,6 +12,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.MotherFollowup;
 import org.openmrs.module.ptme.MotherFollowupVisit;
 import org.openmrs.module.ptme.PregnantPatient;
+import org.openmrs.module.ptme.SerializedData;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.*;
 import org.openmrs.module.ptme.forms.validators.MotherFollowupFormValidator;
@@ -17,6 +20,8 @@ import org.openmrs.module.ptme.forms.validators.MotherFollowupPatientFormValidat
 import org.openmrs.module.ptme.utils.MotherFollowupCurrentlyOn;
 import org.openmrs.module.ptme.utils.PregnantPatientToFollow;
 import org.openmrs.module.ptme.utils.UsefullFunction;
+import org.openmrs.module.ptme.xml.MotherFollowupXml;
+import org.openmrs.module.ptme.xml.PregnantPatientXml;
 import org.openmrs.web.WebConstants;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
@@ -380,6 +385,20 @@ public class MotherFollowupManageController {
                         getPreventTransmissionService().saveMotherFollowupVisit(motherFollowupVisit);
                     }
 
+                    XStream xStream = new XStream(new DomDriver());
+                    xStream.registerConverter(new MotherFollowupXml());
+                    xStream.alias("motherFollowup", MotherFollowup.class);
+
+                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(motherFollowup.getUuid());
+                    if (data == null) {
+                        data = new SerializedData();
+                    }
+
+                    data.setObjectUuid(motherFollowup.getUuid());
+                    data.setSerializedXmlData(xStream.toXML(motherFollowup));
+                    data.setPackageName(MotherFollowup.class.getName());
+                    getPreventTransmissionService().saveSerializedData(data);
+
                     session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
 
                     return "redirect:/module/ptme/motherFollowup.form?motherFollowupId=" + motherFollowup.getMotherFollowupId().toString();
@@ -583,7 +602,20 @@ public class MotherFollowupManageController {
                         pregnantPatient = motherFollowupPatientForm.getPregnantPatient(pregnantPatient, patient);
                     }
 //                    pregnantPatient.setPregnantNumber(motherFollowupPatientForm.getPregnantNumber());
-                    getPreventTransmissionService().savePregnantPatient(pregnantPatient);
+                    if(getPreventTransmissionService().savePregnantPatient(pregnantPatient) != null) {
+                        XStream xStream = new XStream(new DomDriver());
+                        xStream.registerConverter(new PregnantPatientXml());
+                        xStream.alias("pregnantPatient", PregnantPatient.class);
+
+                        SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
+                        if (ppData == null) {
+                            ppData = new SerializedData();
+                        }
+                        ppData.setObjectUuid(pregnantPatient.getUuid());
+                        ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
+                        ppData.setPackageName(PregnantPatient.class.getName());
+                        getPreventTransmissionService().saveSerializedData(ppData);
+                    }
 
                     FindPregnantPatientForm findPregnantPatientForm = new FindPregnantPatientForm();
 

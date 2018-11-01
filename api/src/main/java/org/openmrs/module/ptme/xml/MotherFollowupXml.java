@@ -21,12 +21,13 @@ public class MotherFollowupXml implements Converter {
         writer.addAttribute("uuid", mf.getUuid());
         writer.addAttribute("visitDate", dateFormatter.format(mf.getStartDate()));
         writer.addAttribute("endDate", dateFormatter.format(mf.getEndDate()));
-        writer.addAttribute("arvStatusAtRegistering", mf.getArvStatusAtRegistering());
-        writer.addAttribute("estimatedDeliveryDate", dateFormatter.format(mf.getEstimatedDeliveryDate()));
+        writer.addAttribute("arvStatusAtRegistering", nullSafeString(mf.getArvStatusAtRegistering()));
+        writer.addAttribute("estimatedDeliveryDate", nullSafeString(dateFormatter.format(mf.getEstimatedDeliveryDate())));
         writer.addAttribute("spousalScreeningResult", nullSafeString(mf.getSpousalScreeningResult()));
-        writer.addAttribute("spousalScreeningDate", dateFormatter.format(mf.getSpousalScreeningDate()));
+        writer.addAttribute("spousalScreeningDate", nullSafeString(dateFormatter.format(mf.getSpousalScreeningDate())));
         writer.addAttribute("pregnancyOutcome", nullSafeString(mf.getPregnancyOutcome()));
         writer.addAttribute("deliveryType", nullSafeString(mf.getDeliveryType()));
+        writer.addAttribute("pregnantPatient", nullSafeString(mf.getPregnantPatient().getUuid()));
 
         if (mf.isVoided()){
             writer.addAttribute("voided", "1");
@@ -34,7 +35,7 @@ public class MotherFollowupXml implements Converter {
 
         writer.startNode("motherFollowupVisits");
 
-        if (mf.getMotherFollowupVisits().isEmpty()) {
+        if (!mf.getMotherFollowupVisits().isEmpty()) {
 
             for (MotherFollowupVisit mfv : mf.getMotherFollowupVisits()) {
                 writer.startNode("motherFollowupVisit");

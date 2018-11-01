@@ -163,4 +163,17 @@ public interface PreventTransmissionService extends OpenmrsService {
 	/**
 	 * End Report Service
 	 */
+
+	/**
+	 * Serialized Data
+	 */
+	SerializedData getSerializedDataById(Integer id);
+	SerializedData getSerializedDataByObjectUuid(String objectUuid);
+	List<SerializedData> getAllSerializedData();
+	SerializedData saveSerializedData(SerializedData serializedData);
+	Boolean removeSerializedDataById(Integer id);
+
+	/**
+	 * End Serialized Data
+	 */
 }

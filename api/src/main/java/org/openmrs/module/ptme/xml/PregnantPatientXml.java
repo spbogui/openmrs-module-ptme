@@ -27,6 +27,11 @@ public class PregnantPatientXml implements Converter {
         writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
         writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
         writer.addAttribute("screeningNumber", nullSafeString(pregnantPatient.getScreeningNumber()));
+        writer.addAttribute("maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
+        writer.addAttribute("spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
+        writer.addAttribute("spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
+        writer.addAttribute("locationUuid", nullSafeString(pregnantPatient.getLocation().getUuid()));
+
         if (pregnantPatient.isVoided()) {
             writer.addAttribute("voided", "1");
         }
@@ -34,16 +39,11 @@ public class PregnantPatientXml implements Converter {
         if (pregnantPatient.getPatient() != null) {
             Patient patient = pregnantPatient.getPatient();
             writer.startNode("patient");
-            PatientXml patientXml = new PatientXml();
-            patientXml.marshal(patient, writer, context);
+            writer.setValue(pregnantPatient.getPatient().getUuid());
+//            PatientXml patientXml = new PatientXml();
+//            patientXml.marshal(patient, writer, context);
             writer.endNode();
         }
-        writer.addAttribute("patientUuid", nullSafeString(pregnantPatient.getPatient().getUuid()));
-        writer.addAttribute("maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
-        writer.addAttribute("spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
-        writer.addAttribute("spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
-        writer.addAttribute("locationUuid", nullSafeString(pregnantPatient.getLocation().getUuid()));
-
 
     }
 

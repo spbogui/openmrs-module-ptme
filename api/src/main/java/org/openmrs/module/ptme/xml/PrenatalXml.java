@@ -24,7 +24,9 @@ public class PrenatalXml implements Converter {
         writer.addAttribute("appointmentDate", dateFormatter.format(prenatal.getAppointmentDate()));
 
         ConsultationXml consultationXml = new ConsultationXml();
+        writer.startNode("consultation");
         consultationXml.marshal(prenatal, writer, context);
+        writer.endNode();
     }
 
     @Override

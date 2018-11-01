@@ -160,4 +160,13 @@ public interface PreventTransmissionDAO {
     /**
      * End Reporting bloc
      */
+
+    /**
+     * Serialized Data
+     */
+    SerializedData getSerializedDataById(Integer id);
+    SerializedData getSerializedDataByObjectUuid(String objectUuid);
+    List<SerializedData> getAllSerializedData();
+    SerializedData saveSerializedData(SerializedData serializedData);
+    Boolean removeSerializedDataById(Integer id);
 }

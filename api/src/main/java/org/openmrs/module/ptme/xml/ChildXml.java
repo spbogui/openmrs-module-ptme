@@ -22,24 +22,26 @@ public class ChildXml implements Converter {
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         Child child = (Child) value;
 
-        writer.addAttribute("uuid", child.getUuid());
-        if (child.getMother() != null) {
-            writer.startNode("mother");
-            PatientXml patientXml = new PatientXml();
-            patientXml.marshal(child.getMother(), writer, context);
-            writer.endNode();
-        }
-
         writer.addAttribute("childFollowupNumber", child.getChildFollowupNumber());
         writer.addAttribute("birthDate", dateFormatter.format(child.getBirthDate()));
         writer.addAttribute("gender", child.getGender());
         writer.addAttribute("familyName", child.getFamilyName());
         writer.addAttribute("givenName", child.getGivenName());
+        writer.addAttribute("uuid", child.getUuid());
+
+        if (child.getMother() != null) {
+            writer.startNode("mother");
+            writer.setValue(child.getMother().getUuid());
+            //PatientXml patientXml = new PatientXml();
+            //patientXml.marshal(child.getMother(), writer, context);
+            writer.endNode();
+        }
 
         if (child.getPatient() != null) {
-            writer.startNode("patient");
-            PatientXml patientXml = new PatientXml();
-            patientXml.marshal(child.getPatient(), writer, context);
+            writer.startNode("patientLinked");
+            writer.setValue(child.getPatient().getUuid());
+//            PatientXml patientXml = new PatientXml();
+//            patientXml.marshal(child.getPatient(), writer, context);
             writer.endNode();
         }
 

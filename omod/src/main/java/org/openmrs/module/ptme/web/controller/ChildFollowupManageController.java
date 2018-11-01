@@ -1,5 +1,7 @@
 package org.openmrs.module.ptme.web.controller;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.*;
@@ -7,12 +9,14 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.Child;
 import org.openmrs.module.ptme.ChildFollowup;
 import org.openmrs.module.ptme.ChildFollowupVisit;
+import org.openmrs.module.ptme.SerializedData;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.*;
 import org.openmrs.module.ptme.forms.validators.ChildFollowupFormValidator;
 import org.openmrs.module.ptme.forms.validators.ChildFormValidator;
 import org.openmrs.module.ptme.utils.ChildFollowupTransformer;
 import org.openmrs.module.ptme.utils.UsefullFunction;
+import org.openmrs.module.ptme.xml.ChildXml;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -337,7 +341,7 @@ public class ChildFollowupManageController {
                         childFollowupVisit = childFollowupForm.getChildFollowupVisit(getPreventTransmissionService().
                                 getChildFollowupVisitById(childFollowupForm.getChildFollowupVisitId()));
                     }
-                    getPreventTransmissionService().saveChildFollowupVisit(childFollowupVisit);
+                    child = getPreventTransmissionService().saveChildFollowupVisit(childFollowupVisit).getChild();
                 }
 
                 if (childFollowupForm.getFollowupResult() != null) {
@@ -397,6 +401,25 @@ public class ChildFollowupManageController {
                         child.setPatient(null);
                         getPreventTransmissionService().saveChild(child);
                     }
+                }
+
+                XStream xStream = new XStream(new DomDriver());
+                xStream.registerConverter(new ChildXml());
+                xStream.alias("child", Child.class);
+
+//                System.out.println("Child uuid : " + child.getUuid());
+//                System.out.println("Child ID : " + child.getChildId());
+
+                if (child != null) {
+                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
+                    if (data == null) {
+                        data = new SerializedData();
+                    }
+
+                    data.setObjectUuid(child.getUuid());
+                    data.setSerializedXmlData(xStream.toXML(child));
+                    data.setPackageName(Child.class.getName());
+                    getPreventTransmissionService().saveSerializedData(data);
                 }
 
                 session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
@@ -552,6 +575,20 @@ public class ChildFollowupManageController {
                 }
 
                 if(getPreventTransmissionService().saveChild(child) != null) {
+
+                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
+                    if (data == null) {
+                        data = new SerializedData();
+                    }
+
+                    XStream xStream = new XStream(new DomDriver());
+                    xStream.registerConverter(new ChildXml());
+                    xStream.alias("child", Child.class);
+                    data.setObjectUuid(child.getUuid());
+                    data.setSerializedXmlData(xStream.toXML(child));
+                    data.setPackageName(Child.class.getName());
+                    getPreventTransmissionService().saveSerializedData(data);
+
                     if(childForm.getChildId() != null) {
                         session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Enfant exposé mis à jour avec succès");
                     } else {

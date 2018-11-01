@@ -30,15 +30,17 @@ public class ConsultationXml implements Converter {
         writer.addAttribute("consultationDate", dateFormatter.format(consultation.getConsultationDate()));
         if (consultation.getPregnantPatient() != null) {
             writer.startNode("pregnantPatient");
-            PregnantPatient pregnantPatient = consultation.getPregnantPatient();
-            PregnantPatientXml patientXml = new PregnantPatientXml();
-            patientXml.marshal(pregnantPatient, writer, context);
+            writer.setValue(consultation.getPregnantPatient().getUuid());
+//            PregnantPatient pregnantPatient = consultation.getPregnantPatient();
+//            PregnantPatientXml patientXml = new PregnantPatientXml();
+//            patientXml.marshal(pregnantPatient, writer, context);
             writer.endNode();
         }
         writer.startNode("location");
-        Location location = consultation.getLocation();
-        LocationXml locationXml = new LocationXml();
-        locationXml.marshal(location, writer, context);
+        writer.setValue(nullSafeString(consultation.getLocation().getPostalCode()));
+//        Location location = consultation.getLocation();
+//        LocationXml locationXml = new LocationXml();
+//        locationXml.marshal(location, writer, context);
         writer.endNode();
 
         if (consultation.getHivService() != null) {
@@ -48,8 +50,6 @@ public class ConsultationXml implements Converter {
             writer.endNode();
         }
 
-
-        writer.addAttribute("consultationDate", dateFormatter.format(consultation.getConsultationDate()));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.openmrs.module.ptme.web.controller;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
@@ -12,6 +14,10 @@ import org.openmrs.module.ptme.forms.validators.PostnatalFormValidator;
 import org.openmrs.module.ptme.forms.validators.PrenatalFormValidator;
 import org.openmrs.module.ptme.utils.ConsultationWithType;
 import org.openmrs.module.ptme.utils.UsefullFunction;
+import org.openmrs.module.ptme.xml.BirthXml;
+import org.openmrs.module.ptme.xml.PostnatalXml;
+import org.openmrs.module.ptme.xml.PregnantPatientXml;
+import org.openmrs.module.ptme.xml.PrenatalXml;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -249,42 +255,66 @@ public class RegisterManageController {
 
                 if (getPreventTransmissionService().savePregnantPatient(pregnantPatient) != null){
 
+                    XStream xStream = new XStream(new DomDriver());
+                    xStream.registerConverter(new PregnantPatientXml());
+                    xStream.alias("pregnantPatient", PregnantPatient.class);
+
+                    SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
+                    if (ppData == null) {
+                        ppData = new SerializedData();
+                    }
+                    ppData.setObjectUuid(pregnantPatient.getUuid());
+                    ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
+                    ppData.setPackageName(PregnantPatient.class.getName());
+                    getPreventTransmissionService().saveSerializedData(ppData);
+
+                    //System.out.println(xStream.toXML(pregnantPatient));
+
                     if(register.equals("Birth")) {
+
+                        Birth birth = new Birth();
                         if (consultationForm.getConsultationId() == null) {
-                            Birth birth = new Birth();
                             birth.setPregnantPatient(pregnantPatient);
-                            consultationId = getPreventTransmissionService()
-                                    .saveBirthConsultation(consultationForm.setBirthConsultationValues(birth)).getConsultationId();
+                            birth = getPreventTransmissionService()
+                                    .saveBirthConsultation(consultationForm.setBirthConsultationValues(birth));
                         } else {
-                            consultationId = getPreventTransmissionService()
+                            birth = getPreventTransmissionService()
                                     .saveBirthConsultation(consultationForm
                                             .setBirthConsultationValues(getPreventTransmissionService()
-                                                    .getBirthConsultation(consultationForm.getConsultationId()))).getConsultationId();
+                                                    .getBirthConsultation(consultationForm.getConsultationId())));
+
                         }
+                        consultationId = birth.getConsultationId();
+
                     } else if(register.equals("Prenatal")) {
+                        Prenatal prenatal = new Prenatal();
                         if (consultationForm.getConsultationId() == null) {
-                            Prenatal prenatal = new Prenatal();
                             prenatal.setPregnantPatient(pregnantPatient);
-                            consultationId = getPreventTransmissionService()
-                                    .savePrenatalConsultation(consultationForm.setPrenatalConsultationValues(prenatal)).getConsultationId();
+                            prenatal = getPreventTransmissionService()
+                                    .savePrenatalConsultation(consultationForm.setPrenatalConsultationValues(prenatal));
+
+
                         } else {
-                            consultationId = getPreventTransmissionService()
+                            prenatal = getPreventTransmissionService()
                                     .savePrenatalConsultation(consultationForm
                                             .setPrenatalConsultationValues(getPreventTransmissionService()
-                                                    .getPrenatalConsultation(consultationForm.getConsultationId()))).getConsultationId();
+                                                    .getPrenatalConsultation(consultationForm.getConsultationId())));
                         }
+                        consultationId = prenatal.getConsultationId();
+
                     } else if(register.equals("Postnatal")) {
+                        Postnatal postnatal = new Postnatal();
                         if (consultationForm.getConsultationId() == null) {
-                            Postnatal postnatal = new Postnatal();
                             postnatal.setPregnantPatient(pregnantPatient);
-                            consultationId = getPreventTransmissionService()
-                                    .savePostnatalConsultation(consultationForm.setPostnatalConsultationValues(postnatal)).getConsultationId();
+                            postnatal = getPreventTransmissionService()
+                                    .savePostnatalConsultation(consultationForm.setPostnatalConsultationValues(postnatal));
                         } else {
-                            consultationId = getPreventTransmissionService()
+                            postnatal = getPreventTransmissionService()
                                     .savePostnatalConsultation(consultationForm
                                             .setPostnatalConsultationValues(getPreventTransmissionService()
-                                                    .getPostnatalConsultation(consultationForm.getConsultationId()))).getConsultationId();
+                                                    .getPostnatalConsultation(consultationForm.getConsultationId())));
                         }
+                        consultationId = postnatal.getConsultationId();
                     }
 
                     if (consultationId != null) {
@@ -302,10 +332,52 @@ public class RegisterManageController {
                         hivService.setConsultation(getPreventTransmissionService().getConsultation(consultationId));
                         getPreventTransmissionService().saveHivService(hivService);
 
+
                         if(consultationForm.getConsultationId() != null) {
                             session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "ptme.updated");
                         } else {
                             session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "ptme.saved");
+                        }
+
+                        if (register.equals("Birth")) {
+                            Birth birth = getPreventTransmissionService().getBirthConsultation(consultationId);
+                            xStream.registerConverter(new BirthXml());
+                            xStream.alias("birth", Birth.class);
+                            SerializedData bData = getPreventTransmissionService().getSerializedDataByObjectUuid(birth.getUuid());
+                            if (bData == null) {
+                                bData = new SerializedData();
+                            }
+                            bData.setObjectUuid(birth.getUuid());
+                            bData.setSerializedXmlData(xStream.toXML(birth));
+                            bData.setPackageName(Birth.class.getName());
+                            getPreventTransmissionService().saveSerializedData(bData);
+
+                        } else if (register.equals("Prenatal")) {
+                            Prenatal prenatal = getPreventTransmissionService().getPrenatalConsultation(consultationId);
+                            xStream.registerConverter(new PrenatalXml());
+                            xStream.alias("prenatal", Prenatal.class);
+                            SerializedData bData = getPreventTransmissionService().getSerializedDataByObjectUuid(prenatal.getUuid());
+                            if (bData == null) {
+                                bData = new SerializedData();
+                            }
+                            bData.setObjectUuid(prenatal.getUuid());
+                            bData.setSerializedXmlData(xStream.toXML(prenatal));
+                            bData.setPackageName(Prenatal.class.getName());
+                            //log.info(xStream.toXML(prenatal));
+                            //System.out.println(xStream.toXML(prenatal));
+                            getPreventTransmissionService().saveSerializedData(bData);
+                        } else if (register.equals("Postnatal")) {
+                            Postnatal postnatal = getPreventTransmissionService().getPostnatalConsultation(consultationId);
+                            xStream.registerConverter(new PostnatalXml());
+                            xStream.alias("postnatal", Postnatal.class);
+                            SerializedData bData = getPreventTransmissionService().getSerializedDataByObjectUuid(postnatal.getUuid());
+                            if (bData == null) {
+                                bData = new SerializedData();
+                            }
+                            bData.setObjectUuid(postnatal.getUuid());
+                            bData.setSerializedXmlData(xStream.toXML(postnatal));
+                            bData.setPackageName(Postnatal.class.getName());
+                            getPreventTransmissionService().saveSerializedData(bData);
                         }
 
                         OpenRegisterForm openRegisterForm = new OpenRegisterForm();

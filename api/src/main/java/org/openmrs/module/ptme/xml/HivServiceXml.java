@@ -19,13 +19,13 @@ public class HivServiceXml implements Converter {
             writer.addAttribute("voided", "1");
         }
         writer.addAttribute("hivStatusAtReception", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("testProposal", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("testResult", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("resultAnnouncement", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("arvDiscount", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("childArvProphylaxis", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("arvStatus", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("arvTreatment", nullSafeString(hs.getHivStatusAtReception()));
+        writer.addAttribute("testProposal", nullSafeString(hs.getTestProposal()));
+        writer.addAttribute("testResult", nullSafeString(hs.getTestResult()));
+        writer.addAttribute("resultAnnouncement", nullSafeString(hs.getResultAnnouncement()));
+        writer.addAttribute("arvDiscount", nullSafeString(hs.getArvDiscount()));
+        writer.addAttribute("childArvProphylaxis", nullSafeString(hs.getChildArvProphylaxis()));
+        writer.addAttribute("arvStatus", nullSafeString(hs.getArvStatus()));
+        writer.addAttribute("arvTreatment", nullSafeString(hs.getArvTreatment()));
     }
 
     private static String nullSafeString(Object o) {

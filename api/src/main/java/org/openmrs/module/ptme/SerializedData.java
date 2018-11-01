@@ -14,12 +14,16 @@ public class SerializedData extends BaseOpenmrsObject implements Serializable {
     @GeneratedValue
     @Column(name = "serialized_id")
     private Integer serializedId;
+    @Column(name = "package_name", nullable = false)
+    private String packageName;
+    @Column(name = "object_uuid", nullable = false)
+    private String objectUuid;
     @Column(name = "status")
-    private String status;
-    @Column(name = "serialized_xml_data")
-    private String serializedXmlDate;
+    private String status = "TO SEND";
+    @Column(name = "serialized_xml_data", nullable = false, columnDefinition = "LONGTEXT")
+    private String serializedXmlData;
     @Column(name = "date_created")
-    private Date dateCreated;
+    private Date dateCreated = new Date();
     @Column(name = "date_sent")
     private Date dateSent;
     @Column(name = "date_received")
@@ -46,6 +50,22 @@ public class SerializedData extends BaseOpenmrsObject implements Serializable {
         this.serializedId = serializedId;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getObjectUuid() {
+        return objectUuid;
+    }
+
+    public void setObjectUuid(String objectUuid) {
+        this.objectUuid = objectUuid;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -54,12 +74,13 @@ public class SerializedData extends BaseOpenmrsObject implements Serializable {
         this.status = status;
     }
 
-    public String getSerializedXmlDate() {
-        return serializedXmlDate;
+
+    public String getSerializedXmlData() {
+        return serializedXmlData;
     }
 
-    public void setSerializedXmlDate(String serializedXmlDate) {
-        this.serializedXmlDate = serializedXmlDate;
+    public void setSerializedXmlData(String serializedXmlData) {
+        this.serializedXmlData = serializedXmlData;
     }
 
     public Date getDateCreated() {

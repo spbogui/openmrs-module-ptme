@@ -1094,6 +1094,12 @@
             <column name="serialized_id" autoIncrement="true" type="int">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="package_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_uuid" type="varchar(38)">
+                <constraints nullable="false"/>
+            </column>
             <column name="status" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
@@ -1498,5 +1504,22 @@
             UPDATE form SET retired = 1, retired_by = 1, retired_reason = 'disponible dans le nouveau module' WHERE form_id = 14;
             UPDATE form SET retired = 1, retired_by = 1, retired_reason = 'disponible dans le nouveau module' WHERE form_id = 15;
         </sql>
+    </changeSet>
+
+    <changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018" author="BOGUI SERGE">
+        <dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>
+        <addColumn tableName="ptme_serialized_data">
+            <column name="serialized_xml_data" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018-2" author="BOGUI SERGE">
+        <dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>
+        <addColumn tableName="ptme_serialized_data">
+            <column name="serialized_xml_data" type="longtext">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
