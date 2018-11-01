@@ -17,10 +17,15 @@ public class BirthXml implements Converter {
     @Override
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         Birth birth = (Birth) value;
-        writer.addAttribute("deliveryDate", dateFormatter.format(birth.getDeliveryDate()));
-        writer.addAttribute("homeBirth", nullSafeString(birth.getHomeBirth()));
-        writer.addAttribute("pregnancyIssue", nullSafeString(birth.getPregnancyIssue()));
-        writer.addAttribute("childState", nullSafeString(birth.getChildState()));
+        addOptionalElement(writer, "deliveryDate", dateFormatter.format(birth.getDeliveryDate()));
+        addOptionalElement(writer, "homeBirth", nullSafeString(birth.getHomeBirth()));
+        addOptionalElement(writer, "pregnancyIssue", nullSafeString(birth.getPregnancyIssue()));
+        addOptionalElement(writer, "childState", nullSafeString(birth.getChildState()));
+
+//        writer.addAttribute("deliveryDate", dateFormatter.format(birth.getDeliveryDate()));
+//        writer.addAttribute("homeBirth", nullSafeString(birth.getHomeBirth()));
+//        writer.addAttribute("pregnancyIssue", nullSafeString(birth.getPregnancyIssue()));
+//        writer.addAttribute("childState", nullSafeString(birth.getChildState()));
 
         ConsultationXml consultationXml = new ConsultationXml();
         consultationXml.marshal(birth, writer, context);

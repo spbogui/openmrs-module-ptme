@@ -84,7 +84,7 @@ public class ChildFollowupXml implements Converter {
      *            the output buffer
      */
     private void addOptionalElement(HierarchicalStreamWriter writer, String nodeName, String value) {
-        if (value != null) {
+        if (value != null && !value.isEmpty()) {
             writer.startNode(nodeName);
             writer.setValue(value);
             writer.endNode();

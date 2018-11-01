@@ -27,15 +27,25 @@ public class ConsultationXml implements Converter {
         if (consultation.isVoided()) {
             writer.addAttribute("voided", "1");
         }
-        writer.addAttribute("consultationDate", dateFormatter.format(consultation.getConsultationDate()));
-        if (consultation.getPregnantPatient() != null) {
-            writer.startNode("pregnantPatient");
-            writer.setValue(consultation.getPregnantPatient().getUuid());
+
+        writer.startNode("consultationDate");
+        writer.setValue(dateFormatter.format(consultation.getConsultationDate()));
+        writer.endNode();
+
+        writer.startNode("pregnantPatient");
+        writer.setValue(consultation.getPregnantPatient().getUuid());
+        writer.endNode();
+
+        //writer.addAttribute("consultationDate", dateFormatter.format(consultation.getConsultationDate()));
+
+        //if (consultation.getPregnantPatient() != null) {
+//            writer.startNode("pregnantPatient");
+//            writer.setValue(consultation.getPregnantPatient().getUuid());
 //            PregnantPatient pregnantPatient = consultation.getPregnantPatient();
 //            PregnantPatientXml patientXml = new PregnantPatientXml();
 //            patientXml.marshal(pregnantPatient, writer, context);
-            writer.endNode();
-        }
+//            writer.endNode();
+        //}
         writer.startNode("location");
         writer.setValue(nullSafeString(consultation.getLocation().getPostalCode()));
 //        Location location = consultation.getLocation();

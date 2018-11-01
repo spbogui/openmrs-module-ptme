@@ -20,30 +20,47 @@ public class PregnantPatientXml implements Converter {
         PregnantPatient pregnantPatient = (PregnantPatient) o;
 
         writer.addAttribute("uuid", pregnantPatient.getUuid());
-        writer.addAttribute("familyName", nullSafeString(pregnantPatient.getFamilyName()));
-        writer.addAttribute("givenName", nullSafeString(pregnantPatient.getGivenName()));
-        writer.addAttribute("age", nullSafeString(pregnantPatient.getAge()));
-        writer.addAttribute("pregnantNumber", pregnantPatient.getPregnantNumber());
-        writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
-        writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
-        writer.addAttribute("screeningNumber", nullSafeString(pregnantPatient.getScreeningNumber()));
-        writer.addAttribute("maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
-        writer.addAttribute("spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
-        writer.addAttribute("spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
         writer.addAttribute("locationUuid", nullSafeString(pregnantPatient.getLocation().getUuid()));
-
         if (pregnantPatient.isVoided()) {
             writer.addAttribute("voided", "1");
         }
+        writer.startNode("pregnantNumber");
+        writer.setValue(pregnantPatient.getPregnantNumber());
+        writer.endNode();
 
-        if (pregnantPatient.getPatient() != null) {
-            Patient patient = pregnantPatient.getPatient();
-            writer.startNode("patient");
-            writer.setValue(pregnantPatient.getPatient().getUuid());
+        writer.startNode("age");
+        writer.setValue(nullSafeString(pregnantPatient.getAge()));
+        writer.endNode();
+
+//        writer.addAttribute("pregnantNumber", pregnantPatient.getPregnantNumber());
+//        writer.addAttribute("age", nullSafeString(pregnantPatient.getAge()));
+
+        addOptionalElement(writer, "familyName", pregnantPatient.getFamilyName());
+        addOptionalElement(writer, "givenName", pregnantPatient.getGivenName());
+        addOptionalElement(writer, "hivCareNumber", pregnantPatient.getHivCareNumber());
+        addOptionalElement(writer, "screeningNumber", pregnantPatient.getScreeningNumber());
+        addOptionalElement(writer, "maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
+        addOptionalElement(writer, "spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
+        addOptionalElement(writer, "spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
+        addOptionalElement(writer, "spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
+        addOptionalElement(writer, "patient", pregnantPatient.getPatient().getUuid());
+
+//        writer.addAttribute("familyName", nullSafeString(pregnantPatient.getFamilyName()));
+//        writer.addAttribute("givenName", nullSafeString(pregnantPatient.getGivenName()));
+//        writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
+//        writer.addAttribute("screeningNumber", nullSafeString(pregnantPatient.getScreeningNumber()));
+//        writer.addAttribute("maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
+//        writer.addAttribute("spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
+//        writer.addAttribute("spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
+
+//        if (pregnantPatient.getPatient() != null) {
+//            Patient patient = pregnantPatient.getPatient();
+//            writer.startNode("patient");
+//            writer.setValue(pregnantPatient.getPatient().getUuid());
 //            PatientXml patientXml = new PatientXml();
 //            patientXml.marshal(patient, writer, context);
-            writer.endNode();
-        }
+//            writer.endNode();
+//        }
 
     }
 
@@ -66,17 +83,14 @@ public class PregnantPatientXml implements Converter {
     /**
      * Convenience method for rendering XML elements
      *
-     * @param writer
-     *            XML output writer
-     * @param nodeName
-     *            name of node for element
-     * @param value
-     *            the value for the element. if null, then nothing is added to
-     *            the output buffer
+     * @param writer   XML output writer
+     * @param nodeName name of node for element
+     * @param value    the value for the element. if null, then nothing is added to
+     *                 the output buffer
      */
     private void addOptionalElement(HierarchicalStreamWriter writer,
                                     String nodeName, String value) {
-        if (value != null) {
+        if (value != null && !value.isEmpty()) {
             writer.startNode(nodeName);
             writer.setValue(value);
             writer.endNode();
