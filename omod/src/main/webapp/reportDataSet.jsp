@@ -6,10 +6,22 @@
 
 <%@ include file="template/reportHeader.jsp"%>
 
+<style type="text/css">
+    #selectedIndicatorList, #availableIndicatorList {
+        height: 300px;
+        width: 400px;
+
+    }
+</style>
 <script type="application/javascript">
     if (jQuery) {
         $(document).ready(function () {
             $("#list-dataset").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'csv', 'excel' ]
+                },
                 "pageLength": 20,
                 "order": [[1, "desc"]],
                 "language": {
@@ -24,12 +36,27 @@
                 "lengthChange": false,
                 "stripeClasses": [ 'odd', 'even' ]
             });
+            $("a#forward").button();
+            $("a#backward").button();
+
+            sortElement("selectedIndicatorList");
+            sortElement("availableIndicatorList");
+
+            $("#form").submit(function (e) {
+                //e.preventDefault();
+                var select = document.getElementById("selectedIndicatorList");
+                for (var i = 0; i < select.options.length; i++) {
+                    select.options[i].selected="selected";
+                }
+                return true;
+            })
+
         });
         
         function moveForward() {
             var forwardVariable = '';
             $("#availableIndicatorList :selected").each(function () {
-                forwardVariable += '<option value="'+$(this).val()+'">'+$(this).html()+'</option>';
+                forwardVariable += '<option value="'+$(this).val()+'" selected="selected">'+$(this).html()+'</option>';
                 $(this).remove();
             });
 
@@ -46,8 +73,14 @@
                 backwardVariable+="<option value='"+$(this).val()+"'>"+$(this).html()+"</option>";
                 $(this).remove();
             });
+
+            $("#selectedIndicatorList").each(function(){
+                $(this).attr("selected", "selected");
+            });
+
             //Now appending the selected firs list's element to the list 1.
             $("#availableIndicatorList").append(backwardVariable);
+
 
             //Sorting the list 2 so that it shows the list alphabetically
             sortElement("availableIndicatorList");
@@ -91,7 +124,7 @@
         <tr style="background-color: #1aac9b; color: #ffffff;">
             <th>code</th>
             <th>Nom</th>
-            <th>Description</th>
+            <th>Nombre d'indicateurs</th>
             <th>Cr&eacute;&eacute; par</th>
             <th>Cr&eacute;&eacute; le</th>
             <th></th>
@@ -100,9 +133,9 @@
         <tbody>
         <c:forEach var="dataSet" items="${ dataSets }">
             <tr>
-                <td>${dataSet.templateCode}</td>
+                <td>${dataSet.code}</td>
                 <td>${dataSet.name}</td>
-                <td>${dataSet.description}</td>
+                <td align="center">${fn:length(dataSet.reportingIndicators)}</td>
                 <td>
                     <c:forEach var="name" items="${ dataSet.creator.person.names }">
                         <c:if test="${ name.preferred }">
@@ -115,14 +148,14 @@
                     <table cellpadding="0" cellspacing="0" class="button-table">
                         <tr>
                             <td>
-                                <c:url value="/module/ptme/reportDataset.form" var="url">
-                                    <c:param name="indicatorId" value="${dataSet.datasetId}"/>
+                                <c:url value="/module/ptme/reportDataSet.form" var="url">
+                                    <c:param name="datasetId" value="${dataSet.datasetId}"/>
                                 </c:url>
                                 <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
                             </td>
                             <td>|</td>
                             <td>
-                                <c:url value="/module/ptme/reportDataset.form" var="urlsup">
+                                <c:url value="/module/ptme/reportDataSet.form" var="urlsup">
                                     <c:param name="delId" value="${dataSet.datasetId}"/>
                                 </c:url>
                                 <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
@@ -161,10 +194,49 @@
                                 <td><form:errors cssClass="error" path="name"/></td>
 
                             </tr>
+                            <%--<tr>--%>
+                                <%--<td class="boldText">Description  : </td>--%>
+                                <%--<td><form:textarea path="description" rows="5" cssClass="textarea-c" /></td>--%>
+                                <%--<td><form:errors cssClass="error" path="description"/></td>--%>
+                            <%--</tr>--%>
                             <tr>
-                                <td class="boldText">Description  : </td>
-                                <td><form:textarea path="description" rows="5" cssClass="textarea-c" /></td>
-                                <td><form:errors cssClass="error" path="description"/></td>
+                                <td colspan="2" class="boldText">Ajouter les indicateurs <b class="required">*</b> :</td>
+                                <td><form:errors cssClass="error" path="name"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>Liste des indicateurs disponibles</td>
+                                            <td></td>
+                                            <td>Liste des indicateurs s&eacute;lection&eacute;s</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <form:select path="availableIndicatorList"  multiple="true" cssClass="">
+                                                    <c:forEach  items="${availableIndicatorList}" var="availableIndicatorItem">
+                                                        <option value="${availableIndicatorItem.indicatorId}">${availableIndicatorItem.name}</option>
+                                                    </c:forEach>
+                                                </form:select>
+                                            </td>
+                                            <td>
+                                                <a id="forward" onclick="moveForward()" style="font-size: 20px">&DoubleLongRightArrow;</a>
+                                                <br>
+                                                <a id="backward" onclick="moveBackward()" style="font-size: 20px">&DoubleLongLeftArrow;</a>
+                                            </td>
+                                            <td>
+                                                <form:select path="selectedIndicatorList" multiple="true" cssClass="">
+                                                    <c:forEach  items="${selectedIndicators}" var="selectedIndicatorItem">
+                                                        <%--${selectedIndicatorItem.indicatorId}--%>
+                                                        <option value="${selectedIndicatorItem.indicatorId}" selected="selected">${selectedIndicatorItem.name}</option>
+                                                    </c:forEach>
+                                                </form:select>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+
                             </tr>
                             <%--<tr>
                                 <td class="boldText">Script SQL <b class="required">*</b> :</td>

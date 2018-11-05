@@ -1522,4 +1522,9 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="prevent-transmission-alter-table-reporting-indicator-02-11-2018" author="BOGUI SERGE">
+        <dropColumn tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
+        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
+        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
+    </changeSet>
 </databaseChangeLog>

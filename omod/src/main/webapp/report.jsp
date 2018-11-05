@@ -35,4 +35,6 @@
 
 You are on the report execution page (report.jsp)
 
+
+
 <%@ include file="template/localFooter.jsp"%>

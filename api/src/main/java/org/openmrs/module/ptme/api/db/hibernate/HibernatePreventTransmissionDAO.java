@@ -950,6 +950,102 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
+	public List<ReportingDataset> getAllDatasets() {
+		return (List<ReportingDataset>) sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class).list();
+	}
+
+	@Override
+	public List<ReportingDataset> getAllDatasets(Boolean includeVoided) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class);
+		return (List<ReportingDataset>) (includeVoided ? criteria.list() : criteria.add(Restrictions.eq("voided", includeVoided)).list());
+	}
+
+	@Override
+	public ReportingDataset getDatasetById(Integer indicatorId) {
+		return  (ReportingDataset) sessionFactory.getCurrentSession().get(ReportingDataset.class, indicatorId);
+	}
+
+	@Override
+	public ReportingDataset saveReportingDataset(ReportingDataset dataset) {
+		sessionFactory.getCurrentSession().saveOrUpdate(dataset);
+		return dataset;
+	}
+
+	@Override
+	public Boolean removeDataset(Integer datasetId) {
+		if (getDatasetById(datasetId) != null){
+			sessionFactory.getCurrentSession().delete(getIndicatorById(datasetId));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ReportingDataset voidDataset(Integer indicatorId) {
+		ReportingDataset rd = (ReportingDataset) sessionFactory.getCurrentSession().get(ReportingDataset.class, indicatorId);
+		rd.setVoided(true);
+		rd.setDateVoided(new Date());
+		sessionFactory.getCurrentSession().update(rd);
+		return rd;
+	}
+
+	@Override
+	public List<ReportingReport> getAllReports() {
+		return (List<ReportingReport>) sessionFactory.getCurrentSession().createCriteria(ReportingReport.class).list();
+	}
+
+	@Override
+	public List<ReportingReport> getAllReports(Boolean includeVoided) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingReport.class);
+		return (List<ReportingReport>) (includeVoided ? criteria.list() : criteria.add(Restrictions.eq("voided", includeVoided)).list());
+	}
+
+	@Override
+	public ReportingReport getReportById(Integer reportId) {
+		return (ReportingReport) sessionFactory.getCurrentSession().get(ReportingReport.class, reportId);
+	}
+
+	@Override
+	public ReportingReport saveReportingReport(ReportingReport report) {
+		sessionFactory.getCurrentSession().saveOrUpdate(report);
+		return report;
+	}
+
+	@Override
+	public Boolean removeReport(Integer reportId) {
+		if (getDatasetById(reportId) != null){
+			sessionFactory.getCurrentSession().delete(getIndicatorById(reportId));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ReportingReport voidReport(Integer reportId) {
+		ReportingReport reportingReport = (ReportingReport) sessionFactory.getCurrentSession().get(ReportingReport.class, reportId);
+		reportingReport.setVoided(true);
+		reportingReport.setDateVoided(new Date());
+		sessionFactory.getCurrentSession().update(reportingReport);
+		return reportingReport;
+	}
+
+	@Override
+	public List<ReportingTemplate> getAllTemplates() {
+		return (List<ReportingTemplate>) sessionFactory.getCurrentSession().createCriteria(ReportingTemplate.class).list();
+	}
+
+	@Override
+	public List<ReportingTemplate> getAllTemplates(Boolean includeVoided) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingTemplate.class);
+		return (List<ReportingTemplate>) (includeVoided ? criteria.list() : criteria.add(Restrictions.eq("voided", includeVoided)).list());
+	}
+
+	@Override
+	public ReportingTemplate getTemplateById(Integer templateId) {
+		return (ReportingTemplate) sessionFactory.getCurrentSession().get(ReportingTemplate.class, templateId);
+	}
+
+	@Override
 	public SerializedData getSerializedDataById(Integer id) {
 		return (SerializedData) sessionFactory.getCurrentSession().get(SerializedData.class, id);
 	}

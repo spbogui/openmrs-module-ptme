@@ -58,16 +58,16 @@
             });
 
 //            var prev = {};
-//                if (prev && prev.value == this.value) {
-//                    $j(this).prop('checked', !prev.status);
-//                }
-//                prev = {
-//                    value: this.value,
-//                    status: this.checked
-//                };
+//            if (prev && prev.value == this.value) {
+//                $j(this).prop('checked', !prev.status);
+//            }
+//            prev = {
+//                value: this.value,
+//                status: this.checked
+//            };
 //            });
 			$('button').button();
-			$('select').selectmenu();
+			$('.selection').selectmenu();
 			$('input[type=submit]').button();
 			$('input[type=button]').button();
 
@@ -275,13 +275,13 @@
 				   <c:if test='<%= request.getRequestURI().contains("/child") %>'>style="color: white"</c:if>>
 					<spring:message code="ptme.followupChildTitle" /></a>
 			</td>
-			<%--<openmrs:hasPrivilege privilege="Run PTME Reports">
+			<openmrs:hasPrivilege privilege="Run PTME Reports">
 				<td width="250px" <c:if test='<%= request.getRequestURI().contains("report") || request.getRequestURI().contains("Report") %>'>class="boxMenuItemChoice"</c:if>>
 					<a href="${pageContext.request.contextPath}/module/ptme/reportGenerate.form"
 					   <c:if test='<%= request.getRequestURI().contains("report") || request.getRequestURI().contains("Report") %>'>style="color: white"</c:if>>
 						<spring:message code="ptme.report.menu.title" /></a>
 				</td>
-			</openmrs:hasPrivilege>--%>
+			</openmrs:hasPrivilege>
 		</tr>
 	</table>
 </div>

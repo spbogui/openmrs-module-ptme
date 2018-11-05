@@ -20,8 +20,8 @@ public class ReportingDataset extends PreventTransmissionAbstract {
     private Integer datasetId;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column(name = "description")
-    private String description;
+//    @Column(name = "description")
+//    private String description;
     @Column(name = "code", nullable = false)
     private String code;
 //    @Column(name = "dataset_headers", nullable = false)
@@ -68,13 +68,13 @@ public class ReportingDataset extends PreventTransmissionAbstract {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     public String getCode() {
         return code;

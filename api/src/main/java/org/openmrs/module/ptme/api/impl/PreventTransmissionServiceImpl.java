@@ -428,6 +428,81 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
+    public List<ReportingDataset> getAllDatasets() {
+        return dao.getAllDatasets();
+    }
+
+    @Override
+    public List<ReportingDataset> getAllDatasets(Boolean includeVoided) {
+        return dao.getAllDatasets(includeVoided);
+    }
+
+    @Override
+    public ReportingDataset getDatasetById(Integer datasetId) {
+        return dao.getDatasetById(datasetId);
+    }
+
+    @Override
+    public ReportingDataset saveReportingDataset(ReportingDataset dataset) {
+        return dao.saveReportingDataset(dataset);
+    }
+
+    @Override
+    public Boolean removeDataset(Integer datasetId) {
+        return dao.removeDataset(datasetId);
+    }
+
+    @Override
+    public ReportingDataset voidDataset(Integer datasetId) {
+        return dao.voidDataset(datasetId);
+    }
+
+    @Override
+    public List<ReportingReport> getAllReports() {
+        return dao.getAllReports();
+    }
+
+    @Override
+    public List<ReportingReport> getAllReports(Boolean includeVoided) {
+        return dao.getAllReports(includeVoided);
+    }
+
+    @Override
+    public ReportingReport getReportById(Integer reportId) {
+        return dao.getReportById(reportId);
+    }
+
+    @Override
+    public ReportingReport saveReportingReport(ReportingReport report) {
+        return dao.saveReportingReport(report);
+    }
+
+    @Override
+    public Boolean removeReport(Integer reportId) {
+        return dao.removeReport(reportId);
+    }
+
+    @Override
+    public ReportingReport voidReport(Integer reportId) {
+        return dao.voidReport(reportId);
+    }
+
+    @Override
+    public List<ReportingTemplate> getAllTemplates() {
+        return dao.getAllTemplates();
+    }
+
+    @Override
+    public List<ReportingTemplate> getAllTemplates(Boolean includeVoided) {
+        return dao.getAllTemplates(includeVoided);
+    }
+
+    @Override
+    public ReportingTemplate getTemplateById(Integer templateId) {
+        return dao.getTemplateById(templateId);
+    }
+
+    @Override
     public SerializedData getSerializedDataById(Integer id) {
         return dao.getSerializedDataById(id);
     }

@@ -25,8 +25,8 @@
             <%--</a>--%>
             <%--</li>--%>
 
-            <li <c:if test='<%= request.getRequestURI().contains("/manageReport") %>'>class="active"</c:if>>
-                <a href="${pageContext.request.contextPath}/module/ptme/manageReport.form">
+            <li <c:if test='<%= request.getRequestURI().contains("/reportManage") %>'>class="active"</c:if>>
+                <a href="${pageContext.request.contextPath}/module/ptme/reportManage.form">
                     <spring:message code="ptme.report.submenu.title.manage.report" />
                 </a>
             </li>

@@ -157,6 +157,27 @@ public interface PreventTransmissionDAO {
     Boolean removeIndicator(Integer indicatorId);
     ReportingIndicator voidIndicator(Integer indicatorId);
 
+    // DataSet Service
+    List<ReportingDataset> getAllDatasets();
+    List<ReportingDataset> getAllDatasets(Boolean includeVoided);
+    ReportingDataset getDatasetById(Integer indicatorId);
+    ReportingDataset saveReportingDataset(ReportingDataset dataset);
+    Boolean removeDataset(Integer datasetId);
+    ReportingDataset voidDataset(Integer datasetId);
+
+    // Report Service
+    List<ReportingReport> getAllReports();
+    List<ReportingReport> getAllReports(Boolean includeVoided);
+    ReportingReport getReportById(Integer reportId);
+    ReportingReport saveReportingReport(ReportingReport report);
+    Boolean removeReport(Integer reportId);
+    ReportingReport voidReport(Integer reportId);
+
+    // Template Service
+    List<ReportingTemplate> getAllTemplates();
+    List<ReportingTemplate> getAllTemplates(Boolean includeVoided);
+    ReportingTemplate getTemplateById(Integer templateId);
+
     /**
      * End Reporting bloc
      */
