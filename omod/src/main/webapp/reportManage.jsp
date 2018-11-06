@@ -132,7 +132,7 @@
             <tbody>
             <c:forEach var="report" items="${ reports }">
                 <tr>
-                    <td>${report.label}</td>
+                    <td>${report.reportLabel}</td>
                     <td>${report.description}</td>
                     <td>
                         <c:forEach var="name" items="${ report.creator.person.names }">
@@ -146,14 +146,14 @@
                         <table cellpadding="0" cellspacing="0" class="button-table">
                             <tr>
                                 <td>
-                                    <c:url value="/module/ptme/reportDataSet.form" var="url">
+                                    <c:url value="/module/ptme/reportManage.form" var="url">
                                         <c:param name="reportId" value="${report.reportId}"/>
                                     </c:url>
                                     <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
                                 </td>
                                 <td>|</td>
                                 <td>
-                                    <c:url value="/module/ptme/reportDataSet.form" var="urlsup">
+                                    <c:url value="/module/ptme/reportManage.form" var="urlsup">
                                         <c:param name="delId" value="${report.reportId}"/>
                                     </c:url>
                                     <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
@@ -174,7 +174,7 @@
     <div class="box">
         <h3><b>Saisie des rapports</b></h3>
         <div class="line"></div>
-        <form:form action="" commandName="reportForm" id="form" method="post" >
+        <form:form action="" commandName="reportForm" id="form" method="post">
             <form:hidden path="reportId"/>
             <table cellspacing="0" cellpadding="5" align="">
                 <tr>
@@ -182,7 +182,7 @@
                         <table cellpadding="5" cellspacing="0" width="100%">
                             <tr>
                                 <td class="boldText">Nom <b class="required">*</b> : </td>
-                                <td><form:input path="label"  size="10" cssClass=""/></td>
+                                <td><form:input path="label"  size="80" cssClass=""/></td>
                                 <td><form:errors cssClass="error" path="label"/></td>
                             </tr>
                             <tr>
@@ -196,7 +196,7 @@
                                     <<option value="">-- S&eacute;lectionner --</option>
                                     <c:forEach  items="${templateList}" var="templateItem">
                                         <option value="${templateItem.templateId}"
-                                                <c:if test="${templateItem.templateId == templateId}">selected="selected"</c:if> >
+                                                <c:if test="${templateItem.templateId == reportForm.templateId}">selected="selected"</c:if> >
                                                 ${templateItem.name}
                                         </option>
                                     </c:forEach>
@@ -249,10 +249,10 @@
             <table cellspacing="0" cellpadding="5">
                 <tr>
                     <td>
-                        <c:if test="${ empty datasetForm.datasetId }">
+                        <c:if test="${ empty reportForm.reportId }">
                             <input type="submit" value="Enregistrer" name="action"/>
                         </c:if>
-                        <c:if test="${ not empty datasetForm.datasetId }">
+                        <c:if test="${ not empty reportForm.reportId }">
                             <input type="submit" value="Modifier" name="action"/>
                         </c:if>
                     </td>
