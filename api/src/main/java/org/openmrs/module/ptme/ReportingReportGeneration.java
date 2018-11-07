@@ -22,7 +22,7 @@ public class ReportingReportGeneration extends PreventTransmissionAbstract {
     private String name;
     @Column(name = "generation_date", nullable = false)
     private Date generationDate;
-    @Column(name = "reporting_period_start_date", nullable = false)
+    @Column(name = "report_period_start_date", nullable = false)
     private Date reportPeriodStartDate;
     @Column(name = "report_period_end_date", nullable = false)
     private Date reportPeriodEndDate;

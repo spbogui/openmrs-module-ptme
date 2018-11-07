@@ -77,6 +77,7 @@ public class ReportForm {
         this.setLabel(report.getReportLabel());
         this.setTemplateId(report.getTemplate().getTemplateId());
         this.setDescription(report.getDescription());
+
     }
 
     public ReportingReport setReport(ReportingReport report) {

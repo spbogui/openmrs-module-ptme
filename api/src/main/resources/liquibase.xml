@@ -1440,6 +1440,9 @@
             <column name="report_period_start_date" type="date">
                 <constraints nullable="false"/>
             </column>
+            <column name="report_period_end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
             <column name="report_location" type="int">
                 <constraints nullable="false"/>
             </column>

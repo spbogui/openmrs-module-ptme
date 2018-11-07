@@ -4,6 +4,7 @@ import org.openmrs.Location;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.ReportingDataset;
 import org.openmrs.module.ptme.ReportingIndicator;
+import org.openmrs.module.ptme.ReportingReport;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.DatasetForm;
 import org.openmrs.module.ptme.forms.GetDataSetFromFrom;
@@ -52,6 +53,15 @@ public class ReportingManageDataSetController {
         HttpSession session = request.getSession();
 
         String mode = "list";
+
+        if (delId != 0){
+            ReportingDataset dataset = getPreventTransmissionService().getDatasetById(delId);
+            if (dataset != null) {
+                if (getPreventTransmissionService().voidReport(delId) != null) {
+                    session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Ensemble de données supprimé avec succès !");
+                }
+            }
+        }
 
         if (!add.isEmpty()){
             mode = "form";
