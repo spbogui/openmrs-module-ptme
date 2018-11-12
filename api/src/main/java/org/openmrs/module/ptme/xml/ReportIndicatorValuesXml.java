@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import org.openmrs.module.ptme.utils.ReportDataSetIndicatorRun;
 import org.openmrs.module.ptme.utils.ReportIndicatorValues;
 import org.openmrs.module.ptme.utils.ReportRunIndicatorValue;
 
@@ -22,13 +23,35 @@ public class ReportIndicatorValuesXml implements Converter {
         writer.addAttribute("endDate", nullSafeString(dateFormatter.format(riv.getReportEndDate())));
         writer.addAttribute("generationDate", nullSafeString(dateFormatter.format(riv.getGenerationDate())));
         writer.addAttribute("location", nullSafeString(riv.getLocationUuid()));
-        if (!riv.getReportRunIndicatorValues().isEmpty()) {
+        /*if (!riv.getReportRunIndicatorValues().isEmpty()) {
             writer.startNode("reportValues");
             for (ReportRunIndicatorValue rriv :
                     riv.getReportRunIndicatorValues()) {
                 addOptionalElementWithIdAttribute(writer, "indicator", rriv.getIndicatorUuid(), nullSafeString(rriv.getValue()));
             }
             writer.endNode();
+        }*/
+
+        if (!riv.getReportDataSetIndicatorRuns().isEmpty()) {
+            //writer.startNode("dataSet");
+            for (ReportDataSetIndicatorRun rdi : riv.getReportDataSetIndicatorRuns()) {
+                writer.startNode("dataSet");
+                writer.addAttribute("uuid", rdi.getDataSetUuid());
+                if (!rdi.getReportRunIndicatorValues().isEmpty()) {
+                    //writer.startNode("indicators");
+                    for (ReportRunIndicatorValue rriv :
+                            rdi.getReportRunIndicatorValues()) {
+                        writer.startNode("indicator");
+                        writer.addAttribute("uuid", rriv.getIndicatorUuid());
+                        addOptionalElement(writer, "value", nullSafeString(rriv.getValue()));
+                        writer.endNode();
+                        //addOptionalElementWithIdAttribute(writer, "indicator", rriv.getIndicatorUuid(), nullSafeString(rriv.getValue()));
+                    }
+                    //writer.endNode();
+                }
+                writer.endNode();
+            }
+            //writer.endNode();
         }
     }
 
@@ -61,7 +84,7 @@ public class ReportIndicatorValuesXml implements Converter {
             String value) {
         if (value != null) {
             writer.startNode(nodeName);
-            writer.addAttribute("id", id);
+            writer.addAttribute("uuid", id);
             writer.setValue(value);
             writer.endNode();
         }

@@ -428,6 +428,11 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
+    public ReportingIndicator getIndicatorByUuid(String uuid) {
+        return dao.getIndicatorByUuid(uuid);
+    }
+
+    @Override
     public List<ReportingDataset> getAllDatasets() {
         return dao.getAllDatasets();
     }
@@ -526,5 +531,35 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     @Override
     public Boolean removeSerializedDataById(Integer id) {
         return dao.removeSerializedDataById(id);
+    }
+
+    @Override
+    public ReportingReportGeneration getGeneratedReportById(Integer generatedReportId) {
+        return dao.getGeneratedReport(generatedReportId);
+    }
+
+    @Override
+    public String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location) {
+        return dao.getGeneratedReportXmlString(startDate, endDate, reportId, location);
+    }
+
+    @Override
+    public ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration) {
+        return dao.saveGenerationReport(reportingReportGeneration);
+    }
+
+    @Override
+    public List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided) {
+        return dao.getAllGeneratedReport(includeVoided);
+    }
+
+    @Override
+    public ReportingDataset getDatasetByUuid(String uuid) {
+        return dao.getDatasetByUuid(uuid);
+    }
+
+    @Override
+    public Boolean removeGeneratedReport(Integer delId) {
+        return dao.removeGeneratedReport(delId);
     }
 }

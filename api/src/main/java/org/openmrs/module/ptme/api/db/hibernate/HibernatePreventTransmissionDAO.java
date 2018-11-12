@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.ptme.api.db.hibernate;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -21,15 +23,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.type.StandardBasicTypes;
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Relationship;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.*;
 import org.openmrs.module.ptme.api.db.PreventTransmissionDAO;
 import org.openmrs.module.ptme.utils.*;
+import org.openmrs.module.ptme.xml.ReportIndicatorValuesXml;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -950,6 +956,12 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
+	public ReportingIndicator getIndicatorByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class);
+		return (ReportingIndicator) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
 	public List<ReportingDataset> getAllDatasets() {
 		return (List<ReportingDataset>) sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class).list();
 	}
@@ -1071,6 +1083,106 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	public Boolean removeSerializedDataById(Integer id) {
 		if (getSerializedDataById(id) != null) {
 			sessionFactory.getCurrentSession().delete(getSerializedDataById(id));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ReportingReportGeneration getGeneratedReport(Integer generatedReportId) {
+		return (ReportingReportGeneration) sessionFactory.getCurrentSession().get(ReportingReportGeneration.class, generatedReportId);
+	}
+
+	private Location getLocationByName(String name) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Location.class);
+		return (Location) criteria.add(Restrictions.eq("name", name)).uniqueResult();
+	}
+
+	@Override
+	public String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location) {
+		Location l = Context.getLocationService().getDefaultLocation();
+		ReportIndicatorValues reportIndicatorValues = new ReportIndicatorValues();
+
+		reportIndicatorValues.setGenerationDate(new Date());
+		reportIndicatorValues.setReportStartDate(startDate);
+		reportIndicatorValues.setReportEndDate(endDate);
+		Integer locationId = null;
+
+		if (l != null) {
+			reportIndicatorValues.setLocationUuid(l.getUuid());
+			locationId = l.getLocationId();
+		}
+
+		ReportingReport report = getReportById(reportId);
+		List<ReportDataSetIndicatorRun> reportDataSetIndicatorRuns = new ArrayList<ReportDataSetIndicatorRun>();
+
+		for (ReportingDataset reportingDataset : report.getReportingDatasets()) {
+
+			ReportDataSetIndicatorRun reportDataSetIndicatorRun = new ReportDataSetIndicatorRun();
+			reportDataSetIndicatorRun.setDataSetUuid(reportingDataset.getUuid());
+
+			List<ReportRunIndicatorValue> reportRunIndicatorValues = new ArrayList<ReportRunIndicatorValue>();
+
+			for (ReportingIndicator reportingIndicator : reportingDataset.getReportingIndicators()) {
+				ReportRunIndicatorValue reportRunIndicatorValue = new ReportRunIndicatorValue();
+
+				String sqlQuery = reportingIndicator.getIndicatorSqlScript();
+
+				Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery);
+				if (sqlQuery.contains(":startDate")) {
+					query.setParameter("startDate", startDate);
+				}
+				if (sqlQuery.contains(":endDate")) {
+					query.setParameter("endDate", endDate);
+				}
+				if (sqlQuery.contains(":locationId")) {
+					query.setParameter("locationId", locationId);
+				}
+
+				String value = query.uniqueResult().toString();
+
+				reportRunIndicatorValue.setValue(Integer.parseInt(value));
+				reportRunIndicatorValue.setIndicatorUuid(reportingIndicator.getUuid());
+
+				reportRunIndicatorValues.add(reportRunIndicatorValue);
+			}
+
+			reportDataSetIndicatorRun.setReportRunIndicatorValues(reportRunIndicatorValues);
+			reportDataSetIndicatorRuns.add(reportDataSetIndicatorRun);
+		}
+
+		//reportIndicatorValues.setReportRunIndicatorValues(reportRunIndicatorValues);
+
+		reportIndicatorValues.setReportDataSetIndicatorRuns(reportDataSetIndicatorRuns);
+
+		XStream xStream = new XStream(new DomDriver());
+		xStream.registerConverter(new ReportIndicatorValuesXml());
+		xStream.alias("report", ReportIndicatorValues.class);
+
+		return xStream.toXML(reportIndicatorValues);
+	}
+
+	@Override
+	public ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration) {
+		sessionFactory.getCurrentSession().saveOrUpdate(reportingReportGeneration);
+		return reportingReportGeneration;
+	}
+
+	@Override
+	public List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided) {
+		return (List<ReportingReportGeneration>) sessionFactory.getCurrentSession().createCriteria(ReportingReportGeneration.class).list();
+	}
+
+	@Override
+	public ReportingDataset getDatasetByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class);
+		return (ReportingDataset) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public Boolean removeGeneratedReport(Integer delId) {
+		if (getGeneratedReport(delId) != null){
+			sessionFactory.getCurrentSession().delete(getGeneratedReport(delId));
 			return true;
 		}
 		return false;

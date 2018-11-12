@@ -1433,7 +1433,7 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="generation_date" type="date">
+            <column name="generation_date" type="datetime">
                 <constraints nullable="false"/>
             </column>
 

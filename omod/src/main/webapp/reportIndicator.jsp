@@ -49,7 +49,7 @@
 
             });
 
-            $('textarea').autogrow();
+            $('textarea').autoGrow();
         });
     }
 </script>
@@ -61,9 +61,6 @@
         <form:form action="" commandName="getIndicatorFromFrom" id="form" method="get" >
             <table cellspacing="0" cellpadding="5">
                 <tr>
-
-                        <%--<td>Num&eacute;ro identifiant de la m&egrave;re : </td>
-                        <td><form:input path="hivCareNumber" cssClass=""/></td>--%>
                     <td><input type="submit" value="Nouveau" name="add"></td>
                 </tr>
             </table>

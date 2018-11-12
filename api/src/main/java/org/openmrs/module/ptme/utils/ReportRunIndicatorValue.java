@@ -1,8 +1,15 @@
 package org.openmrs.module.ptme.utils;
 
+import javax.xml.bind.annotation.*;
+
+//@XmlRootElement(name = "indicator")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ReportRunIndicatorValue {
-    private Integer value;
+
+    @XmlAttribute(name = "uuid")
     private String indicatorUuid;
+    @XmlElement(name = "value")
+    private Integer value;
 
     public ReportRunIndicatorValue() {
     }

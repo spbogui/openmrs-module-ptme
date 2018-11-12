@@ -159,6 +159,7 @@ public interface PreventTransmissionService extends OpenmrsService {
 	ReportingIndicator saveReportingIndicator(ReportingIndicator indicator);
 	Boolean removeIndicator(Integer indicatorId);
 	ReportingIndicator voidIndicator(Integer indicatorId);
+	ReportingIndicator getIndicatorByUuid(String uuid);
 
 	// DataSet Service
 	List<ReportingDataset> getAllDatasets();
@@ -193,7 +194,18 @@ public interface PreventTransmissionService extends OpenmrsService {
 	SerializedData saveSerializedData(SerializedData serializedData);
 	Boolean removeSerializedDataById(Integer id);
 
-	/**
+	ReportingReportGeneration getGeneratedReportById(Integer generatedReportId);
+	String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location);
+
+    ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration);
+
+    List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided);
+
+    ReportingDataset getDatasetByUuid(String uuid);
+
+    Boolean removeGeneratedReport(Integer delId);
+
+    /**
 	 * End Serialized Data
 	 */
 }

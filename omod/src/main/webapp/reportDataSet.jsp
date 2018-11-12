@@ -8,8 +8,8 @@
 
 <style type="text/css">
     #selectedIndicatorList, #availableIndicatorList {
-        height: 300px;
-        width: 400px;
+        height: 200px;
+        width: 550px;
 
     }
 </style>
@@ -23,7 +23,7 @@
                     buttons: [ 'copy', 'csv', 'excel' ]
                 },
                 "pageLength": 20,
-                "order": [[1, "desc"]],
+                "order": [[1, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun dataset &agrave; afficher",
                     paginate: {
@@ -99,6 +99,7 @@
             $.each(optionsElement, function(index, items) { selectElement.append(items); });
 
         }
+        $("textarea").autoGrow();
     }
 </script>
 

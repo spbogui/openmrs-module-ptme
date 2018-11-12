@@ -27,6 +27,8 @@
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/JSZip-2.5.0/jszip.min.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/Buttons-1.5.4/js/buttons.flash.min.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/Buttons-1.5.4/js/buttons.html5.min.js"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/pdfmake-0.1.36/pdfmake.min.js"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/pdfmake-0.1.36/vfs_fonts.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/Buttons-1.5.4/js/buttons.print.min.js"/>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables-1.10.18/js/dataTables.jqueryui.js"/>--%>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatables.min.js"/>--%>

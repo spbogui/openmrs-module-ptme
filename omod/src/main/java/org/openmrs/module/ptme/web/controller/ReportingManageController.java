@@ -140,35 +140,4 @@ public class ReportingManageController {
         return null;
     }
 
-    @RequestMapping(value = "/module/ptme/reportGenerate.form", method = RequestMethod.POST)
-    public void generate(HttpServletRequest request,
-                         @RequestParam(required = false, defaultValue = "") String add,
-                         @RequestParam(required = false, defaultValue = "0") Integer delId,
-                         @RequestParam(required = false, defaultValue = "") Integer reportId,
-                         ModelMap modelMap) {
-
-        if (!Context.isAuthenticated()){
-            return;
-        }
-
-        HttpSession session = request.getSession();
-
-        String mode = "list";
-
-        if (!add.isEmpty()){
-            mode = "form";
-        }
-
-        if (reportId != null) {
-            mode = "form";
-        }
-
-        if (mode.equals("form")) {
-
-        }
-
-        modelMap.addAttribute("mode", mode);
-
-    }
-
 }

@@ -156,6 +156,7 @@ public interface PreventTransmissionDAO {
     ReportingIndicator saveReportingIndicator(ReportingIndicator indicator);
     Boolean removeIndicator(Integer indicatorId);
     ReportingIndicator voidIndicator(Integer indicatorId);
+    ReportingIndicator getIndicatorByUuid(String uuid);
 
     // DataSet Service
     List<ReportingDataset> getAllDatasets();
@@ -190,4 +191,17 @@ public interface PreventTransmissionDAO {
     List<SerializedData> getAllSerializedData();
     SerializedData saveSerializedData(SerializedData serializedData);
     Boolean removeSerializedDataById(Integer id);
+
+    ReportingReportGeneration getGeneratedReport(Integer generatedReportId);
+
+    String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location);
+
+    ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration);
+
+    List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided);
+
+    ReportingDataset getDatasetByUuid(String uuid);
+
+    Boolean removeGeneratedReport(Integer delId);
+
 }

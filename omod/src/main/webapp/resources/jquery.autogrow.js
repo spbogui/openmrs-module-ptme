@@ -1,62 +1,17 @@
-/*
- * jquery.autogrow.js
+/*!
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <jevin9@gmail.com> wrote this file. As long as you retain this notice you
+ * can do whatever you want with this stuff. If we meet some day, and you think
+ * this stuff is worth it, you can buy me a beer in return. Jevin O. Sewaruth
+ * ----------------------------------------------------------------------------
  *
- * A plugin written for UserVoice that makes it easy to create textareas
- * that automatically resize to fit their contents.
+ * Autogrow Textarea Plugin Version v3.0
+ * http://www.technoreply.com/autogrow-textarea-plugin-3-0
  *
- * Based on Scott Moonen's original code for Prototype.js:
+ * THIS PLUGIN IS DELIVERD ON A PAY WHAT YOU WHANT BASIS. IF THE PLUGIN WAS USEFUL TO YOU, PLEASE CONSIDER BUYING THE PLUGIN HERE :
+ * https://sites.fastspring.com/technoreply/instant/autogrowtextareaplugin
  *
- * <http://scottmoonen.com/2008/07/08/unobtrusive-javascript-expandable-textareas/>
- *
- * Author: John W. Long <john@uservoice.com>
- *
+ * Date: October 15, 2012
  */
-;(function($) {
-    var properties = ['-webkit-appearance', '-moz-appearance', '-o-appearance', 'appearance', 'font-family', 'font-size', 'font-weight', 'font-style', 'border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'box-sizing', 'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'min-height', 'max-height', 'line-height']
-        ,   escaper    = $('<span />')
-    ;
-
-    function escape(string) {
-        return escaper.text(string).text().replace(/\n/g, '<br>');
-    }
-
-    $.fn.autogrow = function() {
-        return this.filter('textarea').each(function() {
-            if (!$(this).data('autogrow-applied')) {
-                var textarea      = $(this)
-                    ,   initialHeight = textarea.innerHeight()
-                    ,   expander      = $('<div />')
-                    ,   timer         = null
-                ;
-
-                // Setup expander
-                expander.css({'position': 'absolute', 'visibility': 'hidden', 'top': '-99999px'})
-                $.each(properties, function(i, p) { expander.css(p, textarea.css(p)); });
-                textarea.after(expander);
-
-                // Setup textarea
-                textarea.css({'overflow-y': 'hidden', 'resize': 'none', 'box-sizing': 'border-box'});
-
-                // Sizer function
-                function sizeTextarea() {
-                    clearTimeout(timer);
-                    timer = setTimeout(function() {
-                        var value = escape(textarea.val()) + '<br>z';
-                        expander.text(value);
-                        expander.css('width', textarea.innerWidth() + 2 + 'px');
-                        textarea.css('height', Math.max(expander.innerHeight(), initialHeight) + 2 + 'px');
-                    }, 100); // throttle by 100ms
-                }
-
-                // Bind sizer to IE 9+'s input event and Safari's propertychange event
-                textarea.on('input.autogrow propertychange.autogrow', sizeTextarea);
-
-                // Set the initial size
-                sizeTextarea();
-
-                // Record autogrow applied
-                textarea.data('autogrow-applied', true);
-            }
-        });
-    };
-}(jQuery));
+;jQuery.fn.autoGrow=function(a){return this.each(function(){var d=jQuery.extend({extraLine:true},a);var e=function(g){jQuery(g).after('<div class="autogrow-textarea-mirror"></div>');return jQuery(g).next(".autogrow-textarea-mirror")[0]};var b=function(g){f.innerHTML=String(g.value).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br />")+(d.extraLine?".<br/>.":"");if(jQuery(g).height()!=jQuery(f).height()){jQuery(g).height(jQuery(f).height())}};var c=function(){b(this)};var f=e(this);f.style.display="none";f.style.wordWrap="break-word";f.style.whiteSpace="pre-wrap";f.style.padding=jQuery(this).css("paddingTop")+" "+jQuery(this).css("paddingRight")+" "+jQuery(this).css("paddingBottom")+" "+jQuery(this).css("paddingLeft");f.style.borderStyle=jQuery(this).css("borderTopStyle")+" "+jQuery(this).css("borderRightStyle")+" "+jQuery(this).css("borderBottomStyle")+" "+jQuery(this).css("borderLeftStyle");f.style.borderWidth=jQuery(this).css("borderTopWidth")+" "+jQuery(this).css("borderRightWidth")+" "+jQuery(this).css("borderBottomWidth")+" "+jQuery(this).css("borderLeftWidth");f.style.width=jQuery(this).css("width");f.style.fontFamily=jQuery(this).css("font-family");f.style.fontSize=jQuery(this).css("font-size");f.style.lineHeight=jQuery(this).css("line-height");f.style.letterSpacing=jQuery(this).css("letter-spacing");this.style.overflow="hidden";this.style.minHeight=this.rows+"em";this.onkeyup=c;this.onfocus=c;b(this)})};

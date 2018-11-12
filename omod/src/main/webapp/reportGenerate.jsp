@@ -4,6 +4,12 @@
 
 <%@ include file="template/localHeader.jsp"%>
 
+<style type="text/css">
+    .selection {
+        width: 200px;
+    }
+</style>
+
 <script type="application/javascript">
     if (jQuery) {
         $(document).ready(function () {
@@ -14,7 +20,7 @@
 //                    buttons: [ 'copy', 'csv', 'excel' ]
 //                },
                 "pageLength": 20,
-                "order": [[1, "desc"]],
+                "order": [[1, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun rapport &agrave; afficher",
                     paginate: {
@@ -27,6 +33,52 @@
                 "lengthChange": false,
                 "stripeClasses": [ 'odd', 'even' ]
             });
+
+            $(".indicator").dataTable({
+                //"pageLength": 20,
+                paginate: false,
+                "info":     false,
+                "searching": false,
+                "order": [[0, "asc"]],
+                "language": {
+//                    "zeroRecords": "Aucun rapport &agrave; afficher",
+//                    paginate: {
+//                        previous: 'Pr&eacute;c&eacute;dent',
+//                        next:     'Suivant'
+//                    },
+//                    "info":"Affichage de _START_ &agrave _END_ sur _TOTAL_ ",
+//                    "search": "Filtrer les rapports g&eacute;n&eacute;r&eacute;s"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
+            });
+
+            $("#report").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'pdf', 'print' ]
+                },
+                paginate: false,
+                "info":     false,
+                "searching": false,
+                "ordering": false,
+                "lengthChange": false
+                //"stripeClasses": [ 'odd', 'even' ]
+            });
+
+            var availableLocation = [
+                ""
+                <c:forEach  items="${locationList}" var="reportItemAvailable">
+                    ,"${reportItemAvailable.name}"
+                </c:forEach>
+            ];
+
+            $("#reportLocation").autocomplete({
+                source: availableLocation
+            });
+
+//            $(".autocompletePtme").autocomplete();
         });
     }
 </script>
@@ -38,33 +90,87 @@
         <h3><b>Rapports</b></h3>
 
         <div class="line"></div>
-        <%--<form:form action="" commandName="getReportGenerationFromFrom" id="form" method="get" >--%>
+        <form:form action="" commandName="getRunReportFormForm" id="form" method="get" >
             <table cellspacing="0" cellpadding="5">
                 <tr>
                     <td><input type="submit" value="Nouveau" name="add"></td>
                 </tr>
             </table>
-        <%--</form:form>--%>
+        </form:form>
     </div>
 
     <div class="boxHeader"></div>
     <div class="box">
         <h3>Liste des Rapports g&eacute;n&eacute;r&eacute;s</h3>
         <div class="line"></div>
-        <table width="100%" style="border: solid #1aac9b 1px" cellpadding="0" cellspacing="0" id="list-generate">
+        <table width="100%" style="border: solid #1aac9b 1px" cellpadding="0" cellspacing="0" id="list-generate" class="hover">
             <thead>
             <tr style="background-color: #1aac9b; color: #ffffff;">
-                <th>Nom</th>
                 <th>Rapport</th>
+                <th>Nom</th>
+                <th>G&eacute;n&eacute;r&eacute; le</th>
+                <th>Etablissement</th>
                 <th>Date d&eacute;but </th>
                 <th>Date de fin </th>
                 <th>G&eacute;n&eacute;r&eacute; par</th>
-                <th>G&eacute;n&eacute;r&eacute; le</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-
+            <c:forEach var="generatedReport" items="${ listGeneratedReports }">
+                <tr>
+                    <td>${generatedReport.report.reportLabel}</td>
+                    <td>${generatedReport.name}</td>
+                    <td><fmt:formatDate type="date" value="${generatedReport.generationDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
+                    <td>${generatedReport.reportLocation.name}</td>
+                    <td><fmt:formatDate type="date" value="${generatedReport.reportPeriodStartDate}" pattern="dd/MM/yyyy" /></td>
+                    <td><fmt:formatDate type="date" value="${generatedReport.reportPeriodEndDate}" pattern="dd/MM/yyyy" /></td>
+                    <td>
+                        <c:forEach var="person" items="${ generatedReport.creator.person.names }">
+                            <c:if test="${ person.preferred }">
+                                ${person.familyName} ${person.givenName}
+                            </c:if>
+                        </c:forEach>
+                    </td>
+                    <td width="30">
+                        <table cellpadding="0" cellspacing="0" class="button-table">
+                            <tr>
+                                <td>
+                                    <c:url value="/module/ptme/reportGenerate.form" var="viewUrl">
+                                        <c:param name="reportViewId" value="${generatedReport.generationId}"/>
+                                    </c:url>
+                                    <a href="${ viewUrl }"><img src="<c:url value="/images/file.gif"/>" alt="View"></a>
+                                </td>
+                                <c:if test="${generatedReport.saved == false}">
+                                <td>|</td>
+                                <td>
+                                    <c:url value="/module/ptme/reportGenerate.form" var="saveUrl">
+                                        <c:param name="reportSaveId" value="${generatedReport.generationId}"/>
+                                    </c:url>
+                                    <a href="${ saveUrl }"><img src="<c:url value="/images/save.gif"/>" alt="Save"></a>
+                                </td>
+                                </c:if>
+                                <td>|</td>
+                                <td>
+                                    <c:url value="/module/ptme/reportGenerate.form" var="url">
+                                        <c:param name="generationId" value="${generatedReport.generationId}"/>
+                                    </c:url>
+                                    <a href="${ url }"><img src="/openmrs/images/edit.gif" alt="Editer"></a>
+                                </td>
+                                <td>|</td>
+                                <td>
+                                    <c:url value="/module/ptme/reportGenerate.form" var="urlsup">
+                                        <c:param name="delId" value="${generatedReport.generationId}"/>
+                                    </c:url>
+                                    <a href="${ urlsup }" onclick="return confirm('Voulez-vous vraiment supprimer la ligne ?');">
+                                        <img src="/openmrs/images/trash.gif" alt="Supprimer">
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>
@@ -72,8 +178,143 @@
 </c:if>
 
 <c:if test="${mode == 'form'}">
-
+    <div class="box">
+        <h3><b>Saisie des rapports</b></h3>
+        <div class="line"></div>
+        <form:form action="" commandName="runReportForm" id="form" method="post">
+            <form:hidden path="generationId"/>
+            <form:hidden path="generationDate"/>
+            <form:hidden path="saved"/>
+            <table cellspacing="0" cellpadding="5" align="">
+                <tr>
+                    <td>
+                        <table cellpadding="5" cellspacing="0" width="100%">
+                            <tr>
+                                <td class="boldText">Rapport &agrave; g&eacute;n&eacute;rer : </td>
+                                <td>
+                                    <form:select path="reportId"  cssClass="selection" size="60">
+                                        <<option value="">-- S&eacute;lectionner --</option>
+                                        <c:forEach  items="${reportList}" var="reportItem">
+                                            <option value="${reportItem.reportId}"
+                                                    <c:if test="${reportItem.reportId== runReportForm.reportId}">selected="selected"</c:if> >
+                                                    ${reportItem.reportLabel}
+                                            </option>
+                                        </c:forEach>
+                                    </form:select>
+                                </td>
+                                <td><form:errors cssClass="error" path="reportId"/></td>
+                            </tr>
+                            <tr>
+                                <td class="boldText">Nom du rapport g&eacute;n&eacute;r&eacute; <b class="required">*</b> : </td>
+                                <td><form:input path="name"  size="80" cssClass=""/></td>
+                                <td><form:errors cssClass="error" path="name"/></td>
+                            </tr>
+                            <tr>
+                                <td class="boldText">Date de d&eacute;but de p&eacute;riode  : </td>
+                                <td><form:input path="reportPeriodStartDate" cssClass="datepickerPtme" /></td>
+                                <td><form:errors cssClass="error" path="reportPeriodStartDate"/></td>
+                            </tr>
+                            <tr>
+                                <td class="boldText">Date de fin de p&eacute;riode  : </td>
+                                <td><form:input path="reportPeriodEndDate" cssClass="datepickerPtme" /></td>
+                                <td><form:errors cssClass="error" path="reportPeriodEndDate"/></td>
+                            </tr>
+                            <tr>
+                                <td class="boldText">Etablissement : </td>
+                                <td><form:input path="reportLocation" cssClass="" size="50" /></td>
+                                <td><form:errors cssClass="error" path="reportLocation"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="line"></div>
+            <table cellspacing="0" cellpadding="5">
+                <tr>
+                    <td>
+                        <c:if test="${ empty runReportForm.generationId }">
+                            <input type="submit" value="Executer" name="action"/>
+                        </c:if>
+                        <c:if test="${ not empty runReportForm.generationId }">
+                            <input type="submit" value="Executer" name="action"/>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+        </form:form>
+    </div>
 </c:if>
 
+<c:if test="${mode == 'view'}">
+    <div class="box">
+        <h3><b>Affichage du rapports</b></h3>
+        <div class="line"></div>
+        <table align="center" cellpadding="5" id="" width="850px">
+            <thead>
+            <tr style="border: 1px solid black; background-color:#1aac9b; color: #ffffff; font-size: 18px; text-align: center" align="center">
+                <th height="40px" align="center">${reportGeneration.report.reportLabel}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="center">
+                    <table width="750px">
+                        <tr>
+                            <td>Nom du rapport g&eacute;n&eacute;r&eacute;</td>
+                            <td>${reportGeneration.name}</td>
+                            <td>G&eacute;n&eacute;r&eacute; le</td>
+                            <td><fmt:formatDate type="date" value="${reportGeneration.generationDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Date de d&eacute;but de p&eacute;riode :</td>
+                            <td><fmt:formatDate type="date" value="${reportGeneration.reportPeriodStartDate}" pattern="dd/MM/yyyy" /></td>
+                            <td>Date de fin de p&eacute;riode : </td>
+                            <td><fmt:formatDate type="date" value="${reportGeneration.reportPeriodEndDate}" pattern="dd/MM/yyyy" /></td>
+                        </tr>
+                        <tr>
+                            <td >Eatablissement :</td>
+                            <td>${reportGeneration.reportLocation.name}</td>
+                            <td>G&eacute;n&eacute;r&eacute; par :</td>
+                            <td>
+                                <c:forEach var="pers" items="${ reportGeneration.creator.person.names }">
+                                    <c:if test="${ pers.preferred }">
+                                        ${pers.familyName} ${pers.givenName}
+                                    </c:if>
+                                </c:forEach>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <c:forEach var="dataSet" items="${ reportValue.reportDataSetIndicatorRuns }">
+                        <h3>${dataSet.dataSetUuid}</h3>
+                        <table width="700px" cellpadding="5" class="indicator">
+                            <thead>
+                            <tr style="background-color:#1aac9b; color: #ffffff;">
+
+                                <th>Indicateurs</th>
+                                <th>Effectif</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="indicator" items="${ dataSet.reportRunIndicatorValues }">
+                                <tr>
+                                    <td style="border-left: 1px solid #1aac9b; border-right: 1px solid #1aac9b" height="35px">${indicator.indicatorUuid}</td>
+                                    <td style="border-right: 1px solid #1aac9b" width="100px" align="center">${indicator.value}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+
+                        </table>
+                    </c:forEach>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</c:if>
 <%@ include file="template/localFooter.jsp"%>
 

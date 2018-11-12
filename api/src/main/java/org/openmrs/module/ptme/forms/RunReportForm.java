@@ -15,7 +15,7 @@ public class RunReportForm {
     private Date generationDate;
     private Date reportPeriodStartDate;
     private Date reportPeriodEndDate;
-    private Integer reportLocationId;
+    private String reportLocation;
     private Integer reportId;
     private Boolean saved = false;
 
@@ -62,12 +62,12 @@ public class RunReportForm {
         this.reportPeriodEndDate = reportPeriodEndDate;
     }
 
-    public Integer getReportLocationId() {
-        return reportLocationId;
+    public String getReportLocation() {
+        return reportLocation;
     }
 
-    public void setReportLocationId(Integer reportLocationId) {
-        this.reportLocationId = reportLocationId;
+    public void setReportLocation(String reportLocation) {
+        this.reportLocation = reportLocation;
     }
 
     public Integer getReportId() {
@@ -87,12 +87,13 @@ public class RunReportForm {
     }
 
     public void getGeneratedReport(ReportingReportGeneration generation) {
-        this.setReportId(generation.getGenerationId());
+        this.setGenerationId(generation.getGenerationId());
         this.setGenerationDate(generation.getGenerationDate());
         this.setReportPeriodStartDate(generation.getReportPeriodStartDate());
         this.setReportPeriodEndDate(generation.getReportPeriodEndDate());
-        this.setReportLocationId(generation.getReportLocation().getLocationId());
+        this.setReportLocation(generation.getReportLocation().getName());
         this.setReportId(generation.getReport().getReportId());
+        this.setName(generation.getName());
         this.setSaved(generation.getSaved());
     }
 
@@ -109,10 +110,10 @@ public class RunReportForm {
             generation.setReport(report);
         }
 
-        Location location = Context.getLocationService().getLocation(this.getReportLocationId());
+        /*Location location = Context.getLocationService().getLocation(this.getReportLocation());
         if (location != null) {
             generation.setReportLocation(location);
-        }
+        }*/
 
         if (generation.getCreator() == null){
             generation.setCreator(Context.getAuthenticatedUser());

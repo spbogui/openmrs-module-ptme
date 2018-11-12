@@ -8,8 +8,8 @@
 
 <style type="text/css">
     #selectedDataSetList, #availableDataSetList {
-        height: 300px;
-        width: 400px;
+        height: 200px;
+        width: 550px;
     }
 </style>
 
@@ -23,7 +23,7 @@
                     buttons: [ 'copy', 'csv', 'excel' ]
                 },
                 "pageLength": 20,
-                "order": [[1, "desc"]],
+                "order": [[1, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun rapport &agrave; afficher",
                     paginate: {
@@ -99,6 +99,8 @@
             $.each(optionsElement, function(index, items) { selectElement.append(items); });
 
         }
+
+        $("textarea").autoGrow();
     }
 </script>
 
@@ -182,7 +184,7 @@
                         <table cellpadding="5" cellspacing="0" width="100%">
                             <tr>
                                 <td class="boldText">Nom <b class="required">*</b> : </td>
-                                <td><form:input path="label"  size="80" cssClass=""/></td>
+                                    <td><form:input path="label"  size="80" cssClass=""/></td>
                                 <td><form:errors cssClass="error" path="label"/></td>
                             </tr>
                             <tr>

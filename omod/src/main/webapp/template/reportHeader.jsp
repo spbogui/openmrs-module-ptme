@@ -11,11 +11,11 @@
 
             <!-- Add further links here -->
 
-            <li <c:if test='<%= request.getRequestURI().contains("/report.") %>'>class="active"</c:if>>
+            <%--<li <c:if test='<%= request.getRequestURI().contains("/report.") %>'>class="active"</c:if>>
                 <a href="${pageContext.request.contextPath}/module/ptme/report.form">
                     <spring:message code="ptme.report.submenu.title.list" />
                 </a>
-            </li>
+            </li>--%>
         </openmrs:hasPrivilege>
 
         <openmrs:hasPrivilege privilege="Manage PTME Reports">

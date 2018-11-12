@@ -26,7 +26,8 @@ public class ReportingReportGeneration extends PreventTransmissionAbstract {
     private Date reportPeriodStartDate;
     @Column(name = "report_period_end_date", nullable = false)
     private Date reportPeriodEndDate;
-    @Column(name = "report_location", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "report_location", nullable = false)
     private Location reportLocation;
     @ManyToOne
     @JoinColumn(nullable = false, name = "report_id")
