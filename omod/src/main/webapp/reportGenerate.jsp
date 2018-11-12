@@ -251,8 +251,10 @@
         <div class="line"></div>
         <table align="center" cellpadding="5" id="" width="850px">
             <thead>
-            <tr style="border: 1px solid black; background-color:#1aac9b; color: #ffffff; font-size: 18px; text-align: center" align="center">
-                <th height="40px" align="center">${reportGeneration.report.reportLabel}</th>
+            <tr style="border: 1px solid black; background-color:#1aac9b;" align="center">
+                <th height="40px" align="center" style="text-align: center; color: #ffffff; font-size: 18px;">
+                        ${reportGeneration.report.reportLabel}
+                </th>
             </tr>
             </thead>
             <tbody>
