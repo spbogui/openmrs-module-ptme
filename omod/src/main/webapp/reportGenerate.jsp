@@ -260,25 +260,25 @@
             <tbody>
             <tr>
                 <td align="center">
-                    <table width="750px">
+                    <table width="100%" bgcolor="#d3d3d3" style="font-size: 16px; font-style:italic;" cellpadding="5">
                         <tr>
                             <td>Nom du rapport g&eacute;n&eacute;r&eacute;</td>
-                            <td>${reportGeneration.name}</td>
+                            <td class="boldText">${reportGeneration.name}</td>
                             <td>G&eacute;n&eacute;r&eacute; le</td>
-                            <td><fmt:formatDate type="date" value="${reportGeneration.generationDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
+                            <td class="boldText"><fmt:formatDate type="date" value="${reportGeneration.generationDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                         </tr>
 
                         <tr>
                             <td>Date de d&eacute;but de p&eacute;riode :</td>
-                            <td><fmt:formatDate type="date" value="${reportGeneration.reportPeriodStartDate}" pattern="dd/MM/yyyy" /></td>
+                            <td class="boldText"><fmt:formatDate type="date" value="${reportGeneration.reportPeriodStartDate}" pattern="dd/MM/yyyy" /></td>
                             <td>Date de fin de p&eacute;riode : </td>
-                            <td><fmt:formatDate type="date" value="${reportGeneration.reportPeriodEndDate}" pattern="dd/MM/yyyy" /></td>
+                            <td class="boldText"><fmt:formatDate type="date" value="${reportGeneration.reportPeriodEndDate}" pattern="dd/MM/yyyy" /></td>
                         </tr>
                         <tr>
                             <td >Eatablissement :</td>
-                            <td>${reportGeneration.reportLocation.name}</td>
+                            <td class="boldText">${reportGeneration.reportLocation.name}</td>
                             <td>G&eacute;n&eacute;r&eacute; par :</td>
-                            <td>
+                            <td class="boldText">
                                 <c:forEach var="pers" items="${ reportGeneration.creator.person.names }">
                                     <c:if test="${ pers.preferred }">
                                         ${pers.familyName} ${pers.givenName}

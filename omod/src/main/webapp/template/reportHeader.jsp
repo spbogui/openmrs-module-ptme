@@ -25,11 +25,7 @@
             <%--</a>--%>
             <%--</li>--%>
 
-            <li <c:if test='<%= request.getRequestURI().contains("/reportManage") %>'>class="active"</c:if>>
-                <a href="${pageContext.request.contextPath}/module/ptme/reportManage.form">
-                    <spring:message code="ptme.report.submenu.title.manage.report" />
-                </a>
-            </li>
+            <!-- Add further links here -->
 
             <li <c:if test='<%= request.getRequestURI().contains("/reportIndicator") %>'>class="active"</c:if>>
                 <a href="${pageContext.request.contextPath}/module/ptme/reportIndicator.form">
@@ -37,19 +33,23 @@
                 </a>
             </li>
 
-            <!-- Add further links here -->
-
             <li <c:if test='<%= request.getRequestURI().contains("/reportDataSet.") %>'>class="active"</c:if>>
                 <a href="${pageContext.request.contextPath}/module/ptme/reportDataSet.form">
                     <spring:message code="ptme.report.submenu.title.dataset" />
                 </a>
             </li>
 
-            <li <c:if test='<%= request.getRequestURI().contains("/reportTemplate") %>'>class="active"</c:if>>
-                <a href="${pageContext.request.contextPath}/module/ptme/reportTemplate.form">
-                    <spring:message code="ptme.report.submenu.title.template" />
+            <li <c:if test='<%= request.getRequestURI().contains("/reportManage") %>'>class="active"</c:if>>
+                <a href="${pageContext.request.contextPath}/module/ptme/reportManage.form">
+                    <spring:message code="ptme.report.submenu.title.manage.report" />
                 </a>
             </li>
+
+            <%--<li <c:if test='<%= request.getRequestURI().contains("/reportTemplate") %>'>class="active"</c:if>>--%>
+                <%--<a href="${pageContext.request.contextPath}/module/ptme/reportTemplate.form">--%>
+                    <%--<spring:message code="ptme.report.submenu.title.template" />--%>
+                <%--</a>--%>
+            <%--</li>--%>
         </openmrs:hasPrivilege>
     </ul>
 </div>
