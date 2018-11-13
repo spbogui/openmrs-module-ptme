@@ -65,7 +65,7 @@
             </thead>
             <tbody>
             <c:forEach var="child" items="${ childList }">
-                <tr>
+                <tr <c:if test="${empty child.childFollowupVisits}"> style="font-style: italic; color: #F44336; font-weight: bold;" </c:if>>
                     <td>
                         <c:url value="/module/ptme/childFollowup.form" var="fUrl">
                             <c:param name="childFollowupNumber" value="${child.childFollowupNumber}"/>
