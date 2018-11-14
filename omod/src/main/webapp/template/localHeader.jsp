@@ -12,9 +12,15 @@
     if (jQuery) {
 
         $(document).ready(function () {
+
+            $.fn.dataTable.moment( 'HH:mm MMM D, YY' );
+            $.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );
+            $.fn.dataTable.moment( 'DD/MM/YYYY' );
+            $.fn.dataTable.moment( 'dd/MM/yyyy' );
+
             jQuery.extend( jQuery.fn.dataTableExt.oSort, {
                 "date-uk-pre": function ( a ) {
-                    if (a == null || a == "") {
+                    if (a === null || a === "") {
                         return 0;
                     }
                     var ukDatea = a.split('/');
@@ -39,10 +45,10 @@
             $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 
             $(".datepickerPtme").datepicker({
-				dateFormat: 'dd/mm/yy'
+				dateFormat: 'dd/mm/yy',
 //                dayNames: [ "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" ],
-//                dayNamesShort: [ "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" ],
-//                monthNamesShort: [ "Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec" ],
+                dayNamesShort: [ "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" ],
+                monthNamesShort: [ "Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec" ],
 //                monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" ]
             });
 
@@ -70,6 +76,8 @@
 			$('.selection').selectmenu();
 			$('input[type=submit]').button();
 			$('input[type=button]').button();
+
+
 
         });
     }

@@ -30,26 +30,8 @@
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/pdfmake-0.1.36/pdfmake.min.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/pdfmake-0.1.36/vfs_fonts.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/Buttons-1.5.4/js/buttons.print.min.js"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/moment.min.js"/>
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/datetime-moment.js"/>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables-1.10.18/js/dataTables.jqueryui.js"/>--%>
 <%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatables.min.js"/>--%>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jquery.autogrow.js"/>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/moment.min.js"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datetime-moment.js"/>--%>
-<%--<openmrs:htmlInclude file='${pageContext.request.contextPath}/moduleResources/reporting/scripts/reporting.js'/>--%>
-
-<%-- Module --%>
-
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatable.min.js"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/jQuery-3.3.1/jquery-3.3.1.min.js"/>--%>
-
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/Bootstrap/css/bootstrap.min.css"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/Bootstrap/css/bootstrap-theme.min.css"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatables.min.css"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/css/dataTables.bootstrap.min.css"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/css/jquery.dataTables.min.css"/>--%>
-
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/Bootstrap/js/bootstrap.min.js"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/js/jquery.dataTables.min.js"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/datatables.min.js"/>--%>
-<%--<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/ptme/DataTables/js/dataTables.bootstrap.min.js"/>--%>
-
