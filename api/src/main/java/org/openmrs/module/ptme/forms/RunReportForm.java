@@ -95,6 +95,7 @@ public class RunReportForm {
         this.setReportId(generation.getReport().getReportId());
         this.setName(generation.getName());
         this.setSaved(generation.getSaved());
+        this.setReportLocation(generation.getReportLocation().getName());
     }
 
     public ReportingReportGeneration setGeneratedReport(ReportingReportGeneration generation) {
@@ -110,10 +111,10 @@ public class RunReportForm {
             generation.setReport(report);
         }
 
-        /*Location location = Context.getLocationService().getLocation(this.getReportLocation());
+        Location location = Context.getService(PreventTransmissionService.class).getLocationByName(this.getReportLocation());
         if (location != null) {
             generation.setReportLocation(location);
-        }*/
+        }
 
         if (generation.getCreator() == null){
             generation.setCreator(Context.getAuthenticatedUser());

@@ -5,7 +5,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.ReportingIndicator;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.GetIndicatorFromFrom;
-import org.openmrs.module.ptme.forms.IndicatorFrom;
+import org.openmrs.module.ptme.forms.IndicatorForm;
+import org.openmrs.module.ptme.forms.validators.IndicatorFormValidator;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -67,13 +68,13 @@ public class ReportingManageIndicatorController {
         }
 
         if (mode.equals("form")) {
-            IndicatorFrom indicatorFrom = new IndicatorFrom();
+            IndicatorForm indicatorForm = new IndicatorForm();
 
             if (indicatorId != null) {
-                indicatorFrom.setIndicator(getPreventTransmissionService().getIndicatorById(indicatorId));
+                indicatorForm.setIndicator(getPreventTransmissionService().getIndicatorById(indicatorId));
             }
 
-            modelMap.addAttribute("indicatorForm", indicatorFrom);
+            modelMap.addAttribute("indicatorForm", indicatorForm);
 
         }
 
@@ -91,27 +92,34 @@ public class ReportingManageIndicatorController {
     public String onSubmitIndicator(HttpServletRequest request,
                                   ModelMap modelMap,
                                   @RequestParam(required = false, defaultValue = "") Integer indicatorId,
-                                  IndicatorFrom indicatorFrom,
+                                  IndicatorForm indicatorForm,
                                   BindingResult result) {
 
         if (!Context.isAuthenticated()){
             return null;
         }
 
-        if(!result.hasErrors()) {
+        new IndicatorFormValidator().validate(indicatorForm, result);
+
+        if (result.hasErrors()) {
+            modelMap.addAttribute("mode", "form");
+            return null;
+        }
+
+//        if(!result.hasErrors()) {
             HttpSession session = request.getSession();
 
-            Boolean hasErrors = false;
+            // Boolean hasErrors = false;
 
             ReportingIndicator indicator = null;
-            if (indicatorFrom.getIndicatorId() == null) {
-                indicator = indicatorFrom.getIndicator(new ReportingIndicator());
+            if (indicatorForm.getIndicatorId() == null) {
+                indicator = indicatorForm.getIndicator(new ReportingIndicator());
             } else {
-                indicator = indicatorFrom.getIndicator(getPreventTransmissionService().getIndicatorById(indicatorFrom.getIndicatorId()));
+                indicator = indicatorForm.getIndicator(getPreventTransmissionService().getIndicatorById(indicatorForm.getIndicatorId()));
             }
 
             if (getPreventTransmissionService().saveReportingIndicator(indicator) != null) {
-                if (indicatorFrom.getIndicatorId() != null) {
+                if (indicatorForm.getIndicatorId() != null) {
                     session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Indicateur mis à jour avec succès !");
                 } else {
                     session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Indicateur sauvegargé avec succès !");
@@ -120,9 +128,13 @@ public class ReportingManageIndicatorController {
 
             modelMap.addAttribute("mode", "list");
             return "redirect:/module/ptme/reportIndicator.form";
-        }
+        /*} else {
+            System.out.println("------------------------ Invalid form data -------------------------------/");
+            modelMap.addAttribute("mode", "form");
+            modelMap.addAttribute("indicatorForm", indicatorFrom);
+        }*/
 
-        return null;
+//        return null;
     }
 
 }

@@ -316,7 +316,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
+
 </c:if>
 <%@ include file="template/localFooter.jsp"%>
 

@@ -388,8 +388,6 @@ public class RegisterManageController {
                         return "redirect:/module/ptme/registerList.form";
                     }
                 }
-
-
             }
 
         }

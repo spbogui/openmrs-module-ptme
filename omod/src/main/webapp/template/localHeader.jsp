@@ -48,7 +48,7 @@
 				dateFormat: 'dd/mm/yy',
 //                dayNames: [ "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" ],
                 dayNamesShort: [ "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam" ],
-                monthNamesShort: [ "Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec" ],
+                monthNamesShort: [ "Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec" ]
 //                monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" ]
             });
 
@@ -77,8 +77,7 @@
 			$('input[type=submit]').button();
 			$('input[type=button]').button();
 
-
-
+            $('textarea').autoGrow();
         });
     }
 </script>
@@ -243,6 +242,9 @@
 
 	table.dataTable tr td a:hover {
 		color: #1aac9b;
+	}
+	textarea {
+		background-color: lightyellow;
 	}
 
 </style>

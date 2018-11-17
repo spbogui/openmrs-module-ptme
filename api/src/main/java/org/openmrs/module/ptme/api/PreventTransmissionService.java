@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.ptme.api;
 
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Relationship;
 import org.openmrs.api.OpenmrsService;
@@ -208,4 +209,9 @@ public interface PreventTransmissionService extends OpenmrsService {
     /**
 	 * End Serialized Data
 	 */
+
+	Location getLocationByName(String name);
+
+    ReportingIndicator getIndicatorByName(String name);
+	ReportingIndicator getIndicatorByCode(String code);
 }

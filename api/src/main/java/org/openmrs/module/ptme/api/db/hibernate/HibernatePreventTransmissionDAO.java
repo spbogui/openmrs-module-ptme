@@ -1093,15 +1093,33 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (ReportingReportGeneration) sessionFactory.getCurrentSession().get(ReportingReportGeneration.class, generatedReportId);
 	}
 
-	private Location getLocationByName(String name) {
+	@Override
+	public Location getLocationByName(String name) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Location.class);
 		return (Location) criteria.add(Restrictions.eq("name", name)).uniqueResult();
 	}
 
 	@Override
+	public ReportingIndicator getIndicatorByName(String name) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class);
+		return (ReportingIndicator) criteria.add(Restrictions.eq("name", name)).uniqueResult();
+	}
+
+	@Override
+	public ReportingIndicator getIndicatorByCode(String code) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class);
+		return (ReportingIndicator) criteria.add(Restrictions.eq("code", code)).uniqueResult();
+	}
+
+	@Override
 	public String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location) {
-		Location l = Context.getLocationService().getDefaultLocation();
+//		Location l = Context.getLocationService().getDefaultLocation();
+		Location l = getLocationByName(location);
 		ReportIndicatorValues reportIndicatorValues = new ReportIndicatorValues();
+
+
+//		System.out.println("Param location name : " + getLocationByName(location).getName());
+//		System.out.println("Param location name after checking in data : " + getLocationByName(location).getName());
 
 		reportIndicatorValues.setGenerationDate(new Date());
 		reportIndicatorValues.setReportStartDate(startDate);

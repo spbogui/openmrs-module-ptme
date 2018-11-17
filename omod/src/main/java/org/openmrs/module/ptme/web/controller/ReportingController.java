@@ -7,12 +7,10 @@ import org.openmrs.module.ptme.ReportingIndicator;
 import org.openmrs.module.ptme.ReportingReportGeneration;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.GetRunReportFromFrom;
-import org.openmrs.module.ptme.forms.IndicatorFrom;
 import org.openmrs.module.ptme.forms.RunReportForm;
 import org.openmrs.module.ptme.utils.ReportDataSetIndicatorRun;
 import org.openmrs.module.ptme.utils.ReportIndicatorValues;
 import org.openmrs.module.ptme.utils.ReportRunIndicatorValue;
-import org.openmrs.module.ptme.utils.UsefullFunction;
 import org.openmrs.web.WebConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -201,7 +197,7 @@ public class ReportingController {
             }
 
             reportingReportGeneration.setContentGenerated(generatedReportXmlString.getBytes());
-            reportingReportGeneration.setReportLocation(Context.getLocationService().getDefaultLocation());
+            //reportingReportGeneration.setReportLocation(Context.getLocationService().getDefaultLocation());
 
             if (getPreventTransmissionService().saveGenerationReport(reportingReportGeneration) != null) {
                 session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Rapport généré avec succès !");

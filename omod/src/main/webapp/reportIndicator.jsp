@@ -21,6 +21,7 @@
     textarea {
         width: 100%;
     }
+
 </style>
 
 <script type="application/javascript">
@@ -49,7 +50,6 @@
 
             });
 
-            $('textarea').autoGrow();
         });
     }
 </script>

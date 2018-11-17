@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.ptme.api.db;
 
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Relationship;
 import org.openmrs.module.ptme.*;
@@ -204,4 +205,9 @@ public interface PreventTransmissionDAO {
 
     Boolean removeGeneratedReport(Integer delId);
 
+    Location getLocationByName(String name);
+
+    ReportingIndicator getIndicatorByName(String name);
+
+    ReportingIndicator getIndicatorByCode(String code);
 }

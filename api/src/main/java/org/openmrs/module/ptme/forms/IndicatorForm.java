@@ -1,13 +1,12 @@
 package org.openmrs.module.ptme.forms;
 
-import org.openmrs.Location;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.ReportingIndicator;
 import org.openmrs.module.ptme.utils.UsefullFunction;
 
 import java.util.Date;
 
-public class IndicatorFrom {
+public class IndicatorForm {
     private String mode;
     private Integer indicatorId;
     private String name;
@@ -15,10 +14,10 @@ public class IndicatorFrom {
     private String indicatorSqlScript;
     private String templateCode;
 
-    public IndicatorFrom() {
+    public IndicatorForm() {
     }
 
-    public IndicatorFrom(String name) {
+    public IndicatorForm(String name) {
         this.name = name;
     }
 

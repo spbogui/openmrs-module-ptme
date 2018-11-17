@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.ptme.api.impl;
 
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Relationship;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -561,5 +562,20 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     @Override
     public Boolean removeGeneratedReport(Integer delId) {
         return dao.removeGeneratedReport(delId);
+    }
+
+    @Override
+    public Location getLocationByName(String name) {
+        return dao.getLocationByName(name);
+    }
+
+    @Override
+    public ReportingIndicator getIndicatorByName(String name) {
+        return dao.getIndicatorByName(name);
+    }
+
+    @Override
+    public ReportingIndicator getIndicatorByCode(String code) {
+        return dao.getIndicatorByCode(code);
     }
 }
