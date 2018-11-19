@@ -35,7 +35,7 @@ public class IndicatorFormValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "templateCode", "ptme.field.required");
 
             if (!form.getTemplateCode().isEmpty()){
-                Pattern codePattern = Pattern.compile("^[A-Za-z][A-Za-z0-9]{5}", Pattern.CASE_INSENSITIVE);
+                Pattern codePattern = Pattern.compile("^[A-Za-z][A-Za-z0-9]{1,5}", Pattern.CASE_INSENSITIVE);
                 if (!codePattern.matcher(form.getTemplateCode()).matches()) {
                     errors.rejectValue("templateCode", "ptme.form.indicator.code.invalid");
                 }
@@ -120,7 +120,7 @@ public class IndicatorFormValidator implements Validator {
             }
 
             if (!form.getTemplateCode().isEmpty()) {
-                ReportingIndicator ind = Context.getService(PreventTransmissionService.class).getIndicatorByName(form.getTemplateCode());
+                ReportingIndicator ind = Context.getService(PreventTransmissionService.class).getIndicatorByCode(form.getTemplateCode());
 
                 if (ind != null) {
 

@@ -210,4 +210,6 @@ public interface PreventTransmissionDAO {
     ReportingIndicator getIndicatorByName(String name);
 
     ReportingIndicator getIndicatorByCode(String code);
+
+    ReportingReportGeneration getGeneratedReportByName(String name);
 }

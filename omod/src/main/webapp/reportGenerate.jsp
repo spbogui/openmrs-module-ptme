@@ -20,7 +20,7 @@
 //                    buttons: [ 'copy', 'csv', 'excel' ]
 //                },
                 "pageLength": 20,
-                "order": [[1, "asc"]],
+                "order": [[2, "desc"]],
                 "language": {
                     "zeroRecords": "Aucun rapport &agrave; afficher",
                     paginate: {
@@ -67,6 +67,8 @@
                 //"stripeClasses": [ 'odd', 'even' ]
             });
 
+            $(".selection").css("width", "80px");
+
             var availableLocation = [
                 ""
                 <c:forEach  items="${locationList}" var="reportItemAvailable">
@@ -78,7 +80,6 @@
                 source: availableLocation
             });
 
-//            $(".autocompletePtme").autocomplete();
         });
     }
 </script>
@@ -127,9 +128,10 @@
                     <td><fmt:formatDate type="date" value="${generatedReport.reportPeriodEndDate}" pattern="dd/MM/yyyy" /></td>
                     <td>
                         <c:forEach var="person" items="${ generatedReport.creator.person.names }">
-                            <c:if test="${ person.preferred }">
+                            <%--<c:if test="${ person.preferred }">
                                 ${person.familyName} ${person.givenName}
-                            </c:if>
+                            </c:if>--%>
+                            ${person.familyName} ${person.middleName} ${person.givenName}
                         </c:forEach>
                     </td>
                     <td width="30">
@@ -140,6 +142,13 @@
                                         <c:param name="reportViewId" value="${generatedReport.generationId}"/>
                                     </c:url>
                                     <a href="${ viewUrl }"><img src="<c:url value="/images/file.gif"/>" alt="View"></a>
+                                </td>
+                                <td>|</td>
+                                <td>
+                                    <c:url value="/module/ptme/reportExcelView.form" var="excelUrl">
+                                        <c:param name="reportExcelId" value="${generatedReport.generationId}"/>
+                                    </c:url>
+                                    <a href="${ excelUrl }" target="_blank"><img height="15px" width="16px" src="<c:url value="/moduleResources/ptme/images/excel.png"/>" alt="Excel"></a>
                                 </td>
                                 <c:if test="${generatedReport.saved == false}">
                                 <td>|</td>
@@ -192,7 +201,7 @@
                             <tr>
                                 <td class="boldText">Rapport &agrave; g&eacute;n&eacute;rer : </td>
                                 <td>
-                                    <form:select path="reportId"  cssClass="selection" size="60">
+                                    <form:select path="reportId"  cssClass="selection">
                                         <<option value="">-- S&eacute;lectionner --</option>
                                         <c:forEach  items="${reportList}" var="reportItem">
                                             <option value="${reportItem.reportId}"
@@ -206,7 +215,7 @@
                             </tr>
                             <tr>
                                 <td class="boldText">Nom du rapport g&eacute;n&eacute;r&eacute; <b class="required">*</b> : </td>
-                                <td><form:input path="name"  size="80" cssClass=""/></td>
+                                <td><form:input path="name"  size="60" cssClass=""/></td>
                                 <td><form:errors cssClass="error" path="name"/></td>
                             </tr>
                             <tr>
@@ -221,7 +230,7 @@
                             </tr>
                             <tr>
                                 <td class="boldText">Etablissement : </td>
-                                <td><form:input path="reportLocation" cssClass="" size="50" /></td>
+                                <td><form:input path="reportLocation" cssClass="" size="80" /></td>
                                 <td><form:errors cssClass="error" path="reportLocation"/></td>
                             </tr>
                         </table>
@@ -280,9 +289,10 @@
                             <td>G&eacute;n&eacute;r&eacute; par :</td>
                             <td class="boldText">
                                 <c:forEach var="pers" items="${ reportGeneration.creator.person.names }">
-                                    <c:if test="${ pers.preferred }">
-                                        ${pers.familyName} ${pers.givenName}
-                                    </c:if>
+                                    <%--<c:if test="${ pers.preferred }">
+                                        ${pers.familyName} ${pers.givenName} ${pers.middleName}
+                                    </c:if>--%>
+                                    ${pers.familyName} ${pers.middleName} ${pers.givenName}
                                 </c:forEach>
                             </td>
                         </tr>
@@ -292,7 +302,7 @@
             <tr>
                 <td align="center">
                     <c:forEach var="dataSet" items="${ reportValue.reportDataSetIndicatorRuns }">
-                        <h3>${dataSet.dataSetUuid}</h3>
+                        <h3 style="margin-top: 20px">${dataSet.dataSetUuid}</h3>
                         <table width="700px" cellpadding="5" class="indicator">
                             <thead>
                             <tr style="background-color:#1aac9b; color: #ffffff;">

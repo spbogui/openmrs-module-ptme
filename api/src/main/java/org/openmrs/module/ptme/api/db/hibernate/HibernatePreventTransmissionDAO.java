@@ -1108,7 +1108,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	@Override
 	public ReportingIndicator getIndicatorByCode(String code) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class);
-		return (ReportingIndicator) criteria.add(Restrictions.eq("code", code)).uniqueResult();
+		return (ReportingIndicator) criteria.add(Restrictions.eq("templateCode", code)).uniqueResult();
+	}
+
+	@Override
+	public ReportingReportGeneration getGeneratedReportByName(String name) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingReportGeneration.class);
+		return (ReportingReportGeneration) criteria.add(Restrictions.eq("name", name)).uniqueResult();
 	}
 
 	@Override
@@ -1161,6 +1167,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 
 				reportRunIndicatorValue.setValue(Integer.parseInt(value));
 				reportRunIndicatorValue.setIndicatorUuid(reportingIndicator.getUuid());
+				reportRunIndicatorValue.setCode(reportingDataset.getCode() + "." + reportingIndicator.getTemplateCode());
 
 				reportRunIndicatorValues.add(reportRunIndicatorValue);
 			}

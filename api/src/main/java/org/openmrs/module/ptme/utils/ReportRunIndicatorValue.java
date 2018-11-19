@@ -8,6 +8,8 @@ public class ReportRunIndicatorValue {
 
     @XmlAttribute(name = "uuid")
     private String indicatorUuid;
+    @XmlAttribute(name = "code")
+    private String code;
     @XmlElement(name = "value")
     private Integer value;
 
@@ -33,5 +35,13 @@ public class ReportRunIndicatorValue {
 
     public void setIndicatorUuid(String indicatorUuid) {
         this.indicatorUuid = indicatorUuid;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

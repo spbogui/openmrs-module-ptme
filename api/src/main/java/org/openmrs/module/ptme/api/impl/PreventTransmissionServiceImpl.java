@@ -578,4 +578,10 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     public ReportingIndicator getIndicatorByCode(String code) {
         return dao.getIndicatorByCode(code);
     }
+
+    @Override
+    public ReportingReportGeneration getGeneratedReportByName(String name) {
+        return dao.getGeneratedReportByName(name);
+    }
+
 }

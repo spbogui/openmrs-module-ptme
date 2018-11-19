@@ -43,6 +43,7 @@ public class ReportIndicatorValuesXml implements Converter {
                             rdi.getReportRunIndicatorValues()) {
                         writer.startNode("indicator");
                         writer.addAttribute("uuid", rriv.getIndicatorUuid());
+                        writer.addAttribute("code", rriv.getCode());
                         addOptionalElement(writer, "value", nullSafeString(rriv.getValue()));
                         writer.endNode();
                         //addOptionalElementWithIdAttribute(writer, "indicator", rriv.getIndicatorUuid(), nullSafeString(rriv.getValue()));

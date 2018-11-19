@@ -34,7 +34,7 @@
                     buttons: [ 'copy', 'csv', 'excel' ]
                 },
                 "pageLength": 20,
-                "order": [[1, "desc"]],
+                "order": [[1, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun indicateur &agrave; afficher",
                     "emptyTable": "Aucune donn&eacute;e",
