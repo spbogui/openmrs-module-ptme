@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6adda72e-6c3a-40d9-b601-269163baeae8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/omod/src/main/webapp/resources/DataTables/datetime-moment.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/omod/src/main/webapp/resources/DataTables/moment.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/GetTemplateFormForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/TemplateForm.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_4_0_0.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/template/includeScript.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/template/includeScript.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java" afterPath="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java" afterPath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java" afterPath="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp" afterPath="$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/api/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -37,56 +46,34 @@
       <file leaf-file-name="reportGenerate.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportGenerate.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="262" column="116" lean-forward="false" selection-start-line="262" selection-start-column="116" selection-end-line="262" selection-end-column="116" />
+            <state relative-caret-position="513">
+              <caret line="33" column="50" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="33" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReportingManageTemplateController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="783">
+              <caret line="134" column="20" lean-forward="true" selection-start-line="134" selection-start-column="20" selection-end-line="134" selection-end-column="20" />
               <folding>
-                <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#4;n#!!top" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="localHeader.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp">
+      <file leaf-file-name="reportTemplate.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reportHeader.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="childManage.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childManage.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+            <state relative-caret-position="171">
+              <caret line="12" column="33" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
               <folding>
-                <element signature="e#2718#2780#0#HTML" expanded="true" />
+                <element signature="e#1721#1754#0#HTML" expanded="true" />
+                <element signature="e#1843#1893#0#HTML" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Child.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/Child.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="62" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -94,11 +81,23 @@
       <file leaf-file-name="ReportingController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="912">
-              <caret line="80" column="13" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
+            <state relative-caret-position="-623">
+              <caret line="238" column="35" lean-forward="false" selection-start-line="238" selection-start-column="24" selection-end-line="238" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5120#5147#0" expanded="true" />
+                <element signature="e#5670#5695#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reportHeader.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,17 +109,13 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>eatin</find>
-      <find>' '</find>
-      <find>\n</find>
-      <find>rendez vous</find>
       <find>X</find>
       <find>]</find>
       <find>&amp;nbsp;</find>
@@ -147,6 +142,10 @@
       <find>getGeneratedReport</find>
       <find>getGeneratedReportById</find>
       <find>&lt;%--&lt;tr&gt;--%&gt;</find>
+      <find>location</find>
+      <find>temp</find>
+      <find>TEMPLATEBY</find>
+      <find>gett</find>
     </findStrings>
     <replaceStrings>
       <replace>fct</replace>
@@ -174,15 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/Birth.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/LocationXml.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/HivServiceXml.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/MotherFollowupXml.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ChildXml.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/RegisterManageController.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/MotherFollowupManageController.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PregnantPatientXml.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ConsultationXml.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/BirthXml.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ChildFollowupXml.java" />
@@ -196,35 +186,44 @@
         <option value="$PROJECT_DIR$/omod/src/main/webapp/manageReport.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageDataSetController.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/ReportForm.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PrenatalXml.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/GetRunReportFromFrom.java" />
         <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageController.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageIndicatorController.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/ReportingReportGeneration.java" />
         <option value="$PROJECT_DIR$/api/src/main/resources/liquibase.xml" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/RunReportForm.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/UsefullFunction.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportIndicatorValues.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportRunIndicatorValue.java" />
         <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportDataSetIndicatorRun.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ReportIndicatorValuesXml.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java" />
-        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java" />
-        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/resources/jquery.autogrow.js" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportIndicator.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/reportDataSet.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/reportManage.jsp" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportGenerate.jsp" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/childManage.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/resources/DataTables/datetime-moment.js" />
-        <option value="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/resources/DataTables/moment.min.js" />
         <option value="$PROJECT_DIR$/omod/src/main/webapp/template/includeScript.jsp" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/RunReportForm.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/RegisterManageController.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/IndicatorFrom.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageIndicatorController.java" />
+        <option value="$PROJECT_DIR$/api/src/main/resources/messages_fr.properties" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/validators/RunReportFormValidator.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/validators/IndicatorFormValidator.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportIndicator.jsp" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ReportIndicatorValuesXml.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportRunIndicatorValue.java" />
+        <option value="$PROJECT_DIR$/omod/pom.xml" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportGenerate.jsp" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/GetTemplateFromFrom.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/TemplateForm.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp" />
+        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java" />
+        <option value="$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp" />
       </list>
     </option>
   </component>
@@ -281,8 +280,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
+    <option name="x" value="-7" />
     <option name="width" value="1604" />
     <option name="height" value="867" />
   </component>
@@ -304,9 +302,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -411,17 +410,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ptme" type="462c0819:PsiDirectoryNode" />
-              <item name="forms" type="462c0819:PsiDirectoryNode" />
-              <item name="validators" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ptme" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ptme" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -441,6 +429,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ptme" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource Bundle 'messages'" type="a6c14932:ResourceBundleNode" />
             </path>
             <path>
               <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
@@ -493,6 +490,14 @@
               <item name="omod" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ptme" type="462c0819:PsiDirectoryNode" />
+              <item name="omod" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -503,16 +508,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ptme" type="462c0819:PsiDirectoryNode" />
-              <item name="omod" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="autogrow" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ptme" type="b2602c69:ProjectViewProjectNode" />
@@ -547,7 +542,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -558,21 +552,25 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../openmrs-module-reporting" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\MEASURE\Documents\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\resources" />
-      <recent name="D:\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\template" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.openmrs.module.ptme.forms" />
-      <recent name="org.openmrs.module.ptme.web.controller" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MEASURE\Documents\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\resources\images" />
       <recent name="C:\Users\MEASURE\Documents\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\resources\DataTables" />
       <recent name="C:\Users\MEASURE\Documents\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp" />
       <recent name="D:\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp" />
       <recent name="D:\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\api\src\main\java\org\openmrs\module\ptme\forms" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.openmrs.module.ptme.forms" />
+      <recent name="org.openmrs.module.ptme.forms.validators" />
+      <recent name="org.openmrs.module.ptme.web.controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MEASURE\Documents\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\resources" />
       <recent name="D:\JSI\SIGDEP 2.X\DEVELOPPEMENT\ptme\omod\src\main\webapp\template" />
     </key>
   </component>
@@ -674,6 +672,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="6adda72e-6c3a-40d9-b601-269163baeae8" name="Default" comment="" />
@@ -744,7 +745,10 @@
       <workItem from="1540657179803" duration="17869000" />
       <workItem from="1540910845556" duration="485000" />
       <workItem from="1540973598542" duration="215253000" />
-      <workItem from="1541961884993" duration="17133000" />
+      <workItem from="1541961884993" duration="23614000" />
+      <workItem from="1542358135404" duration="32279000" />
+      <workItem from="1542463222837" duration="10398000" />
+      <workItem from="1542621800110" duration="27521000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour de liste avec DataTable.js javascript">
       <created>1539940465834</created>
@@ -977,11 +981,46 @@
       <option name="project" value="LOCAL" />
       <updated>1542101583665</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Adding tables date column sorting">
+      <created>1542197813703</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1542197813703</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Adding indicator form validation class">
+      <created>1542437101771</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1542437101771</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Adding indicator form validation class">
+      <created>1542437458836</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1542437458837</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Adding export report to excel functionality">
+      <created>1542643809108</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1542643809109</updated>
+    </task>
+    <task id="LOCAL-00038" summary="adding excel icon in resources">
+      <created>1542644000585</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1542644000585</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1581785000" />
+    <option name="totallyTimeSpent" value="1658464000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1001,21 +1040,21 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34666666" sideWeight="0.5042644" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34666666" sideWeight="0.49573562" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22867803" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="1" y="38" width="1918" height="991" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34666666" sideWeight="0.49573562" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32777777" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2249467" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15351813" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1082,142 +1121,19 @@
     <MESSAGE value="Update generate view title font and text align" />
     <MESSAGE value="Hide template link in menu and changing report generate view page design" />
     <MESSAGE value="Highlight children who haven't any visit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Highlight children who haven't any visit" />
+    <MESSAGE value="Adding tables date column sorting" />
+    <MESSAGE value="Adding indicator form validation class" />
+    <MESSAGE value="Adding export report to excel functionality" />
+    <MESSAGE value="adding excel icon in resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding excel icon in resources" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PrenatalXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="64" column="5" lean-forward="true" selection-start-line="58" selection-start-column="4" selection-end-line="64" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ChildFollowupVisitXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="70" column="34" lean-forward="false" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ChildFollowupXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="802">
-          <caret line="89" column="29" lean-forward="false" selection-start-line="89" selection-start-column="29" selection-end-line="89" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ChildXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-604">
-          <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ConsultationXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-737">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/HivServiceXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/LocationXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/MotherFollowupXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-813">
-          <caret line="24" column="121" lean-forward="false" selection-start-line="24" selection-start-column="121" selection-end-line="24" selection-end-column="121" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PatientXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1402">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PostnatalXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="20" column="60" lean-forward="false" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PregnantPatientXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="108" column="5" lean-forward="true" selection-start-line="99" selection-start-column="4" selection-end-line="108" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/ReportForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="104" column="9" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="104" selection-end-column="9" />
-          <folding>
-            <element signature="e#3269#3287#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="76" column="35" lean-forward="false" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/GetRunReportFromFrom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/motherFollowup.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="275" column="89" lean-forward="false" selection-start-line="275" selection-start-column="75" selection-end-line="275" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-680">
@@ -1242,30 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/RegisterManageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="268" column="79" lean-forward="true" selection-start-line="268" selection-start-column="79" selection-end-line="268" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageIndicatorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="111" column="0" lean-forward="true" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/resources/liquibase.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="1437" column="21" lean-forward="true" selection-start-line="1437" selection-start-column="21" selection-end-line="1437" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/registerList.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1286,133 +1178,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/RunReportForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="89" column="58" lean-forward="false" selection-start-line="89" selection-start-column="58" selection-end-line="89" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ReportIndicatorValuesXml.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="46" column="41" lean-forward="true" selection-start-line="46" selection-start-column="41" selection-end-line="46" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportDataSetIndicatorRun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="66" lean-forward="false" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#468#469#0" expanded="false" />
-            <element signature="e#502#503#0" expanded="false" />
-            <element signature="e#556#557#0" expanded="false" />
-            <element signature="e#602#603#0" expanded="false" />
-            <element signature="e#676#677#0" expanded="false" />
-            <element signature="e#723#724#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="1091" column="55" lean-forward="false" selection-start-line="1091" selection-start-column="37" selection-end-line="1091" selection-end-column="55" />
-          <folding>
-            <element signature="e#47853#47880#0" expanded="true" />
-            <element signature="e#48199#48224#0" expanded="true" />
-            <marker date="1541788478550" expanded="true" signature="7108:7939" ph="select pr.ra... ptme_prenatal" />
-            <marker date="1541788478550" expanded="true" signature="7108:9698" ph="select pr.ra... " />
-            <marker date="1541788478550" expanded="true" signature="7968:8798" ph="select 'Acco... ptme_birth" />
-            <marker date="1541788478550" expanded="true" signature="8827:9658" ph="select 'CPoN... ptme_postnatal" />
-            <marker date="1541788478550" expanded="true" signature="16384:16968" ph="SELECT ppp.p... ptme_pregnant_patient" />
-            <marker date="1541788478550" expanded="true" signature="18435:19755" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="19104:19190" ph="SELECT *, if... ptme_mother_followup" />
-            <marker date="1541788478550" expanded="true" signature="19252:19358" ph="SELECT count... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="19382:19498" ph="SELECT max(v... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="19811:19843" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="19894:19919" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="19971:19999" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="20060:20105" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="24169:25845" ph="SELECT pc.ch... *" />
-            <marker date="1541788478550" expanded="true" signature="25286:25372" ph="SELECT *, if... ptme_child_followup" />
-            <marker date="1541788478550" expanded="true" signature="25420:25505" ph="SELECT count... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="25528:25623" ph="SELECT max(v... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="25954:26015" ph="SELECT pc.ch... *" />
-            <marker date="1541788478550" expanded="true" signature="26080:26122" ph="SELECT pc.ch... *" />
-            <marker date="1541788478550" expanded="true" signature="26185:26225" ph="SELECT pc.ch... *" />
-            <marker date="1541788478550" expanded="true" signature="29273:29293" ph="SELECT COUNT... " />
-            <marker date="1541788478550" expanded="true" signature="30005:31691" ph="SELECT pregn... ptme_mother_followup" />
-            <marker date="1541788478550" expanded="true" signature="30362:30495" ph="SELECT MAX(v... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="30593:30891" ph="SELECT *, AD... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="30593:30908" ph="SELECT *, AD... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="31134:31354" ph="SELECT COUNT... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="32507:34101" ph="SELECT pregn... ptme_mother_followup" />
-            <marker date="1541788478550" expanded="true" signature="32842:33031" ph="SELECT MAX(v... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="33129:33224" ph="SELECT *, AD... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="33450:33655" ph="SELECT COUNT... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="34848:36674" ph="SELECT child... ptme_child" />
-            <marker date="1541788478550" expanded="true" signature="35307:35402" ph="SELECT MAX(v... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="35479:35776" ph="SELECT *, AD... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="35879:35989" ph="SELECT COUNT... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="37423:38778" ph="SELECT child... ptme_child" />
-            <marker date="1541788478550" expanded="true" signature="37793:37888" ph="SELECT MAX(v... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="37965:38059" ph="SELECT *, AD... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="38162:38345" ph="SELECT COUNT... ptme_child_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="50783:52098" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="51452:51537" ph="SELECT *, if... ptme_mother_followup" />
-            <marker date="1541788478550" expanded="true" signature="51599:51705" ph="SELECT count... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="51729:51845" ph="SELECT max(v... ptme_mother_followup_visit" />
-            <marker date="1541788478550" expanded="true" signature="52241:52266" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="52411:52456" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="52555:52606" ph="SELECT pmf.m... *" />
-            <marker date="1541788478550" expanded="true" signature="52648:52697" ph="SELECT pmf.m... *" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="196" column="48" lean-forward="false" selection-start-line="196" selection-start-column="30" selection-end-line="196" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="537" column="57" lean-forward="true" selection-start-line="537" selection-start-column="57" selection-end-line="537" selection-end-column="57" />
-          <folding>
-            <element signature="e#16699#16700#0" expanded="false" />
-            <element signature="e#16754#16755#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportRunIndicatorValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="32" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1422,26 +1187,6 @@
           <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportIndicatorValues.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="80" column="13" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1465,22 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="16" column="1514" lean-forward="false" selection-start-line="16" selection-start-column="1514" selection-end-line="16" selection-end-column="1514" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportGenerate.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="262" column="116" lean-forward="false" selection-start-line="262" selection-start-column="116" selection-end-line="262" selection-end-column="116" />
-          <folding>
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#4;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1500,29 +1229,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportIndicator.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="57" column="15" lean-forward="false" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/Child.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
+        <state relative-caret-position="703">
           <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/childManage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
-          <folding>
-            <element signature="e#2718#2780#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="1178">
+          <caret line="62" column="25" lean-forward="false" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1530,15 +1248,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="70" column="10" lean-forward="true" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1546,7 +1255,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="51679" lean-forward="false" selection-start-line="0" selection-start-column="51679" selection-end-line="0" selection-end-column="51679" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1558,10 +1266,368 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ChildFollowupManageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-361">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/IndicatorForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/BirthXml.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-254">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="14" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/resources/messages_fr.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="74" column="77" lean-forward="true" selection-start-line="74" selection-start-column="77" selection-end-line="74" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageIndicatorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="104" column="50" lean-forward="false" selection-start-line="104" selection-start-column="50" selection-end-line="104" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/RegisterManageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1478">
+          <caret line="221" column="47" lean-forward="true" selection-start-line="221" selection-start-column="47" selection-end-line="221" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/RunReportForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/resources/liquibase.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="1131" column="21" lean-forward="true" selection-start-line="1131" selection-start-column="21" selection-end-line="1131" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/validators/IndicatorFormValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2014">
+          <caret line="121" column="52" lean-forward="false" selection-start-line="121" selection-start-column="52" selection-end-line="121" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/validators/RunReportFormValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="41" column="33" lean-forward="false" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportIndicator.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/SimpleXstreamInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportIndicatorValues.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportDataSetIndicatorRun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/ReportIndicatorValuesXml.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="45" column="68" lean-forward="false" selection-start-line="45" selection-start-column="68" selection-end-line="45" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/utils/ReportRunIndicatorValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="26" lean-forward="false" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding>
+            <element signature="e#927#928#0" expanded="false" />
+            <element signature="e#954#955#0" expanded="false" />
+            <element signature="e#994#995#0" expanded="false" />
+            <element signature="e#1026#1027#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/resources/images/calendar.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="89" column="27" lean-forward="true" selection-start-line="89" selection-start-column="27" selection-end-line="89" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/localHeader.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="41" column="105" lean-forward="false" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/xml/PrenatalXml.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="14" column="26" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageDataSetController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/PreventTransmissionDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="177" column="23" lean-forward="false" selection-start-line="177" selection-start-column="23" selection-end-line="177" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/db/hibernate/HibernatePreventTransmissionDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1023">
+          <caret line="1087" column="5" lean-forward="false" selection-start-line="1087" selection-start-column="5" selection-end-line="1087" selection-end-column="5" />
+          <folding>
+            <marker date="1542646869550" expanded="true" signature="7108:7939" ph="select pr.ra... ptme_prenatal" />
+            <marker date="1542646869550" expanded="true" signature="7108:9698" ph="select pr.ra... " />
+            <marker date="1542646869550" expanded="true" signature="7968:8798" ph="select 'Acco... ptme_birth" />
+            <marker date="1542646869550" expanded="true" signature="8827:9658" ph="select 'CPoN... ptme_postnatal" />
+            <marker date="1542646869550" expanded="true" signature="16384:16968" ph="SELECT ppp.p... ptme_pregnant_patient" />
+            <marker date="1542646869550" expanded="true" signature="18435:19755" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="19104:19190" ph="SELECT *, if... ptme_mother_followup" />
+            <marker date="1542646869550" expanded="true" signature="19252:19358" ph="SELECT count... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="19382:19498" ph="SELECT max(v... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="19811:19843" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="19894:19919" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="19971:19999" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="20060:20105" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="24169:25845" ph="SELECT pc.ch... *" />
+            <marker date="1542646869550" expanded="true" signature="25286:25372" ph="SELECT *, if... ptme_child_followup" />
+            <marker date="1542646869550" expanded="true" signature="25420:25505" ph="SELECT count... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="25528:25623" ph="SELECT max(v... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="25954:26015" ph="SELECT pc.ch... *" />
+            <marker date="1542646869550" expanded="true" signature="26080:26122" ph="SELECT pc.ch... *" />
+            <marker date="1542646869550" expanded="true" signature="26185:26225" ph="SELECT pc.ch... *" />
+            <marker date="1542646869550" expanded="true" signature="29273:29293" ph="SELECT COUNT... " />
+            <marker date="1542646869550" expanded="true" signature="30005:31691" ph="SELECT pregn... ptme_mother_followup" />
+            <marker date="1542646869550" expanded="true" signature="30362:30495" ph="SELECT MAX(v... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="30593:30891" ph="SELECT *, AD... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="30593:30908" ph="SELECT *, AD... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="31134:31354" ph="SELECT COUNT... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="32507:34101" ph="SELECT pregn... ptme_mother_followup" />
+            <marker date="1542646869550" expanded="true" signature="32842:33031" ph="SELECT MAX(v... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="33129:33224" ph="SELECT *, AD... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="33450:33655" ph="SELECT COUNT... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="34848:36674" ph="SELECT child... ptme_child" />
+            <marker date="1542646869550" expanded="true" signature="35307:35402" ph="SELECT MAX(v... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="35479:35776" ph="SELECT *, AD... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="35879:35989" ph="SELECT COUNT... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="37423:38778" ph="SELECT child... ptme_child" />
+            <marker date="1542646869550" expanded="true" signature="37793:37888" ph="SELECT MAX(v... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="37965:38059" ph="SELECT *, AD... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="38162:38345" ph="SELECT COUNT... ptme_child_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="52955:54270" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="53624:53709" ph="SELECT *, if... ptme_mother_followup" />
+            <marker date="1542646869550" expanded="true" signature="53771:53877" ph="SELECT count... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="53901:54017" ph="SELECT max(v... ptme_mother_followup_visit" />
+            <marker date="1542646869550" expanded="true" signature="54413:54438" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="54583:54628" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="54727:54778" ph="SELECT pmf.m... *" />
+            <marker date="1542646869550" expanded="true" signature="54820:54869" ph="SELECT pmf.m... *" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/impl/PreventTransmissionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="515" column="13" lean-forward="true" selection-start-line="515" selection-start-column="13" selection-end-line="515" selection-end-column="13" />
+          <folding>
+            <element signature="e#15154#15155#0" expanded="false" />
+            <element signature="e#15204#15205#0" expanded="false" />
+            <element signature="e#15429#15430#0" expanded="false" />
+            <element signature="e#15482#15483#0" expanded="false" />
+            <element signature="e#15561#15562#0" expanded="false" />
+            <element signature="e#15612#15613#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/GetTemplateFormForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/forms/TemplateForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#521#522#0" expanded="false" />
+            <element signature="e#553#554#0" expanded="false" />
+            <element signature="e#584#585#0" expanded="false" />
+            <element signature="e#611#612#0" expanded="false" />
+            <element signature="e#651#652#0" expanded="false" />
+            <element signature="e#683#684#0" expanded="false" />
+            <element signature="e#721#722#0" expanded="false" />
+            <element signature="e#754#755#0" expanded="false" />
+            <element signature="e#807#808#0" expanded="false" />
+            <element signature="e#851#852#0" expanded="false" />
+            <element signature="e#882#883#0" expanded="false" />
+            <element signature="e#909#910#0" expanded="false" />
+            <element signature="e#949#950#0" expanded="false" />
+            <element signature="e#981#982#0" expanded="false" />
+            <element signature="e#1019#1020#0" expanded="false" />
+            <element signature="e#1053#1054#0" expanded="false" />
+            <element signature="e#1107#1108#0" expanded="false" />
+            <element signature="e#1153#1154#0" expanded="false" />
+            <element signature="e#1187#1188#0" expanded="false" />
+            <element signature="e#1217#1218#0" expanded="false" />
+            <element signature="e#1263#1264#0" expanded="false" />
+            <element signature="e#1301#1302#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportGenerate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="33" column="50" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="33" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/reportTemplate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="12" column="33" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+          <folding>
+            <element signature="e#1721#1754#0#HTML" expanded="true" />
+            <element signature="e#1843#1893#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/org/openmrs/module/ptme/api/PreventTransmissionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="188" column="7" lean-forward="false" selection-start-line="188" selection-start-column="7" selection-end-line="188" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingManageTemplateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="134" column="20" lean-forward="true" selection-start-line="134" selection-start-column="20" selection-end-line="134" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi/3.17/poi-3.17.jar!/org/apache/poi/ss/usermodel/Cell.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="757">
+          <caret line="68" column="41" lean-forward="false" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omod/src/main/java/org/openmrs/module/ptme/web/controller/ReportingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-623">
+          <caret line="238" column="35" lean-forward="false" selection-start-line="238" selection-start-column="24" selection-end-line="238" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5120#5147#0" expanded="true" />
+            <element signature="e#5670#5695#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/omod/src/main/webapp/template/reportHeader.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="365">
+          <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1569,9 +1635,81 @@
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>ptme-omod</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -2,6 +2,7 @@ package org.openmrs.module.ptme.web.controller;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
@@ -49,6 +50,9 @@ public class ReportingController {
 
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat(
             "yyyy-MM-dd_HHmmss");
+
+    private static SimpleDateFormat dateFormatterDdMmYyyy = new SimpleDateFormat(
+            "dd/MM/yyyy");
 
     private PreventTransmissionService getPreventTransmissionService() {
         return Context.getService(PreventTransmissionService.class);
@@ -254,6 +258,13 @@ public class ReportingController {
 
             Sheet sheet = workbook.getSheetAt(0);
 
+            Boolean hasReportTitle = false;
+            Boolean hasReportLocation = false;
+            Boolean hasReportStartDate = false;
+            Boolean hasReportEndDate = false;
+            Boolean hasReportGenerationDate = false;
+            Boolean hasReportMonth = false;
+
             for (ReportDataSetIndicatorRun dataSetIndicatorRun : reportIndicatorValues.getReportDataSetIndicatorRuns()) {
                 for (ReportRunIndicatorValue indicatorValue : dataSetIndicatorRun.getReportRunIndicatorValues()) {
 
@@ -266,14 +277,57 @@ public class ReportingController {
 
                         while (cellIterator.hasNext()) {
                             Cell cell = cellIterator.next();
-                            if (cell.getStringCellValue().equals(indicatorValue.getCode())) {
-                                cell.setCellValue(indicatorValue.getValue());
-                                break;
+
+                            if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+
+                                if (cell.getStringCellValue().equals(indicatorValue.getCode())) {
+                                    cell.setCellValue(indicatorValue.getValue());
+                                    break;
+                                }
+
+                                if (!hasReportTitle) {
+                                    if (cell.getStringCellValue().equals("reportTitle")) {
+                                        cell.setCellValue(reportGeneration.getReport().getReportLabel());
+                                        hasReportTitle = true;
+                                    }
+                                }
+                                if (!hasReportLocation) {
+                                    if (cell.getStringCellValue().equals("reportLocation")) {
+                                        cell.setCellValue(reportGeneration.getReportLocation().getName());
+                                        hasReportLocation = true;
+                                    }
+                                }
+                                if (!hasReportGenerationDate) {
+                                    if (cell.getStringCellValue().equals("reportGenerationDate")) {
+                                        cell.setCellValue(dateFormatterDdMmYyyy.format(reportGeneration.getGenerationDate()));
+                                        hasReportGenerationDate = true;
+                                    }
+                                }
+                                if (!hasReportStartDate) {
+                                    if (cell.getStringCellValue().equals("reportStartDate")) {
+                                        cell.setCellValue(dateFormatterDdMmYyyy.format(reportGeneration.getReportPeriodStartDate()));
+                                        hasReportStartDate = true;
+                                    }
+                                }
+                                if (!hasReportEndDate) {
+                                    if (cell.getStringCellValue().equals("reportEndDate")) {
+                                        cell.setCellValue(dateFormatterDdMmYyyy.format(reportGeneration.getReportPeriodEndDate()));
+                                        hasReportEndDate = true;
+                                    }
+                                }
+                                if (!hasReportMonth) {
+                                    if (cell.getStringCellValue().equals("reportMonth")) {
+                                        cell.setCellValue(reportGeneration.getName());
+                                        hasReportMonth = true;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+
+            XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition","attachment; filename=" + filename);

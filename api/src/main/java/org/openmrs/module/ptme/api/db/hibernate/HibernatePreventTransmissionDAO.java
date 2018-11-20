@@ -1058,6 +1058,36 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
+	public ReportingTemplate getTemplateByName(String name) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingTemplate.class);
+		return (ReportingTemplate) criteria.add(Restrictions.eq("name", name)).uniqueResult();
+	}
+
+	@Override
+	public ReportingTemplate saveReportingTemplate(ReportingTemplate template) {
+		sessionFactory.getCurrentSession().saveOrUpdate(template);
+		return template;
+	}
+
+	@Override
+	public Boolean removeTemplate(Integer templateId) {
+		if (getTemplateById(templateId) != null){
+			sessionFactory.getCurrentSession().delete(getTemplateById(templateId));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ReportingTemplate voidTemplate(Integer templateId) {
+		ReportingTemplate ri = (ReportingTemplate) sessionFactory.getCurrentSession().get(ReportingTemplate.class, templateId);
+		ri.setVoided(true);
+		ri.setDateVoided(new Date());
+		sessionFactory.getCurrentSession().update(ri);
+		return ri;
+	}
+
+	@Override
 	public SerializedData getSerializedDataById(Integer id) {
 		return (SerializedData) sessionFactory.getCurrentSession().get(SerializedData.class, id);
 	}

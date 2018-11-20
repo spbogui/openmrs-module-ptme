@@ -45,11 +45,11 @@
                 </a>
             </li>
 
-            <%--<li <c:if test='<%= request.getRequestURI().contains("/reportTemplate") %>'>class="active"</c:if>>--%>
-                <%--<a href="${pageContext.request.contextPath}/module/ptme/reportTemplate.form">--%>
-                    <%--<spring:message code="ptme.report.submenu.title.template" />--%>
-                <%--</a>--%>
-            <%--</li>--%>
+            <li <c:if test='<%= request.getRequestURI().contains("/reportTemplate") %>'>class="active"</c:if>>
+                <a href="${pageContext.request.contextPath}/module/ptme/reportTemplate.form">
+                    <spring:message code="ptme.report.submenu.title.template" />
+                </a>
+            </li>
         </openmrs:hasPrivilege>
     </ul>
 </div>

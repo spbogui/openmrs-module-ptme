@@ -182,6 +182,10 @@ public interface PreventTransmissionService extends OpenmrsService {
 	List<ReportingTemplate> getAllTemplates();
 	List<ReportingTemplate> getAllTemplates(Boolean includeVoided);
 	ReportingTemplate getTemplateById(Integer templateId);
+	ReportingTemplate getTemplateByName(String name);
+	ReportingTemplate saveReportingTemplate(ReportingTemplate template);
+	Boolean removeTemplate(Integer templateId);
+	ReportingTemplate voidTemplate(Integer templateId);
 	/**
 	 * End Report Service
 	 */

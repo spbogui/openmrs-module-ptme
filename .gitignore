@@ -22,3 +22,7 @@
 ### Maven ###
 target/
 #############
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/libraries/Maven__org_apache_poi_poi_4_0_0.xml
+.idea/libraries/Maven__org_apache_commons_commons_collections4_4_2.xml

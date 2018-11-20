@@ -509,6 +509,27 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
+    public ReportingTemplate getTemplateByName(String name){
+        return dao.getTemplateByName(name);
+    }
+
+    @Override
+    public ReportingTemplate saveReportingTemplate(ReportingTemplate template) {
+        return dao.saveReportingTemplate(template);
+    }
+
+    @Override
+    public Boolean removeTemplate(Integer templateId) {
+        return dao.removeTemplate(templateId);
+    }
+
+    @Override
+    public ReportingTemplate voidTemplate(Integer templateId) {
+        return dao.voidTemplate(templateId);
+    }
+
+
+    @Override
     public SerializedData getSerializedDataById(Integer id) {
         return dao.getSerializedDataById(id);
     }
