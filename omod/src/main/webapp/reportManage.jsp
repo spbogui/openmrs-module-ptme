@@ -17,11 +17,11 @@
     if (jQuery) {
         $(document).ready(function () {
             $("#list-report").dataTable({
-                dom: 'B<"clear">lfrtip',
-                buttons: {
-                    name: 'primary',
-                    buttons: [ 'copy', 'csv', 'excel' ]
-                },
+//                dom: 'B<"clear">lfrtip',
+//                buttons: {
+//                    name: 'primary',
+//                    buttons: [ 'copy', 'csv', 'excel' ]
+//                },
                 "pageLength": 20,
                 "order": [[0, "asc"]],
                 "language": {
