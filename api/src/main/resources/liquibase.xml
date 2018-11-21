@@ -1530,4 +1530,7 @@
         <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
         <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
     </changeSet>
+    <changeSet id="prevent-transmission-remove-unique-const-generation-21-11-2018" author="BOGUI SERBE">
+        <dropUniqueConstraint constraintName="name" tableName="ptme_reporting_report_generation"/>
+    </changeSet>
 </databaseChangeLog>
