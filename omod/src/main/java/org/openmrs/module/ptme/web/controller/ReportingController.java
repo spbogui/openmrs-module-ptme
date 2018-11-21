@@ -249,7 +249,9 @@ public class ReportingController {
 
         ReportIndicatorValues reportIndicatorValues = (ReportIndicatorValues)unmarshaller.unmarshal(reader);
 
-        String filename = reportGeneration.getName().replace(" ", "_") + "_" +  dateFormatter.format(new Date())+ ".xlsx";
+        String filename = reportGeneration.getReport().getReportLabel().replace(" ", "_") +
+                "_" +  reportGeneration.getName().replace(" ", "_") + "_" +
+                dateFormatter.format(new Date())+ ".xlsx";
 
         try {
 

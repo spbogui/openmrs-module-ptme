@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-public class ReportingManageController {
+public class ReportingManageReportController {
 
     private PreventTransmissionService getPreventTransmissionService() {
         return Context.getService(PreventTransmissionService.class);
@@ -103,7 +103,7 @@ public class ReportingManageController {
     }
 
     @RequestMapping(value = "/module/ptme/reportManage.form", method = RequestMethod.POST)
-    public String onSubmitDataSet(HttpServletRequest request,
+    public String onSubmitReport(HttpServletRequest request,
                                   ModelMap modelMap,
                                   @RequestParam(required = false, defaultValue = "") Integer reportId,
                                   ReportForm reportForm,
