@@ -47,8 +47,8 @@ public class RunReportFormValidator implements Validator {
                 }
             }
 
-            if (!form.getName().isEmpty()) {
-                ReportingReportGeneration ind = Context.getService(PreventTransmissionService.class).getGeneratedReportByName(form.getName());
+            if (!form.getName().isEmpty() && form.getReportId() != null) {
+                ReportingReportGeneration ind = Context.getService(PreventTransmissionService.class).getGeneratedReportByNameAndReportId(form.getName(), form.getReportId());
 
                 if (ind != null && form.getReportId() != null && ind.getReport().getReportId().equals(form.getReportId())) {
 
