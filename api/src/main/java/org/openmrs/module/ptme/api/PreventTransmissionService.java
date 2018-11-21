@@ -220,4 +220,5 @@ public interface PreventTransmissionService extends OpenmrsService {
 	ReportingIndicator getIndicatorByCode(String code);
 
     ReportingReportGeneration getGeneratedReportByName(String name);
+    ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId);
 }

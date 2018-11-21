@@ -1148,6 +1148,15 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
+	public ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId) {
+		return (ReportingReportGeneration) sessionFactory.getCurrentSession().createQuery("FROM " +
+				"ReportingReportGeneration r WHERE r.name = :name AND r.report.reportId = :reportId AND r.voided = false")
+				.setParameter("reportId", reportId)
+				.setParameter("name", name)
+				.uniqueResult();
+	}
+
+	@Override
 	public String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location) {
 //		Location l = Context.getLocationService().getDefaultLocation();
 		Location l = getLocationByName(location);

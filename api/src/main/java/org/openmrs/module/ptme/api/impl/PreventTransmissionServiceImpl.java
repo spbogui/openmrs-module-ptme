@@ -509,7 +509,7 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
-    public ReportingTemplate getTemplateByName(String name){
+    public ReportingTemplate getTemplateByName(String name) {
         return dao.getTemplateByName(name);
     }
 
@@ -527,7 +527,6 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     public ReportingTemplate voidTemplate(Integer templateId) {
         return dao.voidTemplate(templateId);
     }
-
 
     @Override
     public SerializedData getSerializedDataById(Integer id) {
@@ -603,6 +602,11 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     @Override
     public ReportingReportGeneration getGeneratedReportByName(String name) {
         return dao.getGeneratedReportByName(name);
+    }
+
+    @Override
+    public ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId) {
+        return dao.getGeneratedReportByNameAndReportId(name, reportId);
     }
 
 }
