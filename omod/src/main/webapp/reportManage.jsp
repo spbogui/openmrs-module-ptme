@@ -23,7 +23,7 @@
                     buttons: [ 'copy', 'csv', 'excel' ]
                 },
                 "pageLength": 20,
-                "order": [[1, "asc"]],
+                "order": [[0, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun rapport &agrave; afficher",
                     paginate: {
