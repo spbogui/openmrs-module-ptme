@@ -47,7 +47,7 @@ public class PostnatalFormValidator implements Validator {
                     PregnantPatient pregnantPatient = Context.getService(PreventTransmissionService.class).getPregnantPatientByHivCareNumber(form.getHivCareNumber());
                     if (pregnantPatient != null && (!pregnantPatient.getPregnantPatientId().equals(form.getPregnantPatientId()))) {
                         String pregnantNumber = pregnantPatient.getPregnantNumber();
-                        errors.rejectValue("hivCareNumber", "Numéro déjà attribué à : " + pregnantNumber);
+                        errors.rejectValue("hivCareNumber", null, "Numéro déjà attribué à : " + pregnantNumber);
                     } else {
                         Patient patient = Context.getService(PreventTransmissionService.class).getPatientByIdentifier(form.getHivCareNumber());
                         if (patient != null && patient.getGender().equals("M")) {

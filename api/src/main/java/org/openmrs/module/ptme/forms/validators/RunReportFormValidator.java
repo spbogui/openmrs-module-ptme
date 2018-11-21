@@ -50,7 +50,7 @@ public class RunReportFormValidator implements Validator {
             if (!form.getName().isEmpty()) {
                 ReportingReportGeneration ind = Context.getService(PreventTransmissionService.class).getGeneratedReportByName(form.getName());
 
-                if (ind != null) {
+                if (ind != null && form.getReportId() != null && ind.getReport().getReportId().equals(form.getReportId())) {
 
                     if (form.getGenerationId() == null) {
                         errors.rejectValue("name", null, "Un rapport généré a déjà ce nom");

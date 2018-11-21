@@ -63,7 +63,7 @@ public class PrenatalFormValidator implements Validator {
                     PregnantPatient pregnantPatient = Context.getService(PreventTransmissionService.class).getPregnantPatientByHivCareNumber(form.getHivCareNumber());
                     if (pregnantPatient != null && (!pregnantPatient.getPregnantPatientId().equals(form.getPregnantPatientId()))) {
                         String pregnantNumber = pregnantPatient.getPregnantNumber();
-                        errors.rejectValue("hivCareNumber", "Numéro déjà attribué à : " + pregnantNumber);
+                        errors.rejectValue("hivCareNumber", null, "Numéro déjà attribué à : " + pregnantNumber);
                     } else {
                         Patient patient = Context.getService(PreventTransmissionService.class).getPatientByIdentifier(form.getHivCareNumber());
                         if (patient != null && patient.getGender().equals("M")) {
@@ -119,9 +119,9 @@ public class PrenatalFormValidator implements Validator {
 
             if(form.getAppointmentDate() != null && form.getConsultationDate() != null) {
                 if (form.getConsultationDate().after(form.getAppointmentDate())) {
-                    errors.rejectValue("appointmentDate", "La date de rendez-vous est avant la date de consultation !");
+                    errors.rejectValue("appointmentDate", null, "La date de rendez-vous est avant la date de consultation !");
                 } else if( form.getConsultationDate().equals(form.getAppointmentDate())) {
-                    errors.rejectValue("appointmentDate", "La date de rendez-vous correspond à la date de consultation !");
+                    errors.rejectValue("appointmentDate", null, "La date de rendez-vous correspond à la date de consultation !");
                 }
             }
         }

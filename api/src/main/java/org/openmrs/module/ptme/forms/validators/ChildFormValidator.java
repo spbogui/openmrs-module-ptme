@@ -46,16 +46,16 @@ public class ChildFormValidator  implements Validator {
                         errors.rejectValue("motherHivCareNumber", "ptme.invalid.hiv.number");
                     }
                     else if (form.getMotherHivCareNumber().equals(form.getChildFollowupNumber()) ) {
-                        errors.rejectValue("motherHivCareNumber", "Numéro de la mère identique à celui de l'enfant");
+                        errors.rejectValue("motherHivCareNumber",null,  "Numéro de la mère identique à celui de l'enfant");
                     } else if(!form.getChildFollowupNumber().contains(form.getMotherHivCareNumber())) {
                         errors.rejectValue("motherHivCareNumber", "ptme.not.by.hiv.number");
                     } else {
                         Patient mother = Context.getService(PreventTransmissionService.class).getPatientByIdentifier(form.getMotherHivCareNumber());
                         if (mother == null){
-                            errors.rejectValue("motherHivCareNumber", "Ce Numéro n'est pas celui d'un patient du site !");
+                            errors.rejectValue("motherHivCareNumber", null, "Ce Numéro n'est pas celui d'un patient du site !");
                         } else {
                             if (mother.getGender().equals("M")) {
-                                errors.rejectValue("motherHivCareNumber", "Ce Numéro n'est pas celui d'un patient du site !");
+                                errors.rejectValue("motherHivCareNumber", null, "Ce Numéro n'est pas celui d'une femme !");
                             }
                         }
                     }
