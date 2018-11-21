@@ -108,7 +108,7 @@
             <thead>
             <tr style="background-color: #1aac9b; color: #ffffff;">
                 <th>Rapport</th>
-                <th>Nom</th>
+                <th>P&eacute;riode</th>
                 <th>G&eacute;n&eacute;r&eacute; le</th>
                 <th>Etablissement</th>
                 <th>Date d&eacute;but </th>
@@ -214,8 +214,8 @@
                                 <td><form:errors cssClass="error" path="reportId"/></td>
                             </tr>
                             <tr>
-                                <td class="boldText">Nom du rapport g&eacute;n&eacute;r&eacute; <b class="required">*</b> : </td>
-                                <td><form:input path="name"  size="60" cssClass=""/></td>
+                                <td class="boldText">P&eacute;riode <b class="required">*</b> : </td>
+                                <td><form:input path="name"  size="40" cssClass=""/></td>
                                 <td><form:errors cssClass="error" path="name"/></td>
                             </tr>
                             <tr>
