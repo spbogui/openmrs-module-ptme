@@ -249,9 +249,6 @@ public class ReportingController {
 
         ReportIndicatorValues reportIndicatorValues = (ReportIndicatorValues)unmarshaller.unmarshal(reader);
 
-        String filename = reportGeneration.getReport().getReportLabel().replace(" ", "_") +
-                "_" +  reportGeneration.getName().replace(" ", "_") + "_" +
-                dateFormatter.format(new Date())+ ".xlsx";
 
         try {
 
@@ -331,12 +328,17 @@ public class ReportingController {
 
             XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
+            String filename = reportGeneration.getReport().getReportLabel().replace(" ", "_") +
+                    "_" +  reportGeneration.getName().replace(" ", "_") + "_" +
+                    dateFormatter.format(new Date())+ ".xlsx";
+
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition","attachment; filename=" + filename);
             response.setHeader("Pragma", "no-cache");
-            workbook.write(response.getOutputStream());
 
+            workbook.write(response.getOutputStream());
             workbook.close();
+            is.close();
 
         } catch (Exception e) {
             System.out.println("Exception " + e.getLocalizedMessage());
