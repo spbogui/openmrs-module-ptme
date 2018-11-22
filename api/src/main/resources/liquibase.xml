@@ -1526,6 +1526,11 @@
         </addColumn>
     </changeSet>
     <changeSet id="prevent-transmission-alter-table-reporting-indicator-02-11-2018" author="BOGUI SERGE">
+        <preConditions>
+            <not>
+                <columnExists tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
+            </not>
+        </preConditions>
         <dropColumn tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
         <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
         <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
@@ -1534,7 +1539,7 @@
         <dropUniqueConstraint constraintName="name" tableName="ptme_reporting_report_generation"/>
     </changeSet>
     <changeSet id="prenvent-transmission-add-privilege-run-reports-manager-22-11-2018" author="BOGUI SERGE">
-        <preConditions>
+        <preConditions onFail="MARK_RAN">
             <not>
                 <sqlCheck expectedResult="1">SELECT COUNT(*) FROM role_privilege WHERE role = 'Data Manager' AND privilege = 'Run PTME Reports'</sqlCheck>
             </not>
