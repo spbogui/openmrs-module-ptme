@@ -1103,7 +1103,7 @@
             <column name="status" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="serialized_xml_data" type="varchar(255)">
+            <column name="serialized_xml_data" type="longtext">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="date">
@@ -1190,11 +1190,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="dataset_headers" type="varchar(255)">
+            <!--<column name="dataset_headers" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="number_of_line" type="int"/>
-            <column name="number_of_column" type="int"/>
+            <column name="number_of_column" type="int"/>-->
             <!--<column name="location_id" type="int">
                 <constraints nullable="false"/>
             </column>-->
@@ -1431,7 +1431,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="generation_date" type="datetime">
                 <constraints nullable="false"/>
@@ -1509,24 +1509,24 @@
         </sql>
     </changeSet>
 
-    <changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018" author="BOGUI SERGE">
+    <!--<changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018" author="BOGUI SERGE">
         <dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>
         <addColumn tableName="ptme_serialized_data">
             <column name="serialized_xml_data" type="text">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
-    </changeSet>
-    <changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018-2" author="BOGUI SERGE">
-        <dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>
-        <addColumn tableName="ptme_serialized_data">
-            <column name="serialized_xml_data" type="longtext">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-    </changeSet>
-    <changeSet id="prevent-transmission-alter-table-reporting-indicator-02-11-2018" author="BOGUI SERGE">
-        <preConditions>
+    </changeSet>-->
+    <!--<changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018-2" author="BOGUI SERGE">-->
+        <!--<dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>-->
+        <!--<addColumn tableName="ptme_serialized_data">-->
+            <!--<column name="serialized_xml_data" type="longtext">-->
+                <!--<constraints nullable="false"/>-->
+            <!--</column>-->
+        <!--</addColumn>-->
+    <!--</changeSet>-->
+    <!--<changeSet id="prevent-transmission-alter-table-reporting-indicator-02-11-2018" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
             </not>
@@ -1537,7 +1537,7 @@
     </changeSet>
     <changeSet id="prevent-transmission-remove-unique-const-generation-21-11-2018" author="BOGUI SERBE">
         <dropUniqueConstraint constraintName="name" tableName="ptme_reporting_report_generation"/>
-    </changeSet>
+    </changeSet>-->
     <changeSet id="prenvent-transmission-add-privilege-run-reports-manager-22-11-2018" author="BOGUI SERGE">
         <preConditions onFail="MARK_RAN">
             <not>
