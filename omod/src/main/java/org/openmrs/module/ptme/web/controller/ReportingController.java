@@ -254,6 +254,7 @@ public class ReportingController {
 
             InputStream is = new ByteArrayInputStream(reportGeneration.getReport().getTemplate().getContent());
             Workbook workbook = new XSSFWorkbook(is);
+            is.close();
 
             Sheet sheet = workbook.getSheetAt(0);
 
@@ -338,7 +339,6 @@ public class ReportingController {
 
             workbook.write(response.getOutputStream());
             workbook.close();
-            is.close();
 
         } catch (Exception e) {
             System.out.println("Exception " + e.getLocalizedMessage());
