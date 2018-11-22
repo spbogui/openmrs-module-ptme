@@ -80,7 +80,7 @@ public class ReportingController {
                                  @RequestParam(required = false, defaultValue = "") Integer reportSaveId,
                                  @RequestParam(required = false, defaultValue = "") Integer reportViewId,
                                  @RequestParam(required = false, defaultValue = "") Integer reportExcelId,
-                                 ModelMap modelMap) throws Exception, InvalidFormatException, IOException {
+                                 ModelMap modelMap) throws Exception{
 
         if (!Context.isAuthenticated()){
             return;
