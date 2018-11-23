@@ -19,7 +19,7 @@
                         next:     'Suivant'
                     },
                     "info":"Affichage de _START_ &agrave _END_ sur _TOTAL_ ",
-                    "search": "Filtrer les rapports g&eacute;n&eacute;r&eacute;s"
+                    "search": "Filtrer les templates"
                 },
                 "lengthChange": false,
                 "stripeClasses": [ 'odd', 'even' ]
