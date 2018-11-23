@@ -3,6 +3,7 @@ package org.openmrs.module.ptme.web.controller;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
+import org.apache.poi.xssf.usermodel.XSSFPrintSetup;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
@@ -265,6 +266,8 @@ public class ReportingController {
             Boolean hasReportGenerationDate = false;
             Boolean hasReportMonth = false;
 
+            int maxColumnLength = 0;
+
             for (ReportDataSetIndicatorRun dataSetIndicatorRun : reportIndicatorValues.getReportDataSetIndicatorRuns()) {
                 for (ReportRunIndicatorValue indicatorValue : dataSetIndicatorRun.getReportRunIndicatorValues()) {
 
@@ -272,11 +275,12 @@ public class ReportingController {
 
                     while (rowIterator.hasNext()) {
                         Row row = rowIterator.next();
-
                         Iterator<Cell> cellIterator = row.cellIterator();
+                        int cellNum = 0;
 
                         while (cellIterator.hasNext()) {
                             Cell cell = cellIterator.next();
+                            cellNum += 1;
 
                             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 
@@ -323,15 +327,34 @@ public class ReportingController {
                                 }
                             }
                         }
+
+                        if (maxColumnLength < cellNum)
+                            maxColumnLength = cellNum;
                     }
                 }
             }
 
             XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
+            workbook.setPrintArea(
+                    0, //sheet index
+                    0, //start column
+                    maxColumnLength - 1, //end column
+                    sheet.getFirstRowNum(), //start row
+                    sheet.getLastRowNum() //end row
+            );
+
             String filename = reportGeneration.getReport().getReportLabel().replace(" ", "_") +
                     "_" +  reportGeneration.getName().replace(" ", "_") + "_" +
                     dateFormatter.format(new Date())+ ".xlsx";
+
+            sheet.getPrintSetup().setPaperSize(XSSFPrintSetup.A4_PAPERSIZE);
+            sheet.setDisplayGridlines(false);
+            sheet.setPrintGridlines(false);
+
+            /*FileOutputStream out = new FileOutputStream(new File(filename));
+            workbook.write(out);
+            out.close();*/
 
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition","attachment; filename=" + filename);

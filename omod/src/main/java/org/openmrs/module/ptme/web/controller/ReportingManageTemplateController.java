@@ -2,6 +2,7 @@ package org.openmrs.module.ptme.web.controller;
 
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ptme.ReportingReport;
 import org.openmrs.module.ptme.ReportingTemplate;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.GetIndicatorFromFrom;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -48,8 +50,29 @@ public class ReportingManageTemplateController {
         if (!Context.isAuthenticated()){
             return;
         }
+
         HttpSession session = request.getSession();
         String mode = "list";
+
+        if (delId != null){
+            ReportingTemplate template = getPreventTransmissionService().getTemplateById(delId);
+
+            if (template != null) {
+                List<ReportingReport> reportingReports = getPreventTransmissionService().getAllReports();
+                Boolean attributed = false;
+                for (ReportingReport report : reportingReports) {
+                    if (template.equals(report.getTemplate())) {
+                        session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Le template que vous voulez supprimer est attribué au rapport : " + report.getReportLabel());
+                        attributed = true;
+                        break;
+                    }
+                }
+
+                if (!attributed) {
+                    getPreventTransmissionService().removeTemplate(delId);
+                }
+            }
+        }
 
         if (templateId != null) {
             mode = "form";
