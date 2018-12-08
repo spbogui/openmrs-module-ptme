@@ -33,7 +33,7 @@
 
             $(".list-register-table,#list-register-table2").dataTable({
                "pageLength": 10,
-                "order": [[1, "asc"]],
+                "order": [[3, "asc"]],
                 "language": {
                     "zeroRecords": "Aucune femme enceinte trouv&eacute;",
                     paginate: {
