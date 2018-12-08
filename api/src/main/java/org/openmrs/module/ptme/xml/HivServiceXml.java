@@ -18,14 +18,14 @@ public class HivServiceXml implements Converter {
         if (hs.isVoided()) {
             writer.addAttribute("voided", "1");
         }
-        writer.addAttribute("hivStatusAtReception", nullSafeString(hs.getHivStatusAtReception()));
-        writer.addAttribute("testProposal", nullSafeString(hs.getTestProposal()));
-        writer.addAttribute("testResult", nullSafeString(hs.getTestResult()));
-        writer.addAttribute("resultAnnouncement", nullSafeString(hs.getResultAnnouncement()));
-        writer.addAttribute("arvDiscount", nullSafeString(hs.getArvDiscount()));
-        writer.addAttribute("childArvProphylaxis", nullSafeString(hs.getChildArvProphylaxis()));
-        writer.addAttribute("arvStatus", nullSafeString(hs.getArvStatus()));
-        writer.addAttribute("arvTreatment", nullSafeString(hs.getArvTreatment()));
+        addOptionalElement(writer,"hivStatusAtReception", nullSafeString(hs.getHivStatusAtReception()));
+        addOptionalElement(writer,"testProposal", nullSafeString(hs.getTestProposal()));
+        addOptionalElement(writer,"testResult", nullSafeString(hs.getTestResult()));
+        addOptionalElement(writer,"resultAnnouncement", nullSafeString(hs.getResultAnnouncement()));
+        addOptionalElement(writer,"arvDiscount", nullSafeString(hs.getArvDiscount()));
+        addOptionalElement(writer,"childArvProphylaxis", nullSafeString(hs.getChildArvProphylaxis()));
+        addOptionalElement(writer,"arvStatus", nullSafeString(hs.getArvStatus()));
+        addOptionalElement(writer,"arvTreatment", nullSafeString(hs.getArvTreatment()));
     }
 
     private static String nullSafeString(Object o) {
@@ -42,5 +42,24 @@ public class HivServiceXml implements Converter {
     @Override
     public boolean canConvert(Class aClass) {
         return aClass.equals(HivService.class);
+    }
+
+    /**
+     * Convenience method for rendering XML elements
+     *
+     * @param writer
+     *            XML output writer
+     * @param nodeName
+     *            name of node for element
+     * @param value
+     *            the value for the element. if null, then nothing is added to
+     *            the output buffer
+     */
+    private void addOptionalElement(HierarchicalStreamWriter writer, String nodeName, String value) {
+        if (value != null) {
+            writer.startNode(nodeName);
+            writer.setValue(value);
+            writer.endNode();
+        }
     }
 }

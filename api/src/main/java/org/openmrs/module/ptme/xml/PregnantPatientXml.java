@@ -32,9 +32,6 @@ public class PregnantPatientXml implements Converter {
         writer.setValue(nullSafeString(pregnantPatient.getAge()));
         writer.endNode();
 
-//        writer.addAttribute("pregnantNumber", pregnantPatient.getPregnantNumber());
-//        writer.addAttribute("age", nullSafeString(pregnantPatient.getAge()));
-
         addOptionalElement(writer, "familyName", pregnantPatient.getFamilyName());
         addOptionalElement(writer, "givenName", pregnantPatient.getGivenName());
         addOptionalElement(writer, "hivCareNumber", pregnantPatient.getHivCareNumber());
@@ -44,23 +41,6 @@ public class PregnantPatientXml implements Converter {
         addOptionalElement(writer, "spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
         addOptionalElement(writer, "spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
         addOptionalElement(writer, "patient", pregnantPatient.getPatient().getUuid());
-
-//        writer.addAttribute("familyName", nullSafeString(pregnantPatient.getFamilyName()));
-//        writer.addAttribute("givenName", nullSafeString(pregnantPatient.getGivenName()));
-//        writer.addAttribute("hivCareNumber", nullSafeString(pregnantPatient.getHivCareNumber()));
-//        writer.addAttribute("screeningNumber", nullSafeString(pregnantPatient.getScreeningNumber()));
-//        writer.addAttribute("maritalStatus", nullSafeString(pregnantPatient.getMaritalStatus()));
-//        writer.addAttribute("spousalScreening", nullSafeString(pregnantPatient.getSpousalScreening()));
-//        writer.addAttribute("spousalScreeningResult", nullSafeString(pregnantPatient.getSpousalScreeningResult()));
-
-//        if (pregnantPatient.getPatient() != null) {
-//            Patient patient = pregnantPatient.getPatient();
-//            writer.startNode("patient");
-//            writer.setValue(pregnantPatient.getPatient().getUuid());
-//            PatientXml patientXml = new PatientXml();
-//            patientXml.marshal(patient, writer, context);
-//            writer.endNode();
-//        }
 
     }
 

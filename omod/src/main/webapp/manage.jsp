@@ -29,53 +29,40 @@
 <script type="application/javascript">
     if (jQuery) {
 
-//        $j(document).ready(function () {
-//            $j.fn.dataTable.moment( 'HH:mm MMM D, YY' );
-//            $j.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );
-//            $j.fn.dataTable.moment( 'dd/MM/YYYY' );
-//
-//            $j(".list-register-table,#list-register-table2").dataTable({
-//                "bPaginate": true,
-//                // "order": [[1, "desc"]],
-//                "iDisplayLength": 5,
-//                "bLengthChange": false,
-//                "bFilter": true,
-////                "bSort": true,
-//                "bInfo": true,
-//                "bJQueryUI": true,
-//                "oLanguage": {
-//                    "oPaginate": {
-//                        "sPrevious": "Pr&eacute;c&eacute;dent",
-//                        "sNext": "Suivant"
-//                    },
-//                    "sZeroRecords": "Aucune patiente à afficher",
-//                    "sInfo": "Affichage de _START_ - _END_ sur _TOTAL_ ",
-//                    "sSearch": "Chercher"
-//                },
-//                // "aaSorting": [[1, "desc"]]
-//            });
-//
-//            $j(".list-register-table-child").dataTable({
-//                "bPaginate": true,
-//                // "order": [[1, "desc"]],
-//                "iDisplayLength": 5,
-//                "bLengthChange": false,
-//                "bFilter": true,
-////                "bSort": true,
-//                "bInfo": true,
-//                "bJQueryUI": true,
-//                "oLanguage": {
-//                    "oPaginate": {
-//                        "sPrevious": "Pr&eacute;c&eacute;dent",
-//                        "sNext": "Suivant"
-//                    },
-//                    "sZeroRecords": "Aucun enfant à afficher",
-//                    "sInfo": "Affichage de _START_ - _END_ sur _TOTAL_ ",
-//                    "sSearch": "Chercher"
-//                },
-//                // "aaSorting": [[1, "desc"]]
-//            });
-//        });
+        $(document).ready(function () {
+
+            $(".list-register-table,#list-register-table2").dataTable({
+               "pageLength": 10,
+                "order": [[1, "asc"]],
+                "language": {
+                    "zeroRecords": "Aucune femme enceinte trouv&eacute;",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
+                    },
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les femmes enceintes"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
+            });
+
+            $(".list-register-table-child").dataTable({
+                "pageLength": 10,
+                "order": [[3, "asc"]],
+                "language": {
+                    "zeroRecords": "Aucun enfant trouv&eacute;",
+                    paginate: {
+                        previous: 'Pr&eacute;c&eacute;dent',
+                        next:     'Suivant'
+                    },
+                    "info":"Affichage de _START_ a _END_ sur _TOTAL_ ",
+                    "search": "Filtrer les enfants expos&eacute;"
+                },
+                "lengthChange": false,
+                "stripeClasses": [ 'odd', 'even' ]
+            });
+        });
     }
 </script>
 
@@ -100,249 +87,276 @@
         </tr>
         </thead>
         <tbody>
-        <%--<tr>--%>
-            <%--<td colspan="2">--%>
-                <%--<div class="line"></div>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
         <tr>
             <td valign="top" style="border-right:5px solid #1aac9b;">
-                <table cellspacing="5" cellpadding="5" width="100%">
-                    <tr>
-                        <th>Femmes enceintes VIH + ayant un rendez-vous ce mois</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <fieldset>
-                                <table class="list-register-table" width="100%" cellpadding="5">
-                                    <thead>
-                                    <tr style="background-color: #1aac9b; color: #ffffff;">
-                                        <th>Num&eacute;ro</th>
-                                        <th>Nom et Pr&eacute;noms</th>
-                                        <%--<th>Date de derni&egrave;re visite</th>--%>
-                                        <th>Nb de visites</th>
-                                        <th>Date de rendez-vous</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:if test="${ empty motherFollowedAppointments }"  >
-                                        <tr>
-                                            <td colspan="4" align="center">
-                                                Aucune femme &agrave; afficher
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                    <c:forEach var="mother" items="${ motherFollowedAppointments }">
-                                        <tr style="color: ${mother.passed == 1 ? '#1aac9b': (mother.passed == 2 ? 'lightcoral': 'none' )}">
-                                            <td>
-                                                <c:url value="/module/ptme/motherFollowup.form" var="url">
-                                                    <c:param name="hivCareNumber" value="${mother.hivCareNumber}"/>
-                                                </c:url>
-                                                <a href="${ url }">${mother.hivCareNumber}</a>
-                                            </td>
-                                            <td>${mother.familyName} ${mother.givenName}</td>
-                                                <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
-                                            <td align="center">${mother.numberOfVisit}</td>
-                                            <td align="center"><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Femmes enceintes VIH + ayant rat&eacute; leur rendez-vous</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <fieldset>
-                                <table class="list-register-table" width="100%" cellpadding="5">
-                                    <thead>
-                                    <tr style="background-color: firebrick; color: #ffffff;">
-                                        <th>Num&eacute;ro</th>
-                                        <th>Nom et Pr&eacute;noms</th>
-                                        <th>Nb de visites</th>
-                                        <th>Derni&egrave;re visite</th>
-                                        <%--<th>Date de rendez-vous</th>--%>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:if test="${ empty motherFollowedAppointmentsMissed }"  >
-                                        <tr>
-                                            <td colspan="4" align="center">
-                                                Aucune femme &agrave; afficher
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                    <c:forEach var="mother" items="${ motherFollowedAppointmentsMissed }">
-                                        <tr>
-                                            <td>
-                                                <c:url value="/module/ptme/motherFollowup.form" var="url">
-                                                    <c:param name="hivCareNumber" value="${mother.hivCareNumber}"/>
-                                                </c:url>
-                                                <a href="${ url }">${mother.hivCareNumber}</a>
-                                            </td>
-                                            <td>${mother.familyName} ${mother.givenName}</td>
-                                            <td align="center">${mother.numberOfVisit}</td>
-                                            <td align="center"><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
-                                        <%--<td><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>--%>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </td>
-                    </tr>
-                </table>
-
-                <%--<table>
-                    <tr>
-                        <td>
-                            <table class="patient-bloc">
-                                <tr>
-                                    <td rowspan="2">
-                                        <span class="patient-name">KONAN</span> <br>
-                                        <span class="patient-given-name">AYA CAROLINE</span>
-                                    </td>
-                                    <td colspan="2" align="center"><small>Visite</small></td>
-                                    <td rowspan="2"><small>Attendue le</small></td>
-                                    <td rowspan="3">Saisir la fiche</td>
-                                </tr>
-                                <tr>
-                                    <td>Nombre</td>
-                                    <td>Derni&egrave;re</td>
-                                </tr>
-                                <tr>
-                                    <td class="patient-number">1234/01/18/00001</td>
-                                    <td class="visit">5</td>
-                                    <td class="last-vist">07/07/2018</td>
-                                    <td class="appointment">07/08/2018</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>--%>
+                <fieldset>
+                    <legend>Femmes enceintes VIH + ayant un rendez-vous ce mois</legend>
+                    <table class="list-register-table" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <%--<th>Date de derni&egrave;re visite</th>--%>
+                            <th>Nb de visites</th>
+                            <th>Date de rendez-vous</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty motherFollowedAppointments }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucune femme &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="mother" items="${ motherFollowedAppointments }">
+                            <tr style="color: ${mother.passed == 1 ? '#1aac9b': (mother.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/motherFollowup.form" var="url">
+                                        <c:param name="hivCareNumber" value="${mother.hivCareNumber}"/>
+                                    </c:url>
+                                    <a href="${ url }">${mother.hivCareNumber}</a>
+                                </td>
+                                <td>${mother.familyName} ${mother.givenName}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center">${mother.numberOfVisit}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Femmes enceintes VIH + ayant rat&eacute; leur rendez-vous</legend>
+                    <table class="list-register-table" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: firebrick; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Nb de visites</th>
+                            <th>Derni&egrave;re visite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty motherFollowedAppointmentsMissed }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucune femme &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="mother" items="${ motherFollowedAppointmentsMissed }">
+                            <tr>
+                                <td>
+                                    <c:url value="/module/ptme/motherFollowup.form" var="url">
+                                        <c:param name="hivCareNumber" value="${mother.hivCareNumber}"/>
+                                    </c:url>
+                                    <a href="${ url }">${mother.hivCareNumber}</a>
+                                </td>
+                                <td>${mother.familyName} ${mother.givenName}</td>
+                                <td align="center">${mother.numberOfVisit}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </fieldset>
 
             </td>
             <td valign="top" style="">
-                <table cellspacing="5" cellpadding="5" width="100%">
-                    <tr>
-                        <th>Enfants expos&eacute;s ayant un rendez-vous ce mois</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <fieldset>
-                                <table id="list-ec-appointment-missed" class="list-register-table-child" width="100%" cellpadding="5">
-                                    <thead>
-                                    <tr style="background-color: #1aac9b; color: #ffffff;">
-                                        <th>Num&eacute;ro</th>
-                                        <th>Nom et Pr&eacute;noms</th>
-                                        <%--<th>Date de derni&egrave;re visite</th>--%>
-                                        <th>Nb de visites</th>
-                                        <th>Date de rendez-vous</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:if test="${ empty childFollowedAppointments }"  >
-                                        <tr>
-                                            <td colspan="4" align="center">
-                                                Aucun enfant &agrave; afficher
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                    <c:forEach var="child" items="${ childFollowedAppointments }">
-                                        <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
-                                            <td>
-                                                <c:url value="/module/ptme/childFollowup.form" var="url">
-                                                    <c:param name="childFollowupNumber" value="${child.childFollowupNumber}"/>
-                                                </c:url>
-                                                <a href="${ url }">${child.childFollowupNumber}</a>
-                                            </td>
-                                            <td>${child.familyName} ${child.givenName}</td>
-                                                <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
-                                            <td align="center">${child.numberOfVisit}</td>
-                                            <td align="center"><fmt:formatDate type="date" value="${child.appointmentDate}" pattern="dd/MM/yyyy" /></td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Enfants expos&eacute;s ayant rat&eacute; leur rendez-vous</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <fieldset>
-                                <table class="list-register-table-child" width="100%" cellpadding="5">
-                                    <thead>
-                                    <tr style="background-color: firebrick; color: #ffffff;">
-                                        <th>Num&eacute;ro</th>
-                                        <th>Nom et Pr&eacute;noms</th>
-                                        <th>Nb visites</th>
-                                        <th>Derni&egrave;re visite</th>
-                                        <%--<th>Date de rendez-vous</th>--%>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:if test="${ empty childFollowedAppointmentsMissed }"  >
-                                        <tr>
-                                            <td colspan="4" align="center">
-                                                Aucun enfant &agrave; afficher
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                    <c:forEach var="child" items="${ childFollowedAppointmentsMissed }">
-                                        <tr>
-                                            <td>
-                                                <c:url value="/module/ptme/childFollowup.form" var="url">
-                                                    <c:param name="childFollowupNumber" value="${child.childFollowupNumber}"/>
-                                                </c:url>
-                                                <a href="${ url }">${child.childFollowupNumber}</a>
-                                            </td>
-                                            <td>${child.familyName} ${child.givenName}</td>
-                                            <td align="center">${child.numberOfVisit}</td>
-                                            <td align="center"><fmt:formatDate type="date" value="${child.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
-                                                <%--<td><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>--%>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </td>
-                    </tr>
-                </table>
 
-                <%--<table>
-                    <tr>
-                        <td>
-                            <table class="patient-bloc">
-                                <tr>
-                                    <td rowspan="2">
-                                        <span class="patient-name">KONAN</span> <br>
-                                        <span class="patient-given-name">AYA CAROLINE</span>
-                                    </td>
-                                    <td colspan="2" align="center"><small>Visite</small></td>
-                                    <td rowspan="2"><small>Attendue le</small></td>
-                                    <td rowspan="3">Saisir la fiche</td>
-                                </tr>
-                                <tr>
-                                    <td>Nombre</td>
-                                    <td>Derni&egrave;re</td>
-                                </tr>
-                                <tr>
-                                    <td class="patient-number">1234/01/18/00001</td>
-                                    <td class="visit">5</td>
-                                    <td class="last-vist">07/07/2018</td>
-                                    <td class="appointment">07/08/2018</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>--%>
+                <fieldset>
+                    <legend>Enfants expos&eacute;s attendus pour la PCR 1</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Date de naissance</th>
+                            <th>Date de rendez-vous</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty childPcr1Appointment }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucun enfant &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="childPcr1" items="${ childPcr1Appointment }">
+                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="urlPcr1">
+                                        <c:param name="childFollowupNumber" value="${childPcr1.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ urlPcr1 }">${childPcr1.childFollowupNumber}</a>
+                                </td>
+                                <td>${childPcr1.familyName} ${childPcr1.givenName}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center"><fmt:formatDate type="date" value="${childPcr1.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
+                                <td align="center"><fmt:formatDate type="date" value="${childPcr1.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
 
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Enfants expos&eacute;s attendus pour la PCR 2</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Date de naissance</th>
+                            <th>Date de rendez-vous</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty childPcr2Appointment }"  >
+                            <tr>
+                                <td colspan="4" align="center">
+                                    Aucun enfant &agrave; afficher
+                                </td>
+                            </tr>
+                        </c:if>--%>
+                        <c:forEach var="childPcr2" items="${ childPcr2Appointment }">
+                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="urlPcr2">
+                                        <c:param name="childFollowupNumber" value="${childPcr2.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ urlPcr2 }">${childPcr2.childFollowupNumber}</a>
+                                </td>
+                                <td>${childPcr2.familyName} ${childPcr2.givenName}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center">${childPcr2.lastVisitDate}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${childPcr2.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Enfants expos&eacute;s attendus pour la PCR 3</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Date de naissance</th>
+                            <th>Date de rendez-vous</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty childPcr3Appointment }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucun enfant &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="childPcr3" items="${ childPcr3Appointment }">
+                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="urlPcr3">
+                                        <c:param name="childFollowupNumber" value="${childPcr3.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ urlPcr3 }">${childPcr3.childFollowupNumber}</a>
+                                </td>
+                                <td>${childPcr3.familyName} ${childPcr3.givenName}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center">${childPcr3.lastVisitDate}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${childPcr3.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <hr>
+                <br>
+                <fieldset>
+                    <legend>Enfants expos&eacute;s attendus ce mois</legend>
+                    <table id="list-ec-appointment-missed" class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <%--<th>Date de derni&egrave;re visite</th>--%>
+                            <th>Nb de visites</th>
+                            <th>Date de rendez-vous</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty childFollowedAppointments }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucun enfant &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="child" items="${ childFollowedAppointments }">
+                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="url">
+                                        <c:param name="childFollowupNumber" value="${child.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ url }">${child.childFollowupNumber}</a>
+                                </td>
+                                <td>${child.familyName} ${child.givenName}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center">${child.numberOfVisit}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${child.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <hr>
+                <fieldset>
+                    <legend>Enfants expos&eacute;s ayant rat&eacute; leur rendez-vous les mois pr&eacute;c&eacute;dents</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: firebrick; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Nb visites</th>
+                            <th>Derni&egrave;re visite</th>
+                            <%--<th>Date de rendez-vous</th>--%>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--<c:if test="${ empty childFollowedAppointmentsMissed }"  >--%>
+                        <%--<tr>--%>
+                        <%--<td colspan="4" align="center">--%>
+                        <%--Aucun enfant &agrave; afficher--%>
+                        <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--</c:if>--%>
+                        <c:forEach var="child" items="${ childFollowedAppointmentsMissed }">
+                            <tr>
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="url">
+                                        <c:param name="childFollowupNumber" value="${child.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ url }">${child.childFollowupNumber}</a>
+                                </td>
+                                <td>${child.familyName} ${child.givenName}</td>
+                                <td align="center">${child.numberOfVisit}</td>
+                                <td align="center"><fmt:formatDate type="date" value="${child.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>--%>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </fieldset>
             </td>
         </tr>
         </tbody>

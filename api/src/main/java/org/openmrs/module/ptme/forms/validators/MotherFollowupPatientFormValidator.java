@@ -1,6 +1,7 @@
 package org.openmrs.module.ptme.forms.validators;
 
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.forms.MotherFollowupPatientForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -25,7 +26,8 @@ public class MotherFollowupPatientFormValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "pregnantNumber", "ptme.field.required");
             ValidationUtils.rejectIfEmpty(errors, "hivCareNumber", "ptme.field.required");
 
-            Pattern pattern = Pattern.compile("^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?[1-9]?$", Pattern.CASE_INSENSITIVE);
+            String motherHivCareNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.motherFollowupNumberFormat");
+            Pattern pattern = Pattern.compile(motherHivCareNumberRegExp, Pattern.CASE_INSENSITIVE);
             if (!form.getHivCareNumber().isEmpty()){
                 if(!pattern.matcher(form.getHivCareNumber()).matches()) {
                     errors.rejectValue("hivCareNumber", "ptme.invalid.hiv.number");

@@ -259,6 +259,7 @@ public class MotherFollowupManageController {
                     modelMap.addAttribute("motherFollowupVisits", getPreventTransmissionService().getMotherFollowupVisitByPatientAndFollowup(currentMotherFollowup));
                     modelMap.addAttribute("motherFollowupVisitsCount", motherFollowupVisits != null ? motherFollowupVisits.size() : 0);
 
+                    assert pregnantPatient != null;
                     motherFollowupForm.setPregnantPatientId(pregnantPatient.getPregnantPatientId());
 
                     modelMap.addAttribute("motherFollowupForm", motherFollowupForm);

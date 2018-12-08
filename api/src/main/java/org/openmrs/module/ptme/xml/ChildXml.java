@@ -22,12 +22,13 @@ public class ChildXml implements Converter {
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         Child child = (Child) value;
 
-        writer.addAttribute("childFollowupNumber", child.getChildFollowupNumber());
-        writer.addAttribute("birthDate", dateFormatter.format(child.getBirthDate()));
-        writer.addAttribute("gender", child.getGender());
-        writer.addAttribute("familyName", child.getFamilyName());
-        writer.addAttribute("givenName", child.getGivenName());
         writer.addAttribute("uuid", child.getUuid());
+
+        addOptionalElement(writer,"childFollowupNumber", child.getChildFollowupNumber());
+        addOptionalElement(writer,"birthDate", dateFormatter.format(child.getBirthDate()));
+        addOptionalElement(writer,"gender", child.getGender());
+        addOptionalElement(writer,"familyName", child.getFamilyName());
+        addOptionalElement(writer,"givenName", child.getGivenName());
 
         if (child.getMother() != null) {
             writer.startNode("mother");

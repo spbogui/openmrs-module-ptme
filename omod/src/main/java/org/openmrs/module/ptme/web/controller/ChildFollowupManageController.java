@@ -264,7 +264,8 @@ public class ChildFollowupManageController {
                             session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Résultat ne dit pas qu'il est positif veuillez le modifier SVP");
                             hasErrors = true;
                         } else {
-                            Pattern pattern = Pattern.compile("^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?[1-9]?$", Pattern.CASE_INSENSITIVE);
+                            String childFollowupNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.childFollowupNumberFormat");
+                            Pattern pattern = Pattern.compile(childFollowupNumberRegExp, Pattern.CASE_INSENSITIVE);
                             if (!pattern.matcher(childFollowupForm.getHivCareNumber()).matches()) {
                                 session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Le numéro d'identification pour le résultat est invalide le modifier SVP");
                                 hasErrors = true;
@@ -424,6 +425,7 @@ public class ChildFollowupManageController {
 
                 session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
 
+                assert child != null;
                 return "redirect:/module/ptme/childFollowup.form?childFollowupNumber="+ child.getChildFollowupNumber();
             }
 

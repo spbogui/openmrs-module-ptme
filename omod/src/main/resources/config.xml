@@ -72,5 +72,32 @@
 	</messages>
 	<!-- /Internationalization -->
 
+	<!-- Global Properties -->
+	<globalProperty>
+		<property>ptme.weekOfPCR1</property>
+		<defaultValue>6</defaultValue>
+		<description>Insert here the number of week for PCR 1</description>
+	</globalProperty>
+	<globalProperty>
+		<property>ptme.weekOfPCR2</property>
+		<defaultValue>8</defaultValue>
+		<description>Insert here the number of week for PCR 2</description>
+	</globalProperty>
+	<globalProperty>
+		<property>ptme.weekOfPCR3</property>
+		<defaultValue>16</defaultValue>
+		<description>Insert here the number of week for PCR 3</description>
+	</globalProperty>
+	<globalProperty>
+		<property>ptme.childFollowupNumberFormat</property>
+		<defaultValue>^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E[1-9]?$</defaultValue>
+		<description>Regular Expression for child followup number</description>
+	</globalProperty>
+	<globalProperty>
+		<property>ptme.motherFollowupNumberFormat</property>
+		<defaultValue>^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?$</defaultValue>
+		<description>Regular Expression for mother Hiv care number</description>
+	</globalProperty>
+	<!-- /Global Properties -->
 </module>
 

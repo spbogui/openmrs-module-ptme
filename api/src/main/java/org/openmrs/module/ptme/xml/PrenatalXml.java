@@ -17,11 +17,11 @@ public class PrenatalXml implements Converter {
     @Override
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         Prenatal prenatal = (Prenatal) value;
-        writer.addAttribute("rank", prenatal.getRank());
-        writer.addAttribute("weekOfAmenorrhea", nullSafeString(prenatal.getWeekOfAmenorrhea()));
-        writer.addAttribute("spousalScreening", nullSafeString(prenatal.getSpousalScreening()));
-        writer.addAttribute("spousalScreeningResult", nullSafeString(prenatal.getSpousalScreeningResult()));
-        writer.addAttribute("appointmentDate", dateFormatter.format(prenatal.getAppointmentDate()));
+        addOptionalElement(writer, "rank", prenatal.getRank());
+        addOptionalElement(writer, "weekOfAmenorrhea", nullSafeString(prenatal.getWeekOfAmenorrhea()));
+        addOptionalElement(writer, "spousalScreening", nullSafeString(prenatal.getSpousalScreening()));
+        addOptionalElement(writer, "spousalScreeningResult", nullSafeString(prenatal.getSpousalScreeningResult()));
+        addOptionalElement(writer, "appointmentDate", dateFormatter.format(prenatal.getAppointmentDate()));
 
         ConsultationXml consultationXml = new ConsultationXml();
         writer.startNode("consultation");

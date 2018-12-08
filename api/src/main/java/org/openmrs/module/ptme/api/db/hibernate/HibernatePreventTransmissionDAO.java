@@ -27,7 +27,6 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Relationship;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.*;
 import org.openmrs.module.ptme.api.db.PreventTransmissionDAO;
 import org.openmrs.module.ptme.utils.*;
@@ -880,6 +879,37 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
 				.addScalar("childFollowupNumber", StandardBasicTypes.STRING)
 				.addScalar("numberOfVisit", StandardBasicTypes.INTEGER)
+				.addScalar("familyName", StandardBasicTypes.STRING)
+				.addScalar("givenName", StandardBasicTypes.STRING)
+				.addScalar("appointmentDate", StandardBasicTypes.DATE)
+				.addScalar("lastVisitDate", StandardBasicTypes.DATE);
+
+		query.setResultTransformer(new AliasToBeanResultTransformer(ChildFollowupAppointment.class));
+		return (List<ChildFollowupAppointment>) query.list();
+	}
+
+	@Override
+	public List<ChildFollowupAppointment> getChildByAppointmentPcr(Integer days, Integer pcrType) {
+		String pcrTypeSql = "";
+		if (pcrType != null) {
+			pcrTypeSql = " AND pcf.pcr"+ pcrType.toString() +"_sampling_date IS NULL ";
+		}
+		String sqlQuery = "SELECT" +
+				"  child_followup_number AS childFollowupNumber," +
+				"  family_name familyName," +
+				"  given_name AS givenName," +
+				"  pc.birth_date As lastVisitDate," +
+				"  AppointmentDate " +
+				"FROM" +
+				"  (SELECT *,  ADDDATE(birth_date, INTERVAL " + days.toString() +" DAY) AppointmentDate FROM ptme_child) pc " +
+				"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+				"WHERE" +
+				"  AppointmentDate BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) " +
+				pcrTypeSql +
+				"ORDER BY AppointmentDate";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
+				.addScalar("childFollowupNumber", StandardBasicTypes.STRING)
+//				.addScalar("numberOfVisit", StandardBasicTypes.INTEGER)
 				.addScalar("familyName", StandardBasicTypes.STRING)
 				.addScalar("givenName", StandardBasicTypes.STRING)
 				.addScalar("appointmentDate", StandardBasicTypes.DATE)

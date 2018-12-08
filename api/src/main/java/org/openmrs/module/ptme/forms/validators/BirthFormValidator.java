@@ -43,7 +43,8 @@ public class BirthFormValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "arvStatus", "ptme.field.required");
 
             if (!form.getHivCareNumber().isEmpty()) {
-                Pattern pattern = Pattern.compile("^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?[1-9]?$", Pattern.CASE_INSENSITIVE);
+                String motherHivCareNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.motherFollowupNumberFormat");
+                Pattern pattern = Pattern.compile(motherHivCareNumberRegExp, Pattern.CASE_INSENSITIVE);
                 if (!pattern.matcher(form.getHivCareNumber()).matches()) {
                     errors.rejectValue("hivCareNumber", "ptme.invalid.hiv.number");
                 } else {

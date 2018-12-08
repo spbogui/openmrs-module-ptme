@@ -23,14 +23,6 @@ public class ReportIndicatorValuesXml implements Converter {
         writer.addAttribute("endDate", nullSafeString(dateFormatter.format(riv.getReportEndDate())));
         writer.addAttribute("generationDate", nullSafeString(dateFormatter.format(riv.getGenerationDate())));
         writer.addAttribute("location", nullSafeString(riv.getLocationUuid()));
-        /*if (!riv.getReportRunIndicatorValues().isEmpty()) {
-            writer.startNode("reportValues");
-            for (ReportRunIndicatorValue rriv :
-                    riv.getReportRunIndicatorValues()) {
-                addOptionalElementWithIdAttribute(writer, "indicator", rriv.getIndicatorUuid(), nullSafeString(rriv.getValue()));
-            }
-            writer.endNode();
-        }*/
 
         if (!riv.getReportDataSetIndicatorRuns().isEmpty()) {
             //writer.startNode("dataSet");
@@ -46,13 +38,10 @@ public class ReportIndicatorValuesXml implements Converter {
                         writer.addAttribute("code", rriv.getCode());
                         addOptionalElement(writer, "value", nullSafeString(rriv.getValue()));
                         writer.endNode();
-                        //addOptionalElementWithIdAttribute(writer, "indicator", rriv.getIndicatorUuid(), nullSafeString(rriv.getValue()));
                     }
-                    //writer.endNode();
                 }
                 writer.endNode();
             }
-            //writer.endNode();
         }
     }
 

@@ -1509,43 +1509,14 @@
         </sql>
     </changeSet>
 
-    <!--<changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018" author="BOGUI SERGE">
-        <dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>
-        <addColumn tableName="ptme_serialized_data">
-            <column name="serialized_xml_data" type="text">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-    </changeSet>-->
-    <!--<changeSet id="prevent-transmission-alter-table-serialized-data-31-10-2018-2" author="BOGUI SERGE">-->
-        <!--<dropColumn tableName="ptme_serialized_data" columnName="serialized_xml_data"/>-->
-        <!--<addColumn tableName="ptme_serialized_data">-->
-            <!--<column name="serialized_xml_data" type="longtext">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-        <!--</addColumn>-->
+    <!--<changeSet id="prenvent-transmission-privilege-run-reports-22-11-2018" author="BOGUI SERGE">-->
+        <!--<preConditions onFail="MARK_RAN">-->
+            <!--<not>-->
+                <!--<sqlCheck expectedResult="1">SELECT COUNT(*) FROM role_privilege WHERE role = 'Data Manager' AND privilege = 'Run PTME Reports'</sqlCheck>-->
+            <!--</not>-->
+        <!--</preConditions>-->
+        <!--<sql>-->
+            <!--INSERT INTO role_privilege (role, privilege) VALUES ('Data Manager', 'Run PTME Reports');-->
+        <!--</sql>-->
     <!--</changeSet>-->
-    <!--<changeSet id="prevent-transmission-alter-table-reporting-indicator-02-11-2018" author="BOGUI SERGE">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
-            </not>
-        </preConditions>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="dataset_headers"/>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_line"/>
-        <dropColumn tableName="ptme_reporting_dataset" columnName="number_of_column"/>
-    </changeSet>
-    <changeSet id="prevent-transmission-remove-unique-const-generation-21-11-2018" author="BOGUI SERBE">
-        <dropUniqueConstraint constraintName="name" tableName="ptme_reporting_report_generation"/>
-    </changeSet>-->
-    <changeSet id="prenvent-transmission-privilege-run-reports-22-11-2018" author="BOGUI SERGE">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <sqlCheck expectedResult="1">SELECT COUNT(*) FROM role_privilege WHERE role = 'Data Manager' AND privilege = 'Run PTME Reports'</sqlCheck>
-            </not>
-        </preConditions>
-        <sql>
-            INSERT INTO role_privilege (role, privilege) VALUES ('Data Manager', 'Run PTME Reports');
-        </sql>
-    </changeSet>
 </databaseChangeLog>

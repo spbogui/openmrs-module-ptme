@@ -19,19 +19,19 @@ public class MotherFollowupXml implements Converter {
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         MotherFollowup mf = (MotherFollowup) value;
         writer.addAttribute("uuid", mf.getUuid());
-        writer.addAttribute("visitDate", dateFormatter.format(mf.getStartDate()));
-        writer.addAttribute("endDate", dateFormatter.format(mf.getEndDate()));
-        writer.addAttribute("arvStatusAtRegistering", nullSafeString(mf.getArvStatusAtRegistering()));
-        writer.addAttribute("estimatedDeliveryDate", nullSafeString(dateFormatter.format(mf.getEstimatedDeliveryDate())));
-        writer.addAttribute("spousalScreeningResult", nullSafeString(mf.getSpousalScreeningResult()));
-        writer.addAttribute("spousalScreeningDate", nullSafeString(dateFormatter.format(mf.getSpousalScreeningDate())));
-        writer.addAttribute("pregnancyOutcome", nullSafeString(mf.getPregnancyOutcome()));
-        writer.addAttribute("deliveryType", nullSafeString(mf.getDeliveryType()));
-        writer.addAttribute("pregnantPatient", nullSafeString(mf.getPregnantPatient().getUuid()));
-
         if (mf.isVoided()){
             writer.addAttribute("voided", "1");
         }
+
+        addOptionalElement(writer,"visitDate", dateFormatter.format(mf.getStartDate()));
+        addOptionalElement(writer,"endDate", dateFormatter.format(mf.getEndDate()));
+        addOptionalElement(writer,"arvStatusAtRegistering", nullSafeString(mf.getArvStatusAtRegistering()));
+        addOptionalElement(writer,"estimatedDeliveryDate", nullSafeString(dateFormatter.format(mf.getEstimatedDeliveryDate())));
+        addOptionalElement(writer,"spousalScreeningResult", nullSafeString(mf.getSpousalScreeningResult()));
+        addOptionalElement(writer,"spousalScreeningDate", nullSafeString(dateFormatter.format(mf.getSpousalScreeningDate())));
+        addOptionalElement(writer,"pregnancyOutcome", nullSafeString(mf.getPregnancyOutcome()));
+        addOptionalElement(writer,"deliveryType", nullSafeString(mf.getDeliveryType()));
+        addOptionalElement(writer,"pregnantPatient", nullSafeString(mf.getPregnantPatient().getUuid()));
 
         writer.startNode("motherFollowupVisits");
 

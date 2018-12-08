@@ -22,39 +22,39 @@ public class ChildFollowupXml implements Converter {
         ChildFollowup cf = (ChildFollowup) value;
 
         writer.addAttribute("uuid", cf.getUuid());
-        writer.addAttribute("arvProphylaxisGiven", nullSafeString(cf.getArvProphylaxisGiven()));
-        writer.addAttribute("pcr1SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr1SamplingDate())));
-        writer.addAttribute("ageInMonthOnPcr1Sampling", nullSafeString(cf.getAgeInMonthOnPcr1Sampling()));
-        writer.addAttribute("ageInWeekOnPcr1Sampling", nullSafeString(cf.getAgeInWeekOnPcr1Sampling()));
-        writer.addAttribute("pcr1Result", nullSafeString(cf.getPcr1Result()));
-        writer.addAttribute("pcr2SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr2SamplingDate())));
-        writer.addAttribute("ageInMonthOnPcr2Sampling", nullSafeString(cf.getAgeInMonthOnPcr2Sampling()));
-        writer.addAttribute("ageInWeekOnPcr2Sampling", nullSafeString(cf.getAgeInWeekOnPcr2Sampling()));
-        writer.addAttribute("pcr2Result", nullSafeString(cf.getPcr2Result()));
-        writer.addAttribute("pcr3SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr3SamplingDate())));
-        writer.addAttribute("ageInMonthOnPcr3Sampling", nullSafeString(cf.getAgeInMonthOnPcr3Sampling()));
-        writer.addAttribute("ageInWeekOnPcr3Sampling", nullSafeString(cf.getAgeInWeekOnPcr3Sampling()));
-        writer.addAttribute("pcr3Result", nullSafeString(cf.getPcr3Result()));
-        writer.addAttribute("ctxInitiationDate", nullSafeString(dateFormatter.format(cf.getCtxInitiationDate())));
-        writer.addAttribute("ageInMonthOnCtxInitiation", nullSafeString(cf.getAgeInMonthOnCtxInitiation()));
-        writer.addAttribute("ageInWeekOnCtxInitiation", nullSafeString(cf.getAgeInWeekOnCtxInitiation()));
-        writer.addAttribute("inhInitiationDate", nullSafeString(dateFormatter.format(cf.getInhInitiationDate())));
-        writer.addAttribute("ageInMonthOnInhInitiation", nullSafeString(cf.getAgeInMonthOnInhInitiation()));
-        writer.addAttribute("ageInWeekOnInhInitiation", nullSafeString(cf.getAgeInWeekOnInhInitiation()));
-        writer.addAttribute("hivSerology1Date", nullSafeString(dateFormatter.format(cf.getHivSerology1Date())));
-        writer.addAttribute("ageInMonthOnHivSerology1", nullSafeString(cf.getAgeInMonthOnHivSerology1()));
-        writer.addAttribute("hivSerology1Result", nullSafeString(cf.getHivSerology1Result()));
-        writer.addAttribute("hivSerology2Date", nullSafeString(dateFormatter.format(cf.getHivSerology2Date())));
-        writer.addAttribute("ageInMonthOnHivSerology2", nullSafeString(cf.getAgeInMonthOnHivSerology2()));
-        writer.addAttribute("ageInWeekOnHivSerology2", nullSafeString(cf.getAgeInWeekOnHivSerology2()));
-        writer.addAttribute("hivSerology2Result", nullSafeString(cf.getHivSerology2Result()));
-        writer.addAttribute("followupResult", nullSafeString(cf.getFollowupResult()));
-        writer.addAttribute("followupResultDate", nullSafeString(dateFormatter.format(cf.getFollowupResultDate())));
-        writer.addAttribute("referenceLocation", nullSafeString(cf.getReferenceLocation()));
-
         if (cf.isVoided()) {
             writer.addAttribute("voided", "1");
         }
+        addOptionalElement(writer,"arvProphylaxisGiven", nullSafeString(cf.getArvProphylaxisGiven()));
+        addOptionalElement(writer,"pcr1SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr1SamplingDate())));
+        addOptionalElement(writer,"ageInMonthOnPcr1Sampling", nullSafeString(cf.getAgeInMonthOnPcr1Sampling()));
+        addOptionalElement(writer,"ageInWeekOnPcr1Sampling", nullSafeString(cf.getAgeInWeekOnPcr1Sampling()));
+        addOptionalElement(writer,"pcr1Result", nullSafeString(cf.getPcr1Result()));
+        addOptionalElement(writer,"pcr2SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr2SamplingDate())));
+        addOptionalElement(writer,"ageInMonthOnPcr2Sampling", nullSafeString(cf.getAgeInMonthOnPcr2Sampling()));
+        addOptionalElement(writer,"ageInWeekOnPcr2Sampling", nullSafeString(cf.getAgeInWeekOnPcr2Sampling()));
+        addOptionalElement(writer,"pcr2Result", nullSafeString(cf.getPcr2Result()));
+        addOptionalElement(writer,"pcr3SamplingDate", nullSafeString(dateFormatter.format(cf.getPcr3SamplingDate())));
+        addOptionalElement(writer,"ageInMonthOnPcr3Sampling", nullSafeString(cf.getAgeInMonthOnPcr3Sampling()));
+        addOptionalElement(writer,"ageInWeekOnPcr3Sampling", nullSafeString(cf.getAgeInWeekOnPcr3Sampling()));
+        addOptionalElement(writer,"pcr3Result", nullSafeString(cf.getPcr3Result()));
+        addOptionalElement(writer,"ctxInitiationDate", nullSafeString(dateFormatter.format(cf.getCtxInitiationDate())));
+        addOptionalElement(writer,"ageInMonthOnCtxInitiation", nullSafeString(cf.getAgeInMonthOnCtxInitiation()));
+        addOptionalElement(writer,"ageInWeekOnCtxInitiation", nullSafeString(cf.getAgeInWeekOnCtxInitiation()));
+        addOptionalElement(writer,"inhInitiationDate", nullSafeString(dateFormatter.format(cf.getInhInitiationDate())));
+        addOptionalElement(writer,"ageInMonthOnInhInitiation", nullSafeString(cf.getAgeInMonthOnInhInitiation()));
+        addOptionalElement(writer,"ageInWeekOnInhInitiation", nullSafeString(cf.getAgeInWeekOnInhInitiation()));
+        addOptionalElement(writer,"hivSerology1Date", nullSafeString(dateFormatter.format(cf.getHivSerology1Date())));
+        addOptionalElement(writer,"ageInMonthOnHivSerology1", nullSafeString(cf.getAgeInMonthOnHivSerology1()));
+        addOptionalElement(writer,"hivSerology1Result", nullSafeString(cf.getHivSerology1Result()));
+        addOptionalElement(writer,"hivSerology2Date", nullSafeString(dateFormatter.format(cf.getHivSerology2Date())));
+        addOptionalElement(writer,"ageInMonthOnHivSerology2", nullSafeString(cf.getAgeInMonthOnHivSerology2()));
+        addOptionalElement(writer,"ageInWeekOnHivSerology2", nullSafeString(cf.getAgeInWeekOnHivSerology2()));
+        addOptionalElement(writer,"hivSerology2Result", nullSafeString(cf.getHivSerology2Result()));
+        addOptionalElement(writer,"followupResult", nullSafeString(cf.getFollowupResult()));
+        addOptionalElement(writer,"followupResultDate", nullSafeString(dateFormatter.format(cf.getFollowupResultDate())));
+        addOptionalElement(writer,"referenceLocation", nullSafeString(cf.getReferenceLocation()));
+
     }
 
     @Override

@@ -389,6 +389,11 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
+    public List<ChildFollowupAppointment> getChildByPcrAppointment(Integer days, Integer pcrType) {
+        return dao.getChildByAppointmentPcr(days, pcrType);
+    }
+
+    @Override
     public Boolean isDead(Patient patient) {
         return dao.isDead(patient);
     }

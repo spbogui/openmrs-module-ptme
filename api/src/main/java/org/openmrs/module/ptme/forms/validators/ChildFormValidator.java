@@ -33,7 +33,8 @@ public class ChildFormValidator  implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "familyName", "ptme.field.required");
             ValidationUtils.rejectIfEmpty(errors, "givenName", "ptme.field.required");
 
-            Pattern pattern = Pattern.compile("^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E[1-9]?$", Pattern.CASE_INSENSITIVE);
+            String childFollowupNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.childFollowupNumberFormat");
+            Pattern pattern = Pattern.compile(childFollowupNumberRegExp, Pattern.CASE_INSENSITIVE);
 
             if (!form.getChildFollowupNumber().isEmpty()){
                 if(!pattern.matcher(form.getChildFollowupNumber()).matches()) {
@@ -41,7 +42,8 @@ public class ChildFormValidator  implements Validator {
                 }
 
                 if(!form.getMotherHivCareNumber().isEmpty()) {
-                    Pattern pattern2 = Pattern.compile("^[0-9]{4}/.{2}/[0-9]{2}/[0-9]{5}E?$", Pattern.CASE_INSENSITIVE);
+                    String motherHivCareNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.motherFollowupNumberFormat");
+                    Pattern pattern2 = Pattern.compile(motherHivCareNumberRegExp, Pattern.CASE_INSENSITIVE);
                     if(!pattern2.matcher(form.getMotherHivCareNumber()).matches()) {
                         errors.rejectValue("motherHivCareNumber", "ptme.invalid.hiv.number");
                     }
