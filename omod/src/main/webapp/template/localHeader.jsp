@@ -263,7 +263,7 @@
 	<table class="tableHeader">
 		<tr>
 			<td>&nbsp;</td>
-			<td width="100px" <c:if test='<%= request.getRequestURI().contains("/manage") %>'>class="boxMenuItemChoice"</c:if>>
+			<td width="200px" <c:if test='<%= request.getRequestURI().contains("/manage") %>'>class="boxMenuItemChoice"</c:if>>
 				<a href="${pageContext.request.contextPath}/module/ptme/manage.form"
 				   <c:if test='<%= request.getRequestURI().contains("/manage") %>'>style="color: white"</c:if>>
 					<spring:message code="ptme.homeTitle" />
@@ -285,13 +285,13 @@
 				   <c:if test='<%= request.getRequestURI().contains("/child") %>'>style="color: white"</c:if>>
 					<spring:message code="ptme.followupChildTitle" /></a>
 			</td>
-			<openmrs:hasPrivilege privilege="Run PTME Reports">
+			<%--<openmrs:hasPrivilege privilege="Run PTME Reports">--%>
 				<td width="250px" <c:if test='<%= request.getRequestURI().contains("report") || request.getRequestURI().contains("Report") %>'>class="boxMenuItemChoice"</c:if>>
 					<a href="${pageContext.request.contextPath}/module/ptme/reportGenerate.form"
 					   <c:if test='<%= request.getRequestURI().contains("report") || request.getRequestURI().contains("Report") %>'>style="color: white"</c:if>>
 						<spring:message code="ptme.report.menu.title" /></a>
 				</td>
-			</openmrs:hasPrivilege>
+			<%--</openmrs:hasPrivilege>--%>
 		</tr>
 	</table>
 </div>

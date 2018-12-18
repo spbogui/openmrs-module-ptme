@@ -1509,14 +1509,25 @@
         </sql>
     </changeSet>
 
-    <!--<changeSet id="prenvent-transmission-privilege-run-reports-22-11-2018" author="BOGUI SERGE">-->
-        <!--<preConditions onFail="MARK_RAN">-->
-            <!--<not>-->
-                <!--<sqlCheck expectedResult="1">SELECT COUNT(*) FROM role_privilege WHERE role = 'Data Manager' AND privilege = 'Run PTME Reports'</sqlCheck>-->
-            <!--</not>-->
-        <!--</preConditions>-->
-        <!--<sql>-->
-            <!--INSERT INTO role_privilege (role, privilege) VALUES ('Data Manager', 'Run PTME Reports');-->
-        <!--</sql>-->
-    <!--</changeSet>-->
+
+    <changeSet id="prenvent-transmission-privilege-run-reports-22-11-2018" author="BOGUI SERGE">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <sqlCheck expectedResult="1">SELECT COUNT(*) FROM privilege WHERE privilege = 'Run PTME Reports'</sqlCheck>
+                <not>
+                    <sqlCheck expectedResult="1">SELECT COUNT(*) FROM role_privilege WHERE role = 'Data Manager' AND privilege = 'Run PTME Reports'</sqlCheck>
+                </not>
+            </and>
+        </preConditions>
+        <sql>
+            INSERT INTO role_privilege (role, privilege) VALUES ('Data Manager', 'Run PTME Reports');
+        </sql>
+    </changeSet>
+
+    <changeSet id="prevent-transmission-insert-report-data-13-12-2018" author="BOGUI SERGE">
+    <preConditions onFail="MARK_RAN">
+    <sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_indicator</sqlCheck>
+    </preConditions>
+        <sqlFile path="INSERT_REPORT_DATA.sql"/>
+    </changeSet>
 </databaseChangeLog>

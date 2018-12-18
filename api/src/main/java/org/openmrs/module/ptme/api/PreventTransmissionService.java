@@ -145,7 +145,7 @@ public interface PreventTransmissionService extends OpenmrsService {
 
 	List<ChildFollowupAppointment> getChildByAppointment();
 	List<ChildFollowupAppointment> getChildByAppointmentMissed();
-	List<ChildFollowupAppointment> getChildByPcrAppointment(Integer days, Integer pcrType);
+	List<ChildFollowupAppointment> getChildByPcrAppointment(String days, Integer pcrType);
 
 	Boolean isDead(Patient patient);
 	Boolean isTransfered(Patient patient);

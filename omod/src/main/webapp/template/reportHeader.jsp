@@ -1,7 +1,7 @@
 <div class="box">
     <ul id="menu">
 
-        <openmrs:hasPrivilege privilege="Run PTME Reports">
+        <%--<openmrs:hasPrivilege privilege="Run PTME Reports">--%>
             <li <c:if test='<%= request.getRequestURI().contains("/reportGenerate") %>'>class="active first"</c:if>
                 <c:if test='<%= !request.getRequestURI().contains("/reportGenerate") %>'>class="first"</c:if>>
                 <a href="${pageContext.request.contextPath}/module/ptme/reportGenerate.form">
@@ -16,7 +16,7 @@
                     <spring:message code="ptme.report.submenu.title.list" />
                 </a>
             </li>--%>
-        </openmrs:hasPrivilege>
+        <%--</openmrs:hasPrivilege>--%>
 
         <openmrs:hasPrivilege privilege="Manage PTME Reports">
             <%--<li <c:if test='<%= request.getRequestURI().contains("/reportManagement") %>'>class="active"</c:if>>--%>

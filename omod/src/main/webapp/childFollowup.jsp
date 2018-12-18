@@ -148,6 +148,9 @@
                 <td>Age : </td>
                 <td class="colored-blue">${patientInfo.age} ans</td>
                 <td>|</td>
+                <td>Contact : </td>
+                <td class="colored-blue">${empty patientInfo.tel ? patientInfo.cel : patientInfo.tel }</td>
+                <td>|</td>
                 <td>Type de VIH : </td>
                 <td class="colored-blue">${patientInfo.hivType}</td>
             </tr>
@@ -574,7 +577,7 @@
                         Date du statut final : <br>
                         <form:input  path="followupResultDate" cssClass="datepickerPtme centered"  size="9px"/>
                     </td>
-                    <td class="bordered-green" class="bordered-green" align="center">
+                    <td class="bordered-green" align="center">
                         <input type="submit" value="Valider">
                     </td>
                 </tr>

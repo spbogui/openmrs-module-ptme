@@ -280,7 +280,7 @@
                         <form:radiobutton value="1" path="pregnancyOutcome" cssClass=""/> <br>
                         A terme <br><br> <br>
                         <form:radiobutton value="2" path="pregnancyOutcome" cssClass=""/> <br>
-                        Prematurit&eacute; <br><br><br>
+                        Pr&eacute;maturit&eacute; <br><br><br>
                         <form:radiobutton value="3" path="pregnancyOutcome" cssClass=""/><br>
                         Avortement <br>/ Fausse <br>couche <br><br><br>
                         Mort-n&eacute;: <br>

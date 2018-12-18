@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
+import org.openmrs.util.Security;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +44,13 @@ public class  PreventTransmissionManageController {
 		model.addAttribute("childFollowedAppointments", getPreventTransmissionService().getChildByAppointment());
 		model.addAttribute("childFollowedAppointmentsMissed", getPreventTransmissionService().getChildByAppointmentMissed());
 
-		model.addAttribute("childPcr1Appointment", getPreventTransmissionService().getChildByPcrAppointment(Integer.parseInt(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR1")), 1));
-		model.addAttribute("childPcr2Appointment", getPreventTransmissionService().getChildByPcrAppointment(Integer.parseInt(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR2")), 2));
-		model.addAttribute("childPcr3Appointment", getPreventTransmissionService().getChildByPcrAppointment(Integer.parseInt(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3")), 3));
+		model.addAttribute("childPcr1Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR1"), 1));
+		model.addAttribute("childPcr2Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR2"), 2));
+		model.addAttribute("childPcr3Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 3));
 
+//		model.addAttribute("encryptMSLS", Security.encrypt("MSLS"));
+//		model.addAttribute("encryptPNLS", Security.encrypt("PNLS"));
+//		model.addAttribute("encryptSuper", Security.encrypt("Super"));
+//		model.addAttribute("encryptUser", Security.encrypt("User"));
 	}
 }

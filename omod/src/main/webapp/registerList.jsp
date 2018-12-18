@@ -101,9 +101,9 @@
                     <td><fmt:formatDate type="date" value="${ consult.consultationDate }" pattern="dd/MM/yyyy" /></td>
                     <td>${ consult.pregnantNumber }</td>
                     <td>${ consult.age } ans</td>
-                    <td align="center">${ (consult.hivStatusAtReception == 0) ? 'Negatif': (consult.hivStatusAtReception == 1 ? resultPositive: 'Inconnu')}</td>
+                    <td align="center">${ (consult.hivStatusAtReception == 0) ? 'N&#233;gatif': (consult.hivStatusAtReception == 1 ? resultPositive: 'Inconnu')}</td>
                     <td align="center">${ (consult.testProposal == 0) ? 'Non': (consult.testProposal == 1 ? 'Oui' : 'N/A') }</td>
-                    <td align="center">${ (consult.testResult == 0) ? 'Negatif': (consult.testResult == 1 ? resultPositive : 'N/A') }</td>
+                    <td align="center">${ (consult.testResult == 0) ? 'N&#233;gatif': (consult.testResult == 1 ? resultPositive : 'N/A') }</td>
                     <td align="center">${ (consult.resultAnnouncement == 0) ? 'Non' : (consult.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
                     <td align="center">${ (consult.arvDiscount == 0) ? 'Non' : (consult.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
                     <td align="center">
@@ -285,7 +285,7 @@
                                             <td class="boldText"><spring:message code="ptme.status.reception" /> <b class="required">*</b> :</td>
                                             <td>
                                                 <form:radiobutton path="hivStatusAtReception" value="0" label="Negatif" />
-                                                <form:radiobutton path="hivStatusAtReception" value="1" label="${resultPositive}" />
+                                                <form:radiobutton path="hivStatusAtReception" value="1" label="Positif" />
                                                 <form:radiobutton path="hivStatusAtReception" value="2" label="Inconnu" />
                                             </td>
                                             <td><form:errors cssClass="error" path="hivStatusAtReception"/></td>
@@ -312,7 +312,7 @@
                                             <td class="boldText"><spring:message code="ptme.test.result" /> <b class="required">*</b> :</td>
                                             <td>
                                                 <form:radiobutton path="testResult" value="0" label="Negatif" />
-                                                <form:radiobutton path="testResult" value="1" label="${resultPositive}" />
+                                                <form:radiobutton path="testResult" value="1" label="Positif" />
                                                 <form:radiobutton path="testResult" value="2" label="N/A" />
                                             </td>
                                             <td><form:errors cssClass="error" path="testResult"/></td>
@@ -350,7 +350,7 @@
                                                 <td class="boldText"><spring:message code="ptme.spousal.screening.result" /> :</td>
                                                 <td>
                                                     <form:radiobutton path="spousalScreeningResult" value="0" label="Negatif" />
-                                                    <form:radiobutton path="spousalScreeningResult" value="1" label="${resultPositive}" />
+                                                    <form:radiobutton path="spousalScreeningResult" value="1" label="Positif" />
                                                     <form:radiobutton path="spousalScreeningResult" value="2" label="N/A" />
                                                 </td>
                                                 <td><form:errors cssClass="error" path="spousalScreeningResult"/></td>
@@ -390,8 +390,8 @@
                                                 <tr>
                                                     <td class="boldText">Terme : </td>
                                                     <td>
-                                                        <form:radiobutton path="pregnancyIssue" value="1" label="A terme" />
-                                                        <form:radiobutton path="pregnancyIssue" value="2" label="Premature" />
+                                                        <form:radiobutton path="pregnancyIssue" value="1" label="&#192; terme" />
+                                                        <form:radiobutton path="pregnancyIssue" value="2" label="Prematur&#233;" />
                                                         <form:radiobutton path="pregnancyIssue" value="3" label="Post-terme" />
                                                     </td>
                                                     <td><form:errors cssClass="error" path="pregnancyIssue"/></td>
@@ -422,12 +422,12 @@
                     <td colspan="2">
                         <c:if test="${ empty consultation.consultationId }">
                             <button type="submit" name="action">
-                                <img src="/openmrs/images/save.gif" alt="Save"> Enregistrer
+                                Enregistrer
                             </button>
                         </c:if>
                         <c:if test="${ not empty consultation.consultationId }">
                             <button type="submit" name="action">
-                                <img src="/openmrs/images/edit.gif" alt="Edit"> Modifier
+                                Modifier
                             </button>
                         </c:if>
                         <button type="button" class="" onclick="document.location.href='${pageContext.request.contextPath}/module/ptme/registerList.form'" >Annuler</button>

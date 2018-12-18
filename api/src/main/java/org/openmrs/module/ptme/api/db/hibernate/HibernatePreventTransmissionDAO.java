@@ -889,24 +889,79 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	}
 
 	@Override
-	public List<ChildFollowupAppointment> getChildByAppointmentPcr(Integer days, Integer pcrType) {
-		String pcrTypeSql = "";
-		if (pcrType != null) {
-			pcrTypeSql = " AND pcf.pcr"+ pcrType.toString() +"_sampling_date IS NULL ";
+	public List<ChildFollowupAppointment> getChildByAppointmentPcr(String pcrParams, Integer pcrType) {
+		/*String periodParam = "6:S|8:M";
+		String minAgeIn = "S";
+		String minAge = "0";
+		String maxAgeIn = "S";
+		String maxAge = "0";
+		if (!pcrParams.isEmpty()) {
+			String[] params = periodParam.split("|");
+			String[] min = params[0].split(":");
+			minAgeIn = min[1].equals("S") ? "7" : "30";
+			minAge = min[0];
+			if (params.length == 2) {
+				String[] max = params[1].split(":");
+				maxAgeIn = max[1].equals("S") ? "7" : "30";
+				maxAge = max[0];
+			}
 		}
-		String sqlQuery = "SELECT" +
-				"  child_followup_number AS childFollowupNumber," +
-				"  family_name familyName," +
-				"  given_name AS givenName," +
-				"  pc.birth_date As lastVisitDate," +
-				"  AppointmentDate " +
-				"FROM" +
-				"  (SELECT *,  ADDDATE(birth_date, INTERVAL " + days.toString() +" DAY) AppointmentDate FROM ptme_child) pc " +
-				"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
-				"WHERE" +
-				"  AppointmentDate BETWEEN DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND DATE(LAST_DAY(NOW())) " +
-				pcrTypeSql +
-				"ORDER BY AppointmentDate";
+
+		String pcrTypeSql = "";*/
+
+		String sqlQuery = "";
+
+		if (pcrType != null) {
+//			pcrTypeSql = "AND pcf.pcr"+ pcrType.toString() +"_sampling_date IS NULL AND ";
+			if (pcrType == 2) {
+				sqlQuery = "SELECT" +
+						"  child_followup_number AS childFollowupNumber," +
+						"  family_name familyName," +
+						"  given_name AS givenName," +
+						"  pc.birth_date As lastVisitDate," +
+						"  AppointmentDate " +
+						"FROM" +
+						"  (SELECT * FROM ptme_child) pc" +
+						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
+						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDate, child_id FROM ptme_child_followup_visit WHERE visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV" +
+						"    ON pc.child_id = MV.child_id" +
+						"  LEFT JOIN (SELECT child_id, visit_date, eating_type, ADDDATE(visit_date, INTERVAL 6 WEEK) AppointmentDate FROM ptme_child_followup_visit WHERE voided = 0) pcfv " +
+						"    ON pcfv.child_id = MV.child_id AND pcfv.visit_date = MV.MaxVisiteDate " +
+						"WHERE " +
+						"  pcf.pcr1_sampling_date IS NOT NULL" +
+						"  AND pcf.pcr2_sampling_date IS NULL" +
+						"  AND eating_type <> 1" +
+						"  AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /30) < 9";
+			} else if (pcrType == 1) {
+				sqlQuery = "SELECT" +
+						"  child_followup_number AS childFollowupNumber," +
+						"  family_name familyName," +
+						"  given_name AS givenName," +
+						"  pc.birth_date As lastVisitDate," +
+						"  AppointmentDate " +
+						"FROM" +
+						" (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate FROM ptme_child) pc" +
+						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+						"WHERE" +
+						"  pcf.pcr1_sampling_date IS NULL AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
+						"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL";
+			} else if (pcrType == 3) {
+				sqlQuery = "SELECT" +
+						"  child_followup_number AS childFollowupNumber," +
+						"  family_name familyName," +
+						"  given_name AS givenName," +
+						"  pc.birth_date As lastVisitDate," +
+						"  AppointmentDate " +
+						"FROM" +
+						" (SELECT *, ADDDATE(birth_date, INTERVAL 9 MONTH) AppointmentDate FROM ptme_child) pc" +
+						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+						"WHERE" +
+						"  pcf.pcr1_sampling_date IS NULL AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9" +
+						"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL " +
+						"  AND pcf.followup_result_date IS NULL ";
+			}
+		}
+
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
 				.addScalar("childFollowupNumber", StandardBasicTypes.STRING)
 //				.addScalar("numberOfVisit", StandardBasicTypes.INTEGER)

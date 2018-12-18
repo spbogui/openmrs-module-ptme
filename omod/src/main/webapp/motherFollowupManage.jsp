@@ -58,9 +58,9 @@
                         <form:radiobutton path="startOrEnd" value="endDate" label="Derniere Visite" cssClass=""/>
                     </td>
                     <td>Comprises entre</td>
-                    <td class="boldText">Date debut : </td>
+                    <td class="boldText">Date de d&eacute;but : </td>
                     <td><form:input path="startDate" cssClass="datepickerPtme" size="10px"/></td>
-                    <td class="boldText">Date fin : </td>
+                    <td class="boldText">Date de fin : </td>
                     <td><form:input path="endDate" cssClass="datepickerPtme" size="10px"/></td>
                     <td>|</td>
                     <td><input type="submit" value="Afficher"></td>
@@ -86,6 +86,10 @@
                 <th class="centered">Date d&eacute;pistage Conjoint</th>
                 <th class="centered">Nombre de visite</th>
                 <th class="centered">Date de derni&egrave;re visite</th>
+                <c:if test="${manageMotherFollowupForm.status == 'Off'}">
+                    <th class="centered">Issue de grossesse</th>
+                    <th class="centered">Accouchement</th>
+                </c:if>
                 <th width="20px"></th>
             </tr>
             </thead>
@@ -111,6 +115,15 @@
                     <td><fmt:formatDate type="date" value="${followupOn.spousalScreeningDate}" pattern="dd/MM/yyyy" /></td>
                     <td>${followupOn.visitCount}</td>
                     <td><fmt:formatDate type="date" value="${followupOn.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
+                    <c:if test="${manageMotherFollowupForm.status == 'Off'}">
+                        <td class="centered">
+                                ${followupOn.pregnancyOutcome == 1 ? "A terme" :
+                                (followupOn.pregnancyOutcome == 2 ? "Pr&#233;matur&#233;" :
+                                (followupOn.pregnancyOutcome == 3 ? "Avortement / Fausse couche" :
+                                (followupOn.pregnancyOutcome == 4 ? "Mort n&#233; frais" :
+                                (followupOn.pregnancyOutcome == 5 ? "Mort n&#233; mac&#233;r&#233;" :  ""))))}</td>
+                        <td class="centered">${followupOn.deliveryType == 1 ? "Unique" : (followupOn.deliveryType == 2 ? "G&#233;mellaire" : "")}</td>
+                    </c:if>
                     <td class="centered ">
                         <table cellspacing="0" cellpadding="0" class="button-table">
                             <tr>
