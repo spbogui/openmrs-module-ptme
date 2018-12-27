@@ -110,6 +110,7 @@ public class ReportingController {
             JAXBContext jaxbContext = JAXBContext.newInstance(ReportIndicatorValues.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
+
             StringReader reader = new StringReader(xml);
 
             ReportIndicatorValues reportIndicatorValues = (ReportIndicatorValues)unmarshaller.unmarshal(reader);

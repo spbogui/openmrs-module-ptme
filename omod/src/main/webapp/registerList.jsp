@@ -390,8 +390,8 @@
                                                 <tr>
                                                     <td class="boldText">Terme : </td>
                                                     <td>
-                                                        <form:radiobutton path="pregnancyIssue" value="1" label="&#192; terme" />
-                                                        <form:radiobutton path="pregnancyIssue" value="2" label="Prematur&#233;" />
+                                                        <form:radiobutton path="pregnancyIssue" value="1" label="A terme" />
+                                                        <form:radiobutton path="pregnancyIssue" value="2" label="Premature" />
                                                         <form:radiobutton path="pregnancyIssue" value="3" label="Post-terme" />
                                                     </td>
                                                     <td><form:errors cssClass="error" path="pregnancyIssue"/></td>

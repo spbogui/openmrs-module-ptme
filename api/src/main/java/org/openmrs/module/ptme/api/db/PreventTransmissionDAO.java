@@ -144,6 +144,8 @@ public interface PreventTransmissionDAO {
 
     List<ChildFollowupAppointment> getChildByAppointmentPcr(String days, Integer pcrType);
 
+    List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting();
+
     Boolean isDead(Patient patient);
     Boolean isTransfered(Patient patient);
 

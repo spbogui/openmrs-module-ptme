@@ -2,18 +2,16 @@ package org.openmrs.module.ptme.utils;
 
 import java.util.Date;
 
-public class ChildFollowupAppointment {
+public class ChildPcrResultWaitingTransformer {
 
     private String childFollowupNumber;
-    private Date lastVisitDate;
     private String familyName;
     private String givenName;
     private String motherContact;
-    private Integer numberOfVisit;
-    private Date appointmentDate;
-    private Integer passed;
+    private Date samplingDate;
+    private String pcrRank;
 
-    public ChildFollowupAppointment() {
+    public ChildPcrResultWaitingTransformer() {
     }
 
     public String getChildFollowupNumber() {
@@ -22,14 +20,6 @@ public class ChildFollowupAppointment {
 
     public void setChildFollowupNumber(String childFollowupNumber) {
         this.childFollowupNumber = childFollowupNumber;
-    }
-
-    public Date getLastVisitDate() {
-        return lastVisitDate;
-    }
-
-    public void setLastVisitDate(Date lastVisitDate) {
-        this.lastVisitDate = lastVisitDate;
     }
 
     public String getFamilyName() {
@@ -56,27 +46,19 @@ public class ChildFollowupAppointment {
         this.motherContact = motherContact;
     }
 
-    public Integer getNumberOfVisit() {
-        return numberOfVisit;
+    public Date getSamplingDate() {
+        return samplingDate;
     }
 
-    public void setNumberOfVisit(Integer numberOfVisit) {
-        this.numberOfVisit = numberOfVisit;
+    public void setSamplingDate(Date samplingDate) {
+        this.samplingDate = samplingDate;
     }
 
-    public Date getAppointmentDate() {
-        return appointmentDate;
+    public String getPcrRank() {
+        return pcrRank;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public Integer getPassed() {
-        return passed;
-    }
-
-    public void setPassed(Integer passed) {
-        this.passed = passed;
+    public void setPcrRank(String pcrRank) {
+        this.pcrRank = pcrRank;
     }
 }

@@ -222,4 +222,6 @@ public interface PreventTransmissionService extends OpenmrsService {
 
     ReportingReportGeneration getGeneratedReportByName(String name);
     ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId);
+
+	List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting();
 }

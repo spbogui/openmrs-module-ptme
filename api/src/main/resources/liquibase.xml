@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
     <!--
         See http://www.liquibase.org/manual/home#available_database_refactorings
@@ -76,7 +76,7 @@
                 <constraints nullable="false"/>
             </column>
             <!--<column name="consultation_type" type="varchar(100)" >-->
-                <!--<constraints nullable="false"/>-->
+            <!--<constraints nullable="false"/>-->
             <!--</column>-->
             <column name="location_id" type="int">
                 <constraints nullable="false"/>
@@ -117,7 +117,7 @@
         <!--Table Prenatal -->
         <createTable tableName="ptme_prenatal">
             <!--<column name="prenatal_id" type="int" autoIncrement="true">-->
-                <!--<constraints nullable="false" primaryKey="true"/>-->
+            <!--<constraints nullable="false" primaryKey="true"/>-->
             <!--</column>-->
             <column name="consultation_id" type="int">
                 <constraints nullable="false" primaryKey="true"/>
@@ -168,7 +168,7 @@
         <!--Table HIV service -->
         <createTable tableName="ptme_hiv_service">
             <!--<column name="hiv_service_id" type="int" autoIncrement="true">-->
-                <!--<constraints nullable="false" primaryKey="true"/>-->
+            <!--<constraints nullable="false" primaryKey="true"/>-->
             <!--</column>-->
             <column name="hiv_service_id" type="int">
                 <constraints nullable="false" primaryKey="true"/>
@@ -476,7 +476,7 @@
         <addForeignKeyConstraint constraintName="ptme_child_followup_location"
                                  baseTableName="ptme_child_followup" baseColumnNames="location_id"
                                  referencedTableName="location" referencedColumnNames="location_id"/>
-        
+
         <createTable tableName="ptme_child_followup_visit">
             <column name="child_followup_visit_id" type="int" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
@@ -1509,7 +1509,6 @@
         </sql>
     </changeSet>
 
-
     <changeSet id="prenvent-transmission-privilege-run-reports-22-11-2018" author="BOGUI SERGE">
         <preConditions onFail="MARK_RAN">
             <and>
@@ -1524,10 +1523,17 @@
         </sql>
     </changeSet>
 
-    <changeSet id="prevent-transmission-insert-report-data-13-12-2018" author="BOGUI SERGE">
-    <preConditions onFail="MARK_RAN">
-    <sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_indicator</sqlCheck>
-    </preConditions>
+    <changeSet id="prevent-transmission-insert-report-template-27-12-2018" author="BOGUI SERGE">
+        <!--<preConditions onFail="MARK_RAN">-->
+            <!--<sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_template</sqlCheck>-->
+        <!--</preConditions>-->
+        <sqlFile path="TEMPLATE.sql"/>
+    </changeSet>
+
+    <changeSet id="prevent-transmission-insert-report-data-27-12-2018" author="BOGUI SERGE">
+        <!--<preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_indicator</sqlCheck>
+        </preConditions>-->
         <sqlFile path="INSERT_REPORT_DATA.sql"/>
     </changeSet>
 </databaseChangeLog>

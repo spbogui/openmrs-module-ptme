@@ -14,13 +14,12 @@
                 dom: 'B<"clear">lfrtip',
                 buttons: {
                     name: 'primary',
-                    buttons: [ 'copy', 'csv', 'excel' ]
+                    buttons: [ 'copy', 'excel' ]
                 },
                 "pageLength": 20,
                 "order": [[1, "asc"]],
                 "language": {
-                    "zeroRecords": "Aucune donn&eacutee trouv&eacute;",
-                    //"emptyTable": "Aucune donn&eacute;e",
+                    "zeroRecords": "Aucune donn&eacute;e trouv&eacute;",
                     paginate: {
                         previous: 'Pr&eacute;c&eacute;dent',
                         next:     'Suivant'

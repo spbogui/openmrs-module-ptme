@@ -386,19 +386,19 @@ public class MotherFollowupManageController {
                         getPreventTransmissionService().saveMotherFollowupVisit(motherFollowupVisit);
                     }
 
-                    XStream xStream = new XStream(new DomDriver());
-                    xStream.registerConverter(new MotherFollowupXml());
-                    xStream.alias("motherFollowup", MotherFollowup.class);
-
-                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(motherFollowup.getUuid());
-                    if (data == null) {
-                        data = new SerializedData();
-                    }
-
-                    data.setObjectUuid(motherFollowup.getUuid());
-                    data.setSerializedXmlData(xStream.toXML(motherFollowup));
-                    data.setPackageName(MotherFollowup.class.getName());
-                    getPreventTransmissionService().saveSerializedData(data);
+//                    XStream xStream = new XStream(new DomDriver());
+//                    xStream.registerConverter(new MotherFollowupXml());
+//                    xStream.alias("motherFollowup", MotherFollowup.class);
+//
+//                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(motherFollowup.getUuid());
+//                    if (data == null) {
+//                        data = new SerializedData();
+//                    }
+//
+//                    data.setObjectUuid(motherFollowup.getUuid());
+//                    data.setSerializedXmlData(xStream.toXML(motherFollowup));
+//                    data.setPackageName(MotherFollowup.class.getName());
+//                    getPreventTransmissionService().saveSerializedData(data);
 
                     session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
 
@@ -604,19 +604,21 @@ public class MotherFollowupManageController {
                     }
 //                    pregnantPatient.setPregnantNumber(motherFollowupPatientForm.getPregnantNumber());
                     if(getPreventTransmissionService().savePregnantPatient(pregnantPatient) != null) {
-                        XStream xStream = new XStream(new DomDriver());
-                        xStream.registerConverter(new PregnantPatientXml());
-                        xStream.alias("pregnantPatient", PregnantPatient.class);
-
-                        SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
-                        if (ppData == null) {
-                            ppData = new SerializedData();
-                        }
-                        ppData.setObjectUuid(pregnantPatient.getUuid());
-                        ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
-                        ppData.setPackageName(PregnantPatient.class.getName());
-                        getPreventTransmissionService().saveSerializedData(ppData);
+//                        XStream xStream = new XStream(new DomDriver());
+//                        xStream.registerConverter(new PregnantPatientXml());
+//                        xStream.alias("pregnantPatient", PregnantPatient.class);
+//
+//                        SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
+//                        if (ppData == null) {
+//                            ppData = new SerializedData();
+//                        }
+//                        ppData.setObjectUuid(pregnantPatient.getUuid());
+//                        ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
+//                        ppData.setPackageName(PregnantPatient.class.getName());
+//                        getPreventTransmissionService().saveSerializedData(ppData);
+                        session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
                     }
+
 
                     FindPregnantPatientForm findPregnantPatientForm = new FindPregnantPatientForm();
 

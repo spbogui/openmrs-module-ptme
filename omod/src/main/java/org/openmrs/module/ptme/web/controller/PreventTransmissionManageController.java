@@ -43,6 +43,7 @@ public class  PreventTransmissionManageController {
 
 		model.addAttribute("childFollowedAppointments", getPreventTransmissionService().getChildByAppointment());
 		model.addAttribute("childFollowedAppointmentsMissed", getPreventTransmissionService().getChildByAppointmentMissed());
+		model.addAttribute("childFollowedPcrWaiting", getPreventTransmissionService().getChildPcrResultWaiting());
 
 		model.addAttribute("childPcr1Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR1"), 1));
 		model.addAttribute("childPcr2Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR2"), 2));

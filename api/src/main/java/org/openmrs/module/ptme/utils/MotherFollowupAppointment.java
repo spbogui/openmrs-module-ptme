@@ -11,6 +11,7 @@ public class MotherFollowupAppointment {
     private String pregnantNumber;
     private String familyName;
     private String givenName;
+    private String contact;
     private Date lastVisitDate;
     private Integer numberOfVisit;
     private Date appointmentDate;
@@ -49,6 +50,14 @@ public class MotherFollowupAppointment {
 
     public void setGivenName(String givenName) {
         this.givenName = givenName;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public Date getLastVisitDate() {

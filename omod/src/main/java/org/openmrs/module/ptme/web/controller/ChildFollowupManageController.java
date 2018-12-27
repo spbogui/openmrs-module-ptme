@@ -404,24 +404,21 @@ public class ChildFollowupManageController {
                     }
                 }
 
-                XStream xStream = new XStream(new DomDriver());
-                xStream.registerConverter(new ChildXml());
-                xStream.alias("child", Child.class);
-
-//                System.out.println("Child uuid : " + child.getUuid());
-//                System.out.println("Child ID : " + child.getChildId());
-
-                if (child != null) {
-                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
-                    if (data == null) {
-                        data = new SerializedData();
-                    }
-
-                    data.setObjectUuid(child.getUuid());
-                    data.setSerializedXmlData(xStream.toXML(child));
-                    data.setPackageName(Child.class.getName());
-                    getPreventTransmissionService().saveSerializedData(data);
-                }
+//                XStream xStream = new XStream(new DomDriver());
+//                xStream.registerConverter(new ChildXml());
+//                xStream.alias("child", Child.class);
+//
+//                if (child != null) {
+//                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
+//                    if (data == null) {
+//                        data = new SerializedData();
+//                    }
+//
+//                    data.setObjectUuid(child.getUuid());
+//                    data.setSerializedXmlData(xStream.toXML(child));
+//                    data.setPackageName(Child.class.getName());
+//                    getPreventTransmissionService().saveSerializedData(data);
+//                }
 
                 session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Opération effectuée avec succès");
 
@@ -578,18 +575,18 @@ public class ChildFollowupManageController {
 
                 if(getPreventTransmissionService().saveChild(child) != null) {
 
-                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
-                    if (data == null) {
-                        data = new SerializedData();
-                    }
-
-                    XStream xStream = new XStream(new DomDriver());
-                    xStream.registerConverter(new ChildXml());
-                    xStream.alias("child", Child.class);
-                    data.setObjectUuid(child.getUuid());
-                    data.setSerializedXmlData(xStream.toXML(child));
-                    data.setPackageName(Child.class.getName());
-                    getPreventTransmissionService().saveSerializedData(data);
+//                    SerializedData data = getPreventTransmissionService().getSerializedDataByObjectUuid(child.getUuid());
+//                    if (data == null) {
+//                        data = new SerializedData();
+//                    }
+//
+//                    XStream xStream = new XStream(new DomDriver());
+//                    xStream.registerConverter(new ChildXml());
+//                    xStream.alias("child", Child.class);
+//                    data.setObjectUuid(child.getUuid());
+//                    data.setSerializedXmlData(xStream.toXML(child));
+//                    data.setPackageName(Child.class.getName());
+//                    getPreventTransmissionService().saveSerializedData(data);
 
                     if(childForm.getChildId() != null) {
                         session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Enfant exposé mis à jour avec succès");

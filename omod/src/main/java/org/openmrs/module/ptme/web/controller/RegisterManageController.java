@@ -255,18 +255,18 @@ public class RegisterManageController {
 
                 if (getPreventTransmissionService().savePregnantPatient(pregnantPatient) != null){
 
-                    XStream xStream = new XStream(new DomDriver());
-                    xStream.registerConverter(new PregnantPatientXml());
-                    xStream.alias("pregnantPatient", PregnantPatient.class);
-
-                    SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
-                    if (ppData == null) {
-                        ppData = new SerializedData();
-                    }
-                    ppData.setObjectUuid(pregnantPatient.getUuid());
-                    ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
-                    ppData.setPackageName(PregnantPatient.class.getName());
-                    getPreventTransmissionService().saveSerializedData(ppData);
+//                    XStream xStream = new XStream(new DomDriver());
+//                    xStream.registerConverter(new PregnantPatientXml());
+//                    xStream.alias("pregnantPatient", PregnantPatient.class);
+//
+//                    SerializedData ppData = getPreventTransmissionService().getSerializedDataByObjectUuid(pregnantPatient.getUuid());
+//                    if (ppData == null) {
+//                        ppData = new SerializedData();
+//                    }
+//                    ppData.setObjectUuid(pregnantPatient.getUuid());
+//                    ppData.setSerializedXmlData(xStream.toXML(pregnantPatient));
+//                    ppData.setPackageName(PregnantPatient.class.getName());
+//                    getPreventTransmissionService().saveSerializedData(ppData);
 
                     //System.out.println(xStream.toXML(pregnantPatient));
 
@@ -339,7 +339,7 @@ public class RegisterManageController {
                             session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "ptme.saved");
                         }
 
-                        if (register.equals("Birth")) {
+                        /*if (register.equals("Birth")) {
                             Birth birth = getPreventTransmissionService().getBirthConsultation(consultationId);
                             xStream.registerConverter(new BirthXml());
                             xStream.alias("birth", Birth.class);
@@ -378,7 +378,7 @@ public class RegisterManageController {
                             bData.setSerializedXmlData(xStream.toXML(postnatal));
                             bData.setPackageName(Postnatal.class.getName());
                             getPreventTransmissionService().saveSerializedData(bData);
-                        }
+                        }*/
 
                         OpenRegisterForm openRegisterForm = new OpenRegisterForm();
 

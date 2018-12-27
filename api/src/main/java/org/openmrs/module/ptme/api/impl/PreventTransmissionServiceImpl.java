@@ -614,4 +614,9 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
         return dao.getGeneratedReportByNameAndReportId(name, reportId);
     }
 
+    @Override
+    public List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting() {
+        return dao.getChildPcrResultWaiting();
+    }
+
 }

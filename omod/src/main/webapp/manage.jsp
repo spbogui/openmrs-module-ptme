@@ -43,8 +43,13 @@
         $(document).ready(function () {
 
             $(".list-register-table,#list-register-table2").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'excel' ]
+                },
                "pageLength": 10,
-                "order": [[3, "asc"]],
+                "order": [[4, "asc"]],
                 "language": {
                     "zeroRecords": "Aucune femme enceinte trouv&eacute;",
                     paginate: {
@@ -59,8 +64,13 @@
             });
 
             $(".list-register-table-child").dataTable({
+                dom: 'B<"clear">lfrtip',
+                buttons: {
+                    name: 'primary',
+                    buttons: [ 'copy', 'excel' ]
+                },
                 "pageLength": 10,
-                "order": [[3, "asc"]],
+                "order": [[4, "asc"]],
                 "language": {
                     "zeroRecords": "Aucun enfant trouv&eacute;",
                     paginate: {
@@ -107,6 +117,7 @@
                         <tr style="background-color: #1aac9b; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact</th>
                             <%--<th>Date de derni&egrave;re visite</th>--%>
                             <th>Nb de visites</th>
                             <th>Date de rendez-vous</th>
@@ -129,6 +140,7 @@
                                     <a href="${ url }">${mother.hivCareNumber}</a>
                                 </td>
                                 <td>${mother.familyName} ${mother.givenName}</td>
+                                <td>${mother.contact}</td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center">${mother.numberOfVisit}</td>
                                 <td align="center"><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>
@@ -145,6 +157,7 @@
                         <tr style="background-color: #1aac9b; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
                             <th>Nb de visites</th>
                             <th>Date de rendez-vous</th>
                         </tr>
@@ -159,6 +172,7 @@
                                     <a href="${ url }">${child.childFollowupNumber}</a>
                                 </td>
                                 <td>${child.familyName} ${child.givenName}</td>
+                                <td>${child.motherContact}</td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center">${child.numberOfVisit}</td>
                                 <td align="center"><fmt:formatDate type="date" value="${child.appointmentDate}" pattern="dd/MM/yyyy" /></td>
@@ -175,6 +189,7 @@
                         <tr style="background-color: firebrick; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact</th>
                             <th>Nb de visites</th>
                             <th>Derni&egrave;re visite</th>
                         </tr>
@@ -189,6 +204,7 @@
                                     <a href="${ url }">${mother.hivCareNumber}</a>
                                 </td>
                                 <td>${mother.familyName} ${mother.givenName}</td>
+                                <td>${mother.contact}</td>
                                 <td align="center">${mother.numberOfVisit}</td>
                                 <td align="center"><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                             </tr>
@@ -204,6 +220,7 @@
                         <tr style="background-color: firebrick; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
                             <th>Nb visites</th>
                             <th>Derni&egrave;re visite</th>
                             <%--<th>Date de rendez-vous</th>--%>
@@ -226,6 +243,7 @@
                                     <a href="${ url }">${child.childFollowupNumber}</a>
                                 </td>
                                 <td>${child.familyName} ${child.givenName}</td>
+                                <td>${child.motherContact}</td>
                                 <td align="center">${child.numberOfVisit}</td>
                                 <td align="center"><fmt:formatDate type="date" value="${child.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.appointmentDate}" pattern="dd/MM/yyyy" /></td>--%>
@@ -244,13 +262,14 @@
                         <tr style="background-color: #1aac9b; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu depuis le</th>
+                            <th>Attendu le</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="childPcr1" items="${ childPcr1Appointment }">
-                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                            <tr style="color: ${childPcr1.passed == 1 ? '#1aac9b': (childPcr1.passed == 2 ? 'lightcoral': 'none' )}">
                                 <td>
                                     <c:url value="/module/ptme/childFollowup.form" var="urlPcr1">
                                         <c:param name="childFollowupNumber" value="${childPcr1.childFollowupNumber}"/>
@@ -258,6 +277,7 @@
                                     <a href="${ urlPcr1 }">${childPcr1.childFollowupNumber}</a>
                                 </td>
                                 <td>${childPcr1.familyName} ${childPcr1.givenName}</td>
+                                <td>${childPcr1.motherContact}</td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr1.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr1.appointmentDate}" pattern="dd/MM/yyyy" /></td>
@@ -275,13 +295,14 @@
                         <tr style="background-color: #1aac9b; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu depuis le </th>
+                            <th>Attendu le </th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="childPcr2" items="${ childPcr2Appointment }">
-                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                            <tr style="color: ${childPcr2.passed == 1 ? '#1aac9b': (childPcr2.passed == 2 ? 'lightcoral': 'none' )}">
                                 <td>
                                     <c:url value="/module/ptme/childFollowup.form" var="urlPcr2">
                                         <c:param name="childFollowupNumber" value="${childPcr2.childFollowupNumber}"/>
@@ -289,6 +310,7 @@
                                     <a href="${ urlPcr2 }">${childPcr2.childFollowupNumber}</a>
                                 </td>
                                 <td>${childPcr2.familyName} ${childPcr2.givenName}</td>
+                                <td>${childPcr2.motherContact}</td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr2.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr2.appointmentDate}" pattern="dd/MM/yyyy" /></td>
@@ -306,13 +328,14 @@
                         <tr style="background-color: #1aac9b; color: #ffffff;">
                             <th>Num&eacute;ro</th>
                             <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu depuis le</th>
+                            <th>Attendu le</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="childPcr3" items="${ childPcr3Appointment }">
-                            <tr style="color: ${child.passed == 1 ? '#1aac9b': (child.passed == 2 ? 'lightcoral': 'none' )}">
+                            <tr style="color: ${childPcr3.passed == 1 ? '#1aac9b': (childPcr3.passed == 2 ? 'lightcoral': 'none' )}">
                                 <td>
                                     <c:url value="/module/ptme/childFollowup.form" var="urlPcr3">
                                         <c:param name="childFollowupNumber" value="${childPcr3.childFollowupNumber}"/>
@@ -320,6 +343,7 @@
                                     <a href="${ urlPcr3 }">${childPcr3.childFollowupNumber}</a>
                                 </td>
                                 <td>${childPcr3.familyName} ${childPcr3.givenName}</td>
+                                <td>${childPcr3.motherContact}</td>
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr3.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr3.appointmentDate}" pattern="dd/MM/yyyy" /></td>
@@ -330,6 +354,38 @@
                     </table>
                 </fieldset>
                 <br>
+                <fieldset>
+                    <legend><%--Enfants expos&eacute;s attendus pour le --%>RESULTATS PCR</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
+                            <th>Date de pr&eacute;l&egrave;vement</th>
+                            <th>Ordre PCR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="childRes" items="${ childFollowedPcrWaiting }">
+                            <tr>
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="urlPcr3">
+                                        <c:param name="childFollowupNumber" value="${childRes.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ urlPcr3 }">${childRes.childFollowupNumber}</a>
+                                </td>
+                                <td>${childRes.familyName} ${childRes.givenName}</td>
+                                <td>${childRes.motherContact}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center"><fmt:formatDate type="date" value="${childRes.samplingDate}" pattern="dd/MM/yyyy" /></td>
+                                <td align="center">${childRes.pcrRank}</td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </fieldset>
             </td>
         </tr>
         </tbody>
