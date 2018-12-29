@@ -47,7 +47,7 @@ public class PrenatalFormValidator implements Validator {
                 errors.rejectValue("weekOfAmenorrhea", "ptme.non.valid.week.amenorrhea");
             }
 
-            if((form.getSpousalScreening() != null && form.getSpousalScreening() != null)
+            if((form.getSpousalScreening() != null && form.getSpousalScreeningResult() != null)
                     && (form.getSpousalScreening() == 0 || form.getSpousalScreening() == 2)) {
 
                 if (form.getSpousalScreeningResult() == 0 || form.getSpousalScreeningResult() == 1) {
