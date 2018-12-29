@@ -976,10 +976,12 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"WHERE " +
 						"  pcf.pcr1_sampling_date IS NOT NULL" +
 						"  AND pcf.pcr2_sampling_date IS NULL" +
-						"  AND MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
+						"  AND ((MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
 						"  AND eating_type <> 1 " +
-						"  AND pcf.followup_result IS NULL" +
-						"  AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /30) < 9";
+						"  AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 " +
+                        "  AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
+						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
+						"  AND pcf.followup_result IS NULL";
 			} else if (pcrType == 1) {
 				sqlQuery =
 						"SELECT" +
@@ -996,13 +998,16 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						" (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate, " +
 						"      IF(ADDDATE(birth_date, INTERVAL 6 WEEK) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed  FROM ptme_child) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
-								"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
-								"    ON SoutTel.person_id = pc.mother" +
-								"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
-								"    ON SoutCel.person_id = pc.mother " +
+						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+						"    ON SoutTel.person_id = pc.mother" +
+						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
+						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
-						"  pcf.pcr1_sampling_date IS NULL AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
-						"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL AND pcf.followup_result IS NULL ";
+						"  pcf.pcr1_sampling_date IS NULL AND " +
+						"  ((FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
+						"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL) OR " +
+						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
+						"  AND pcf.followup_result IS NULL ";
 			} else if (pcrType == 3) {
 				sqlQuery =
 						"SELECT" +
@@ -1056,20 +1061,27 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  family_name AS familyName," +
 						"  given_name givenName," +
 						"  gender," +
-						"  IF(pcr3_result IS NOT NULL, 'PCR 3'," +
-						"     IF(pcr2_result IS NOT NULL, 'PCR 2'," +
-						"        IF(pcr1_result IS NOT NULL, 'PCR 1', NULL)) ) AS pcrRank," +
-						"  IF(pcr3_result IS NOT NULL, pcr3_sampling_date," +
-						"     IF(pcr2_result IS NOT NULL, pcr2_sampling_date," +
-						"        IF(pcr1_result IS NOT NULL, pcr1_sampling_date, NULL)) ) AS samplingDate," +
-						"  IF(pcr3_result IS NOT NULL, pcr3_result," +
-						"     IF(pcr2_result IS NOT NULL, pcr2_result," +
-						"        IF(pcr1_result IS NOT NULL, pcr1_result, NULL)) ) AS lastPCRResult " +
+						"  IF(pcr3_sampling_date IS NOT NULL, 'PCR 3'," +
+						"     IF(pcr2_sampling_date IS NOT NULL, 'PCR 2'," +
+						"        IF(pcr1_sampling_date IS NOT NULL, 'PCR 1', NULL)) ) AS pcrRank," +
+						"  IF(pcr3_sampling_date IS NOT NULL, pcr3_sampling_date," +
+						"     IF(pcr2_sampling_date IS NOT NULL, pcr2_sampling_date," +
+						"        IF(pcr1_sampling_date IS NOT NULL, pcr1_sampling_date, NULL)) ) AS samplingDate," +
+						"  IF(pcr3_sampling_date IS NOT NULL, pcr3_result," +
+						"     IF(pcr2_sampling_date IS NOT NULL, pcr2_result," +
+						"        IF(pcr1_sampling_date IS NOT NULL, pcr1_result, NULL)) ) AS lastPCRResult, " +
+						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
+						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
+						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact " +
 						"FROM " +
-						"  (SELECT *, if(followup_result IS NOT NULL, 'Off', 'On') status FROM ptme_child_followup) pcf," +
-						"  ptme_child pc " +
+						"  (SELECT *, if(followup_result IS NOT NULL, 'Off', 'On') status FROM ptme_child_followup) pcf" +
+						"  INNER JOIN  ptme_child pc ON pc.child_id = pcf.child_followup_id" +
+						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+						"    ON SoutTel.person_id = pc.mother" +
+						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
+						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
-						"  pc.child_id = pcf.child_followup_id AND" +
+//						"  pc.child_id = pcf.child_followup_id AND" +
 						"  pcf.status = 'On' AND pcf.voided = false " +
 						"HAVING samplingDate IS NOT NULL AND lastPCRResult IS NULL";
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
