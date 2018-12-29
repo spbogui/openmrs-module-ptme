@@ -237,7 +237,7 @@ public class ChildFollowupManageController {
 
                     insertVisit = false;
 
-                }else {
+                } else {
 
                     if(child.getChildFollowupVisits() == null && childFollowupForm.getVisitDate() == null) {
                         session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner les données de la visite de suivi de l'enfant SVP !");
@@ -259,7 +259,7 @@ public class ChildFollowupManageController {
                             session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez choisir entre référé et transféré pour le résultat suivi SVP");
                             hasErrors = true;
                         }
-                    } else if (!childFollowupForm.getHivCareNumber().isEmpty()) {
+                    }  else if (!childFollowupForm.getHivCareNumber().isEmpty()) {
                         if (childFollowupForm.getFollowupResult() != 3) {
                             session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Résultat ne dit pas qu'il est positif veuillez le modifier SVP");
                             hasErrors = true;
@@ -267,7 +267,7 @@ public class ChildFollowupManageController {
                             String childFollowupNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.childFollowupNumberFormat");
                             Pattern pattern = Pattern.compile(childFollowupNumberRegExp, Pattern.CASE_INSENSITIVE);
                             if (!pattern.matcher(childFollowupForm.getHivCareNumber()).matches()) {
-                                session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Le numéro d'identification pour le résultat est invalide le modifier SVP");
+                                session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Le numéro d'identification pour le résultat est invalide, le modifier SVP");
                                 hasErrors = true;
                             } else {
                                 existingChildPatient = getPreventTransmissionService().getPatientByIdentifier(childFollowupForm.getHivCareNumber());
@@ -316,6 +316,23 @@ public class ChildFollowupManageController {
                             hasErrors = true;
                         }
                     }
+                }
+
+                if (childFollowupForm.getPcr1Result() != null && childFollowupForm.getPcr1SamplingDate() == null) {
+                    session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de PCR 1 SVP !");
+                    hasErrors = true;
+                } else if (childFollowupForm.getPcr2Result() != null && childFollowupForm.getPcr2SamplingDate() == null) {
+                    session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de PCR 2 SVP !");
+                    hasErrors = true;
+                } else if (childFollowupForm.getPcr3Result() != null && childFollowupForm.getPcr3SamplingDate() == null) {
+                    session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de PCR 3 SVP !");
+                    hasErrors = true;
+                } else if (childFollowupForm.getHivSerology1Result() != null && childFollowupForm.getHivSerology1Date() == null) {
+                    session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de sérologie 1 SVP !");
+                    hasErrors = true;
+                } else if (childFollowupForm.getHivSerology2Result() != null && childFollowupForm.getHivSerology2Date() == null) {
+                    session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de sérologie 2 SVP !");
+                    hasErrors = true;
                 }
 
                 if (hasErrors){
