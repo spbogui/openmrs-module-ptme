@@ -31,7 +31,7 @@
                 dom: 'B<"clear">lfrtip',
                 buttons: {
                     name: 'primary',
-                    buttons: [ 'copy', 'csv', 'excel' ]
+                    buttons: [ 'copy', 'excel' ]
                 },
                 "pageLength": 20,
                 "order": [[1, "asc"]],

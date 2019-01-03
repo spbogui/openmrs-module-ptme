@@ -1015,6 +1015,29 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  family_name familyName," +
 						"  given_name AS givenName," +
 						"  pc.birth_date As lastVisitDate," +
+						"  IF(hiv_serology1_date IS NOT NULL, hiv_serology1_date, pcr2_sampling_date ) AppointmentDate," +
+						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
+						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
+						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
+						"  2 AS passed " +
+						"FROM" +
+						" (SELECT * FROM ptme_child) pc" +
+						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+						"    ON SoutTel.person_id = pc.mother" +
+						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel" +
+						"    ON SoutCel.person_id = pc.mother " +
+						"WHERE" +
+						"  pcf.pcr3_sampling_date IS NULL AND " +
+						"  (pcf.pcr2_result = 1 OR pcf.hiv_serology1_result = 1 ) AND " +
+						"  pcf.followup_result IS NULL ";
+			} else if (pcrType == 4) {
+				sqlQuery =
+						"SELECT" +
+						"  child_followup_number AS childFollowupNumber," +
+						"  family_name familyName," +
+						"  given_name AS givenName," +
+						"  pc.birth_date As lastVisitDate," +
 						"  AppointmentDate," +
 						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
@@ -1072,7 +1095,10 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"        IF(pcr1_sampling_date IS NOT NULL, pcr1_result, NULL)) ) AS lastPCRResult, " +
 						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
-						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact " +
+						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact," +
+						" IF(pcr3_sampling_date IS NOT NULL, DATEDIFF(DATE(NOW()), pcr3_sampling_date)," +
+						"    IF(pcr2_sampling_date IS NOT NULL, DATEDIFF(DATE(NOW()), pcr2_sampling_date)," +
+						"       IF(pcr1_sampling_date IS NOT NULL, DATEDIFF(DATE(NOW()), pcr1_sampling_date), NULL))) numDay " +
 						"FROM " +
 						"  (SELECT *, if(followup_result IS NOT NULL, 'Off', 'On') status FROM ptme_child_followup) pcf" +
 						"  INNER JOIN  ptme_child pc ON pc.child_id = pcf.child_followup_id" +
@@ -1090,6 +1116,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				.addScalar("givenName", StandardBasicTypes.STRING)
 				.addScalar("motherContact", StandardBasicTypes.STRING)
 				.addScalar("samplingDate", StandardBasicTypes.DATE)
+				.addScalar("numDay", StandardBasicTypes.INTEGER)
 				.addScalar("pcrRank", StandardBasicTypes.STRING);
 		query.setResultTransformer(new AliasToBeanResultTransformer(ChildPcrResultWaitingTransformer.class));
 		return (List<ChildPcrResultWaitingTransformer>) query.list();
@@ -1111,14 +1138,11 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	public Boolean isTransfered(Patient patient) {
 		PregnantPatient pregnantPatient = (PregnantPatient) sessionFactory.getCurrentSession().createQuery(
 				"SELECT p FROM PregnantPatient p, Obs o " +
-				"WHERE o.person.personId = p.patient.patientId AND o.concept.conceptId = 164595 AND p.patient = :patient AND " +
+						"WHERE p.patient = :patient AND o.person.personId = p.patient.patientId AND o.concept.conceptId = 164595 AND " +
 						" o.valueDatetime >= (SELECT MAX(e.encounterDatetime) FROM Encounter e WHERE e.patient = :patient AND e.encounterType.encounterTypeId = 1 AND e.voided = false GROUP BY e.patient) AND " +
-				"o.voided = false")
-				.setParameter("patient", patient).uniqueResult();
-		if (pregnantPatient != null) {
-			return true;
-		}
-		return false;
+						" o.voided = false "
+		).setParameter("patient", patient).uniqueResult();
+		return pregnantPatient != null;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ public class ChildPcrResultWaitingTransformer {
     private String motherContact;
     private Date samplingDate;
     private String pcrRank;
+    private Integer numDay;
 
     public ChildPcrResultWaitingTransformer() {
     }
@@ -60,5 +61,13 @@ public class ChildPcrResultWaitingTransformer {
 
     public void setPcrRank(String pcrRank) {
         this.pcrRank = pcrRank;
+    }
+
+    public Integer getNumDay() {
+        return numDay;
+    }
+
+    public void setNumDay(Integer numDay) {
+        this.numDay = numDay;
     }
 }

@@ -15,13 +15,18 @@ package org.openmrs.module.ptme.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
+import org.openmrs.module.ptme.utils.MotherFollowupAppointment;
 import org.openmrs.util.Security;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main controller.
@@ -37,10 +42,26 @@ public class  PreventTransmissionManageController {
 
 	@RequestMapping(value = "/module/ptme/manage", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
-		model.addAttribute("user", Context.getAuthenticatedUser());
-		model.addAttribute("motherFollowedAppointments", getPreventTransmissionService().getPregnantPatientsAppointment());
-		model.addAttribute("motherFollowedAppointmentsMissed", getPreventTransmissionService().getPregnantPatientsAppointmentMissed());
+		List<MotherFollowupAppointment> motherFollowupAppointments = new ArrayList<MotherFollowupAppointment>();
 
+		for (MotherFollowupAppointment followupAppointment : getPreventTransmissionService().getPregnantPatientsAppointment()) {
+			Patient patient = getPreventTransmissionService().getPatientByIdentifier(followupAppointment.getHivCareNumber());
+			if (!getPreventTransmissionService().isTransfered(patient) && !getPreventTransmissionService().isDead(patient)) {
+				motherFollowupAppointments.add(followupAppointment);
+			}
+		}
+		model.addAttribute("motherFollowedAppointments", motherFollowupAppointments);
+
+		List<MotherFollowupAppointment> motherFollowupAppointmentsMissed = new ArrayList<MotherFollowupAppointment>();
+		for (MotherFollowupAppointment followupAppointment : getPreventTransmissionService().getPregnantPatientsAppointmentMissed()) {
+			Patient patient = getPreventTransmissionService().getPatientByIdentifier(followupAppointment.getHivCareNumber());
+			if (!getPreventTransmissionService().isTransfered(patient) && !getPreventTransmissionService().isDead(patient)) {
+				motherFollowupAppointmentsMissed.add(followupAppointment);
+			}
+		}
+		model.addAttribute("motherFollowedAppointmentsMissed", motherFollowupAppointmentsMissed);
+
+//		model.addAttribute("user", Context.getAuthenticatedUser());
 		model.addAttribute("childFollowedAppointments", getPreventTransmissionService().getChildByAppointment());
 		model.addAttribute("childFollowedAppointmentsMissed", getPreventTransmissionService().getChildByAppointmentMissed());
 		model.addAttribute("childFollowedPcrWaiting", getPreventTransmissionService().getChildPcrResultWaiting());
@@ -48,6 +69,7 @@ public class  PreventTransmissionManageController {
 		model.addAttribute("childPcr1Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR1"), 1));
 		model.addAttribute("childPcr2Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR2"), 2));
 		model.addAttribute("childPcr3Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 3));
+		model.addAttribute("childTestAppointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 4));
 
 //		model.addAttribute("encryptMSLS", Security.encrypt("MSLS"));
 //		model.addAttribute("encryptPNLS", Security.encrypt("PNLS"));
