@@ -1029,7 +1029,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
 						"  pcf.pcr3_sampling_date IS NULL AND " +
-						"  (pcf.pcr2_result = 1 OR pcf.hiv_serology1_result = 1 ) AND " +
+						"  (pcf.pcr2_result = 1 OR (pcf.hiv_serology1_result = 1 AND pcf.pcr2_result IS NOT NULL ) ) AND " +
 						"  pcf.followup_result IS NULL ";
 			} else if (pcrType == 4) {
 				sqlQuery =
@@ -1495,27 +1495,37 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  visitCount, " +
 						"  start_date as startDate," +
 						"  end_date as endDate," +
-						"  status," +
+						"  if(pregnancy_outcome IS NULL AND DateTransfert IS NULL AND DateDeces IS NULL , 'On', 'Off') status, " +
 						"  lastVisitDate," +
-						"  pregnancy_outcome as pregnancyOutcome," +
+						"  if(DateDeces IS NOT NULL AND pregnancy_outcome IS NULL , 6, if(DateTransfert IS NOT NULL AND pregnancy_outcome IS NULL, 7, pregnancy_outcome )) as pregnancyOutcome," +
 						"  delivery_type as deliveryType," +
 						"  pmf.spousal_screening_date as spousalScreeningDate," +
 						"  pmf.spousal_screening_result as spousalScreeningResult " +
 						"FROM " +
-						"  (SELECT *, if(pregnancy_outcome IS NULL, 'On', 'Off') status FROM ptme_mother_followup) pmf, " +
-						"  ptme_pregnant_patient ppp, " +
+						"  (" +
+						"    SELECT mother_followup_id, arv_status_at_registering, start_date, end_date, " +
+						"           pregnancy_outcome, " +
+						"           delivery_type, spousal_screening_date, f.spousal_screening_result," +
+						"           hiv_care_number, age, family_name, given_name, f.voided, T.value_datetime DateTransfert, D.value_datetime DateDeces FROM ptme_mother_followup f" +
+						"    INNER JOIN ptme_pregnant_patient ppp  ON f.pregnant_patient_id = ppp.pregnant_patient_id" +
+						"    LEFT JOIN (SELECT person_id, value_datetime FROM obs WHERE concept_id = 1543 AND value_datetime "+ (endDate != null ? "<= :endDate" : " = NOW()") +" AND voided = 0) D ON D.person_id = ppp.patient_id" +
+						"    LEFT JOIN (SELECT person_id, value_datetime FROM obs o WHERE concept_id = 164595 AND voided = 0 " +
+						"                AND value_datetime > (SELECT MAX(encounter_datetime) FROM encounter " +
+						"                                       WHERE encounter_type = 1 AND patient_id = o.person_id GROUP BY patient_id)) T " +
+						"      ON T.person_id = ppp.patient_id " +
+						"  ) pmf, " +
+
 						"  ( SELECT count(*) visitCount, mother_followup_id FROM ptme_mother_followup_visit GROUP BY mother_followup_id) pmfv2, " +
 						"  ( SELECT max(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit GROUP BY mother_followup_id) pmfv3 " +
 						"WHERE " +
-						"  pmf.pregnant_patient_id = ppp.pregnant_patient_id AND " +
+						//"  pmf.pregnant_patient_id = ppp.pregnant_patient_id AND " +
 						"  pmf.mother_followup_id = pmfv2.mother_followup_id AND " +
 						"  pmf.mother_followup_id = pmfv3.mother_followup_id AND " +
 						"  pmf.voided = 0 ";
 
 //		if (startDate != null)
 //			sqlQuery = sqlQuery + " AND pmf.start_date = :startDate";
-		if (status != null)
-			sqlQuery = sqlQuery + " AND pmf.Status = :status";
+
 //		if (endDate != null)
 //			sqlQuery = sqlQuery + " AND pmf.end_date = :endDate";
 		if (pregnancyOutcome != null)
@@ -1527,6 +1537,8 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				sqlQuery = sqlQuery + " AND pmf.end_date BETWEEN :startDate AND :endDate";
 			}
 		}
+		if (status != null)
+			sqlQuery = sqlQuery + " HAVING status = :status";
 
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
 				.addScalar("motherFollowupId", StandardBasicTypes.INTEGER)
