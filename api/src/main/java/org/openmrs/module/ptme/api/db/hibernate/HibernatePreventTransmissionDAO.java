@@ -953,22 +953,22 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  family_name familyName," +
 						"  given_name AS givenName," +
 						"  pc.birth_date As lastVisitDate," +
-						"  AppointmentDate," +
+						"  IF(hiv_serology1_result IS NOT NULL, hiv_serology1_date, pcr1_sampling_date ) AppointmentDate," +
 						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
-						"  passed " +
+						"  0 AS passed " +
 						"FROM" +
-						"  (SELECT * FROM ptme_child) pc" +
+						"  (SELECT *  FROM ptme_child) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
-						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDateAllt, child_id FROM ptme_child_followup_visit WHERE eating_type = 1 AND visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV" +
-						"    ON pc.child_id = MV.child_id" +
-						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDate, child_id FROM ptme_child_followup_visit WHERE eating_type <> 1 AND visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV1" +
-						"    ON pc.child_id = MV1.child_id" +
-						"  LEFT JOIN (SELECT child_id, visit_date, eating_type, ADDDATE(visit_date, INTERVAL 6 WEEK) AppointmentDate, " +
-						"                IF(ADDDATE(visit_date, INTERVAL 6 WEEK) > NOW(), 0," +
-						"                 IF(ADDDATE(visit_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed FROM ptme_child_followup_visit WHERE voided = 0) pcfv " +
-						"    ON pcfv.child_id = MV1.child_id AND pcfv.visit_date = MV1.MaxVisiteDate " +
+//						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDateAllt, child_id FROM ptme_child_followup_visit WHERE eating_type = 1 AND visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV" +
+//						"    ON pc.child_id = MV.child_id" +
+//						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDate, child_id FROM ptme_child_followup_visit WHERE eating_type <> 1 AND visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV1" +
+//						"    ON pc.child_id = MV1.child_id" +
+//						"  LEFT JOIN (SELECT child_id, visit_date, eating_type, ADDDATE(visit_date, INTERVAL 6 WEEK) AppointmentDate, " +
+//						"                IF(ADDDATE(visit_date, INTERVAL 6 WEEK) > NOW(), 0," +
+//						"                 IF(ADDDATE(visit_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed FROM ptme_child_followup_visit WHERE voided = 0) pcfv " +
+//						"    ON pcfv.child_id = MV1.child_id AND pcfv.visit_date = MV1.MaxVisiteDate " +
 						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
 						"    ON SoutTel.person_id = pc.mother" +
 						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
@@ -976,10 +976,11 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"WHERE " +
 						"  pcf.pcr1_sampling_date IS NOT NULL" +
 						"  AND pcf.pcr2_sampling_date IS NULL" +
-						"  AND ((MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
-						"  AND eating_type <> 1 " +
-						"  AND FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 " +
-                        "  AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
+						"  AND ((" +
+//								"(MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
+						//"  AND eating_type <> 1 " +
+						//"  FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 " +
+                        "   FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
 						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
 						"  AND pcf.followup_result IS NULL";
 			} else if (pcrType == 1) {

@@ -318,7 +318,7 @@
                             <th>Nom et Pr&eacute;noms</th>
                             <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu le </th>
+                            <th>Attendu depuis le</th>
                         </tr>
                         </thead>
                         <tbody>
