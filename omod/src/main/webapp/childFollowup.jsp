@@ -603,9 +603,9 @@
                         <td class="bordered-green" align="center">
                             <table cellpadding="2" cellspacing="3">
                                 <tr>
-                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInDay }</td>
-                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInWeek }</td>
-                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInMonth }</td>
+                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInDay != null ? visit.ageInDay : '&nbsp;'}</td>
+                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInWeek != null ? visit.ageInWeek : '&nbsp;'}</td>
+                                    <td class="centered colored-blue boldText bordered-green">${ visit.ageInMonth != null ?  visit.ageInMonth : '&nbsp;'}</td>
                                 </tr>
                                 <tr>
                                     <td width="20" align="center">J</td>

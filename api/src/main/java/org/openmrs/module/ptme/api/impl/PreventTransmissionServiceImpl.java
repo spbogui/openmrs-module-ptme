@@ -399,8 +399,13 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
-    public Boolean isTransfered(Patient patient) {
-        return dao.isTransfered(patient);
+    public Boolean isTransferred(Patient patient) {
+        return dao.isTransferred(patient);
+    }
+
+    @Override
+    public Boolean isDeclaredNegative(Patient patient) {
+        return dao.isDeclaredNegative(patient);
     }
 
     @Override

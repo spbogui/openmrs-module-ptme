@@ -109,7 +109,7 @@
                                     (followup.result == 1 ? 'Perdue de vue' :
                                             (followup.result == 2 ? 'Deces' :
                                                     (followup.result == 3 ? 'Positif' :
-                                                            (followup.result == 4 ? 'Trensfert' :
+                                                            (followup.result == 4 ? 'Transfert' :
                                                                     (followup.result == 5 ? 'Reference' : '')))))}
                     </td>
                     <td><fmt:formatDate type="date" value="${followup.resultDate}" pattern="dd/MM/yyyy" /></td>

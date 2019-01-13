@@ -123,7 +123,8 @@
                                 (followupOn.pregnancyOutcome == 4 ? "Mort n&#233; frais" :
                                 (followupOn.pregnancyOutcome == 5 ? "Mort n&#233; mac&#233;r&#233;" :
                                 (followupOn.pregnancyOutcome == 6 ? "D&#233;c&#233;d&#233;e avant terme " :
-                                (followupOn.pregnancyOutcome == 7 ? "Transf&#233;r&#233;e avant terme" :  ""))))))}</td>
+                                (followupOn.pregnancyOutcome == 7 ? "Transf&#233;r&#233;e avant terme" :
+                                (followupOn.pregnancyOutcome == 8 ? "D&#233;clar&#233;e N&#233;gative" :  "")))))))}</td>
                         <td class="centered">${followupOn.deliveryType == 1 ? "Unique" : (followupOn.deliveryType == 2 ? "G&#233;mellaire" : "")}</td>
                     </c:if>
                     <td class="centered ">

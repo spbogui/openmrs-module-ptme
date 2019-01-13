@@ -116,7 +116,7 @@
                 <th align="center">Date</th>
                 <th align="center">Num&eacute;ro de gestante</th>
                 <th align="center">Num&eacute;ro de PEC</th>
-                <th align="center">Num&eacute;ro de D&eacute;pistage</th>
+                <%--<th align="center">Num&eacute;ro de D&eacute;pistage</th>--%>
                 <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
                     <th align="center">Rang de CPN</th>
                     <th align="center">Semaines <br>d'Amenorrhee</th>
@@ -128,6 +128,9 @@
                 <th align="center">R&eacute;sultat <br>du test</th>
                 <th align="center">Annonce du <br>r&eacute;sultat</th>
                 <th align="center">ARV Remise ?</th>
+                <c:if test="${ manageConsultationForm.register == 'Birth' ||  manageConsultationForm.register == 'Postnatal' }" >
+                    <th align="center">Prophylaxie &agrave; l'enfant</th>
+                </c:if>
                 <c:if test="${ manageConsultationForm.register == 'Birth' }" >
                     <th align="center">N&eacute;(e) le</th>
                     <th align="center">&Agrave; domicile</th>
@@ -143,23 +146,26 @@
                     <td><fmt:formatDate type="date" value="${ consult.consultationDate }" pattern="dd/MM/yyyy" /></td>
                     <td>${consult.pregnantPatient.pregnantNumber}</td>
                     <td>${consult.pregnantPatient.hivCareNumber}</td>
-                    <td>${consult.pregnantPatient.screeningNumber}</td>
+                    <%--<td>${consult.pregnantPatient.screeningNumber}</td>--%>
                     <c:if test="${ manageConsultationForm.register == 'Prenatal' }" >
                         <td>${consult.rank}</td>
                         <td align="center">${consult.weekOfAmenorrhea}</td>
                         <td align="center">${ (consult.spousalScreening == 0) ? 'Non': (consult.spousalScreeningResult == 1 ? "Oui": (consult.spousalScreeningResult == 2 ? 'Ne sait pas' : ""))}</td>
-                        <td align="center">${ (consult.spousalScreeningResult == 0) ? 'N&#233;gatif': (consult.spousalScreeningResult == 1 ? "Positif": (consult.spousalScreeningResult == 2 ? 'N/A' : ""))}</td>
+                        <td align="center">${ (consult.spousalScreeningResult == 0) ? "N&#233;gatif": (consult.spousalScreeningResult == 1 ? "Positif": (consult.spousalScreeningResult == 2 ? 'N/A' : ""))}</td>
                     </c:if>
                     <td align="center">${(consult.hivService.hivStatusAtReception == 0) ? "N&#233;gatif": (consult.hivService.hivStatusAtReception == 1 ? 'Positif': 'Inconnu')}</td>
                     <td align="center">${ (consult.hivService.testProposal == 0) ? 'Non': (consult.hivService.testProposal == 1 ? 'Oui' : 'N/A') }</td>
                     <td align="center">${ (consult.hivService.testResult == 0) ? 'N&#233;gatif': (consult.hivService.testResult == 1 ? 'Positif' : 'N/A') }</td>
                     <td align="center">${ (consult.hivService.resultAnnouncement == 0) ? 'Non' : (consult.hivService.resultAnnouncement == 1 ? 'Oui' : 'N/A')}</td>
                     <td align="center">${ (consult.hivService.arvDiscount == 0) ? 'Non' : (consult.hivService.arvDiscount == 1 ? 'Oui' : 'N/A') }</td>
+                    <c:if test="${ manageConsultationForm.register == 'Birth' ||  manageConsultationForm.register == 'Postnatal' }" >
+                        <td align="center">${ (consult.hivService.childArvProphylaxis == 0) ? 'Non' : (consult.hivService.childArvProphylaxis == 1 ? 'Oui' : '') }</td>
+                    </c:if>
                     <c:if test="${ manageConsultationForm.register == 'Birth' }" >
                         <td align="center"><fmt:formatDate type="date" value="${consult.deliveryDate}" pattern="dd/MM/yyyy" /></td>
                         <td align="center">${consult.homeBirth ? "Oui" : "Non"}</td>
                         <td align="center">${consult.pregnancyIssue == 1 ? "A terme" : (consult.pregnancyIssue == 2 ? "Prematur&#233;" : (consult.pregnancyIssue == 3 ? "Post-terme" : ""))}</td>
-                        <td align="center">${consult.childState == 1 ? "Vivant" : (consult.childState == 2 ? "Mort ne frais" : (consult.childState == 3 ? "Mort n&#233; Mac&#233;r&#233;" : ""))}</td>
+                        <td align="center">${consult.childState == 1 ? "Vivant" : (consult.childState == 2 ? "Mort n&#233; frais" : (consult.childState == 3 ? "Mort n&#233; Mac&#233;r&#233;" : ""))}</td>
                     </c:if>
                     <td align="center" width="30">
                         <table cellspacing="0" cellpadding="0" class="button-table">

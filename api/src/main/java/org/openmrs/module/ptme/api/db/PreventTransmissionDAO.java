@@ -147,7 +147,8 @@ public interface PreventTransmissionDAO {
     List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting();
 
     Boolean isDead(Patient patient);
-    Boolean isTransfered(Patient patient);
+    Boolean isTransferred(Patient patient);
+    Boolean isDeclaredNegative(Patient patient);
 
 
     /****

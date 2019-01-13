@@ -94,7 +94,7 @@
         <form:form action="" commandName="getRunReportFormForm" id="form" method="get" >
             <table cellspacing="0" cellpadding="5">
                 <tr>
-                    <td><input type="submit" value="Nouveau" name="add"></td>
+                    <td><input type="submit" value="Nouveau Rapport" name="add"></td>
                 </tr>
             </table>
         </form:form>
@@ -188,7 +188,7 @@
 
 <c:if test="${mode == 'form'}">
     <div class="box">
-        <h3><b>Saisie des rapports</b></h3>
+        <h3><b>Saisie des informations du rapport</b></h3>
         <div class="line"></div>
         <form:form action="" commandName="runReportForm" id="form" method="post">
             <form:hidden path="generationId"/>
@@ -199,7 +199,7 @@
                     <td>
                         <table cellpadding="5" cellspacing="0" width="100%">
                             <tr>
-                                <td class="boldText">Rapport &agrave; g&eacute;n&eacute;rer : </td>
+                                <td class="boldText">Rapport &agrave; g&eacute;n&eacute;rer <b class="required">*</b> : </td>
                                 <td>
                                     <form:select path="reportId"  cssClass="selection">
                                         <<option value="">-- S&eacute;lectionner --</option>
@@ -214,22 +214,22 @@
                                 <td><form:errors cssClass="error" path="reportId"/></td>
                             </tr>
                             <tr>
-                                <td class="boldText">P&eacute;riode <b class="required">*</b> : </td>
+                                <td class="boldText">P&eacute;riode (Mois Ann&eacute;e) <b class="required">*</b> : </td>
                                 <td><form:input path="name"  size="40" cssClass=""/></td>
                                 <td><form:errors cssClass="error" path="name"/></td>
                             </tr>
                             <tr>
-                                <td class="boldText">Date de d&eacute;but de p&eacute;riode  : </td>
+                                <td class="boldText">Date de d&eacute;but de p&eacute;riode <b class="required">*</b>  : </td>
                                 <td><form:input path="reportPeriodStartDate" cssClass="datepickerPtme" /></td>
                                 <td><form:errors cssClass="error" path="reportPeriodStartDate"/></td>
                             </tr>
                             <tr>
-                                <td class="boldText">Date de fin de p&eacute;riode  : </td>
+                                <td class="boldText">Date de fin de p&eacute;riode <b class="required">*</b>  : </td>
                                 <td><form:input path="reportPeriodEndDate" cssClass="datepickerPtme" /></td>
                                 <td><form:errors cssClass="error" path="reportPeriodEndDate"/></td>
                             </tr>
                             <tr>
-                                <td class="boldText">Etablissement : </td>
+                                <td class="boldText">Etablissement <b class="required">*</b> : </td>
                                 <td><form:input path="reportLocation" cssClass="" size="80" /></td>
                                 <td><form:errors cssClass="error" path="reportLocation"/></td>
                             </tr>
@@ -247,6 +247,7 @@
                         <c:if test="${ not empty runReportForm.generationId }">
                             <input type="submit" value="Executer" name="action"/>
                         </c:if>
+                        <button type="button" class="" onclick="document.location.href='${pageContext.request.contextPath}/module/ptme/reportGenerate.form'" >Annuler</button>
                     </td>
                 </tr>
             </table>

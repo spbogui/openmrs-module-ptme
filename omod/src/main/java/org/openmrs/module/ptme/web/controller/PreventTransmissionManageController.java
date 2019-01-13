@@ -19,7 +19,6 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.utils.MotherFollowupAppointment;
-import org.openmrs.util.Security;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,8 @@ public class  PreventTransmissionManageController {
 
 		for (MotherFollowupAppointment followupAppointment : getPreventTransmissionService().getPregnantPatientsAppointment()) {
 			Patient patient = getPreventTransmissionService().getPatientByIdentifier(followupAppointment.getHivCareNumber());
-			if (!getPreventTransmissionService().isTransfered(patient) && !getPreventTransmissionService().isDead(patient)) {
+			if (!getPreventTransmissionService().isTransferred(patient) && !getPreventTransmissionService().isDead(patient)
+					&& !getPreventTransmissionService().isDeclaredNegative(patient)) {
 				motherFollowupAppointments.add(followupAppointment);
 			}
 		}
@@ -55,7 +55,8 @@ public class  PreventTransmissionManageController {
 		List<MotherFollowupAppointment> motherFollowupAppointmentsMissed = new ArrayList<MotherFollowupAppointment>();
 		for (MotherFollowupAppointment followupAppointment : getPreventTransmissionService().getPregnantPatientsAppointmentMissed()) {
 			Patient patient = getPreventTransmissionService().getPatientByIdentifier(followupAppointment.getHivCareNumber());
-			if (!getPreventTransmissionService().isTransfered(patient) && !getPreventTransmissionService().isDead(patient)) {
+			if (!getPreventTransmissionService().isTransferred(patient) && !getPreventTransmissionService().isDead(patient)
+					&& !getPreventTransmissionService().isDeclaredNegative(patient)) {
 				motherFollowupAppointmentsMissed.add(followupAppointment);
 			}
 		}
@@ -70,6 +71,7 @@ public class  PreventTransmissionManageController {
 		model.addAttribute("childPcr2Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR2"), 2));
 		model.addAttribute("childPcr3Appointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 3));
 		model.addAttribute("childTestAppointment", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 4));
+		model.addAttribute("childTestAppointmentM18", getPreventTransmissionService().getChildByPcrAppointment(Context.getAdministrationService().getGlobalProperty("ptme.weekOfPCR3"), 5));
 
 //		model.addAttribute("encryptMSLS", Security.encrypt("MSLS"));
 //		model.addAttribute("encryptPNLS", Security.encrypt("PNLS"));

@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class ReportingController {
@@ -179,6 +180,21 @@ public class ReportingController {
         }
 
         if (mode.equals("list")) {
+            List<ReportingReportGeneration> reportGeneratedList = getPreventTransmissionService().getAllGeneratedReport(false);
+
+            for (ReportingReportGeneration reportGeneration : reportGeneratedList) {
+                if (!reportGeneration.getSaved()) {
+                    Date generationDate = reportGeneration.getGenerationDate();
+                    Date toDay = new Date();
+                    long diffInMillis = Math.abs(generationDate.getTime() - toDay.getTime());
+                    long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+                    if (diff > 3) {
+                        getPreventTransmissionService().removeGeneratedReport(reportGeneration.getId());
+                    }
+                }
+            }
+
             modelMap.addAttribute("getRunReportFormForm", new GetRunReportFromFrom());
             modelMap.addAttribute("listGeneratedReports", getPreventTransmissionService().getAllGeneratedReport(false));
         }

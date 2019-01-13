@@ -1,10 +1,7 @@
 package org.openmrs.module.ptme.web.controller;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -12,7 +9,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.ptme.MotherFollowup;
 import org.openmrs.module.ptme.MotherFollowupVisit;
 import org.openmrs.module.ptme.PregnantPatient;
-import org.openmrs.module.ptme.SerializedData;
 import org.openmrs.module.ptme.api.PreventTransmissionService;
 import org.openmrs.module.ptme.forms.*;
 import org.openmrs.module.ptme.forms.validators.MotherFollowupFormValidator;
@@ -20,8 +16,6 @@ import org.openmrs.module.ptme.forms.validators.MotherFollowupPatientFormValidat
 import org.openmrs.module.ptme.utils.MotherFollowupCurrentlyOn;
 import org.openmrs.module.ptme.utils.PregnantPatientToFollow;
 import org.openmrs.module.ptme.utils.UsefullFunction;
-import org.openmrs.module.ptme.xml.MotherFollowupXml;
-import org.openmrs.module.ptme.xml.PregnantPatientXml;
 import org.openmrs.web.WebConstants;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
@@ -154,7 +148,8 @@ public class MotherFollowupManageController {
                     List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                     for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                         PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                             motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                         }
                     }
@@ -197,7 +192,8 @@ public class MotherFollowupManageController {
                         List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                         for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                             PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                            if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                            if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                    && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                                 motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                             }
                         }
@@ -223,7 +219,8 @@ public class MotherFollowupManageController {
                     List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                     for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                         PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                             motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                         }
                     }
@@ -246,7 +243,8 @@ public class MotherFollowupManageController {
                         List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                         for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                             PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                            if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                            if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                    && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                                 motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                             }
                         }
@@ -266,13 +264,14 @@ public class MotherFollowupManageController {
                             List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                             for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                                 PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                                if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                                if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                        && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                                     motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                                 }
                             }
 
                             modelMap.addAttribute("listMotherFollowupOn", motherFollowupCurrentlyOnList);
-                        } else if(getPreventTransmissionService().isTransfered(pregnantPatient.getPatient())) {
+                        } else if(getPreventTransmissionService().isTransferred(pregnantPatient.getPatient())) {
                             findPregnantPatientForm.setHivCareNumber(hivCareNumber);
                             session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Cette femme est transférées vers un autre site. Veuillez en choisir une autre SVP !");
                             modelMap.addAttribute("findPregnantPatientForm", findPregnantPatientForm);
@@ -283,11 +282,29 @@ public class MotherFollowupManageController {
                             List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                             for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                                 PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                                if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                                if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                        && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                                     motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                                 }
                             }
 
+                            modelMap.addAttribute("listMotherFollowupOn", motherFollowupCurrentlyOnList);
+                        }
+                        else if (getPreventTransmissionService().isDeclaredNegative(pregnantPatient.getPatient())) {
+                            findPregnantPatientForm.setHivCareNumber(hivCareNumber);
+                            session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Cette femme est déclarée faux positif. Veuillez en choisir une autre SVP !");
+                            modelMap.addAttribute("findPregnantPatientForm", findPregnantPatientForm);
+
+                            List<MotherFollowupCurrentlyOn> listMotherFollowupOn = getPreventTransmissionService().
+                                    getMotherFollowupList(null, null, "On", null, null);
+
+                            List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
+                            for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
+                                PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
+                                if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())) {
+                                    motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
+                                }
+                            }
                             modelMap.addAttribute("listMotherFollowupOn", motherFollowupCurrentlyOnList);
                         }
                         else {
@@ -320,7 +337,8 @@ public class MotherFollowupManageController {
                     List<MotherFollowupCurrentlyOn> motherFollowupCurrentlyOnList = new ArrayList<MotherFollowupCurrentlyOn>();
                     for (MotherFollowupCurrentlyOn motherFollowupCurrentlyOn : listMotherFollowupOn) {
                         PregnantPatient p = getPreventTransmissionService().getPregnantPatientByHivCareNumber(motherFollowupCurrentlyOn.getHivCareNumber());
-                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransfered(p.getPatient())) {
+                        if (!getPreventTransmissionService().isDead(p.getPatient()) && !getPreventTransmissionService().isTransferred(p.getPatient())
+                                && !getPreventTransmissionService().isDeclaredNegative(p.getPatient())) {
                             motherFollowupCurrentlyOnList.add(motherFollowupCurrentlyOn);
                         }
                     }
@@ -591,8 +609,9 @@ public class MotherFollowupManageController {
                 List<PregnantPatientToFollow> pregnantPatientToFollowList = new ArrayList<PregnantPatientToFollow>();
                 for (PregnantPatientToFollow pregnantPatientToFollow : pregnantPatientFollowupList) {
                     PregnantPatient patient = getPreventTransmissionService().getPregnantPatientById(pregnantPatientToFollow.getPregnantPatientId());
-                    if (!getPreventTransmissionService().isTransfered(patient.getPatient()) &&
-                            !getPreventTransmissionService().isDead(patient.getPatient())) {
+                    if (!getPreventTransmissionService().isTransferred(patient.getPatient()) &&
+                            !getPreventTransmissionService().isDead(patient.getPatient())
+                            && !getPreventTransmissionService().isDeclaredNegative(patient.getPatient())) {
                         pregnantPatientToFollowList.add(pregnantPatientToFollow);
                     }
                 }

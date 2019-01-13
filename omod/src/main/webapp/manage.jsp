@@ -376,7 +376,7 @@
                 </fieldset>
                 <br>
                 <fieldset>
-                    <legend><%--Enfants expos&eacute;s attendus pour le --%>TEST SEROLOGIQUE</legend>
+                    <legend><%--Enfants expos&eacute;s attendus pour le --%>TEST SEROLOGIQUE ENTRE M9 ET M18</legend>
                     <table class="list-register-table-child" width="100%" cellpadding="5">
                         <thead>
                         <tr style="background-color: #1aac9b; color: #ffffff;">
@@ -384,7 +384,7 @@
                             <th>Nom et Pr&eacute;noms</th>
                             <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu le</th>
+                            <th>Date &agrave; 9 mois</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -401,6 +401,39 @@
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center"><fmt:formatDate type="date" value="${childTest.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                 <td align="center"><fmt:formatDate type="date" value="${childTest.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><%--Enfants expos&eacute;s attendus pour le --%>TEST SEROLOGIQUE A M18</legend>
+                    <table class="list-register-table-child" width="100%" cellpadding="5">
+                        <thead>
+                        <tr style="background-color: #1aac9b; color: #ffffff;">
+                            <th>Num&eacute;ro</th>
+                            <th>Nom et Pr&eacute;noms</th>
+                            <th>Contact M&egrave;re</th>
+                            <th>Date de naissance</th>
+                            <th>Date &agrave; 18 mois</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="childM18" items="${ childTestAppointmentM18 }">
+                            <tr style="color: ${childM18.passed == 1 ? '#1aac9b': (childM18.passed == 2 ? 'lightcoral': 'none' )}">
+                                <td>
+                                    <c:url value="/module/ptme/childFollowup.form" var="urlTestM18">
+                                        <c:param name="childFollowupNumber" value="${childM18.childFollowupNumber}"/>
+                                    </c:url>
+                                    <a href="${ urlTestM18 }">${childM18.childFollowupNumber}</a>
+                                </td>
+                                <td>${childM18.familyName} ${childM18.givenName}</td>
+                                <td>${childM18.motherContact}</td>
+                                    <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
+                                <td align="center"><fmt:formatDate type="date" value="${childM18.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
+                                <td align="center"><fmt:formatDate type="date" value="${childM18.appointmentDate}" pattern="dd/MM/yyyy" /></td>
                             </tr>
                         </c:forEach>
 
