@@ -1523,7 +1523,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="prevent-transmission-insert-report-template-28-12-2018" author="BOGUI SERGE">
+    <changeSet id="prevent-transmission-insert-report-template-13-01-2019" author="BOGUI SERGE">
         <!--<preConditions onFail="MARK_RAN">-->
             <!--<sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_template</sqlCheck>-->
         <!--</preConditions>-->
