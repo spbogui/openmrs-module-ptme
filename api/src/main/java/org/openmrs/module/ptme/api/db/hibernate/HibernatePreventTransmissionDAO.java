@@ -976,12 +976,12 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"WHERE " +
 						"  pcf.pcr1_sampling_date IS NOT NULL" +
 						"  AND pcf.pcr2_sampling_date IS NULL" +
-						"  AND ((" +
-//								"(MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
+						"  AND (( pcf.pcr1_result = 1 " +
+//						"  (MaxVisiteDate IS NOT NULL AND (MaxVisiteDateAllt < MaxVisiteDate) " +
 						//"  AND eating_type <> 1 " +
 						//"  FLOOR(DATEDIFF(DATE(NOW()), visit_date) /7) >= 6 " +
-                        "   FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
-						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
+                        "  AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
+						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1)) " +
 						"  AND pcf.followup_result IS NULL";
 			} else if (pcrType == 1) {
 				sqlQuery =

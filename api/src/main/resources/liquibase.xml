@@ -1523,18 +1523,18 @@
         </sql>
     </changeSet>
 
-    <changeSet id="prevent-transmission-insert-report-template-13-01-2019" author="BOGUI SERGE">
+    <changeSet id="prevent-transmission-insert-report-template-15-01-2019" author="BOGUI SERGE">
         <!--<preConditions onFail="MARK_RAN">-->
             <!--<sqlCheck expectedResult="0">SELECT COUNT(*) FROM ptme_reporting_template</sqlCheck>-->
         <!--</preConditions>-->
         <sqlFile path="TEMPLATE.sql"/>
     </changeSet>
 
-    <changeSet id="prevent-transmission-insert-indicators-data-10-01-2019" author="BOGUI SERGE">
+    <changeSet id="prevent-transmission-insert-indicators-data-15-01-2019" author="BOGUI SERGE">
         <sqlFile path="INDICATORS.sql"/>
     </changeSet>
 
-    <changeSet id="prevent-transmission-insert-report-data-10-01-2019" author="BOGUI SERGE">
+    <changeSet id="prevent-transmission-insert-report-data-15-01-2019" author="BOGUI SERGE">
         <sqlFile path="INSERT_REPORT_DATA.sql"/>
     </changeSet>
 </databaseChangeLog>

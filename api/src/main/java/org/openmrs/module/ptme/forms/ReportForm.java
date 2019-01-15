@@ -74,16 +74,16 @@ public class ReportForm {
 
     public void getReport(ReportingReport report) {
         this.setReportId(report.getReportId());
-        this.setLabel(report.getReportLabel());
+        this.setLabel(UsefullFunction.writeAccent(report.getReportLabel()));
         this.setTemplateId(report.getTemplate().getTemplateId());
-        this.setDescription(report.getDescription());
+        this.setDescription(UsefullFunction.writeAccent(report.getDescription()));
 
     }
 
     public ReportingReport setReport(ReportingReport report) {
         report.setReportId(this.getReportId());
-        report.setReportLabel(this.getLabel());
-        report.setDescription(this.getDescription());
+        report.setReportLabel(UsefullFunction.escapeHTML(this.getLabel()));
+        report.setDescription(UsefullFunction.escapeHTML(this.getDescription()));
 
         ReportingTemplate template = Context.getService(PreventTransmissionService.class).getTemplateById(this.getTemplateId());
         if (template != null) {

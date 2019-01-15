@@ -14,26 +14,25 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
-USE openmrs;
+--
+-- Create schema openmrs
+--
 
-TRUNCATE ptme_reporting_dataset;
-TRUNCATE ptme_reporting_dataset_indicator;
-TRUNCATE ptme_reporting_report;
-TRUNCATE ptme_reporting_report_dataset;
+USE openmrs;
 
 --
 -- Dumping data for table `ptme_reporting_dataset`
 --
 
 /*!40000 ALTER TABLE `ptme_reporting_dataset` DISABLE KEYS */;
-INSERT INTO `ptme_reporting_dataset` (`dataset_id`,`name`,`code`,`uuid`,`creator`,`date_created`,`changed_by`,`date_changed`,`voided`,`voided_by`,`date_voided`,`void_reason`) VALUES 
- (1,'Conseil et dépistage en CPN et en Maternité','DS1','25357924-ab0b-4b5b-ba9d-1582e17831d7',1,'2018-11-05 19:29:59',1,'2018-11-07 17:00:40',0,NULL,NULL,NULL),
- (2,'Suivi des mères et des enfants nés de mères séropositives au VIH','DS2','27a53cfa-9c10-4d22-9c9e-d7138449dccc',1,'2018-11-09 19:53:48',NULL,NULL,0,NULL,NULL,NULL),
- (3,'Dépistage du VIH chez les enfants nés de mère séropositive au VIH','DS3','da403c6b-57b9-49c2-84dd-2dc60dc67d4a',1,'2018-11-11 22:38:22',NULL,NULL,0,NULL,NULL,NULL),
- (4,'Dépistage des conjoints des femmes enceintes','DS4','d483ae85-d669-41d5-aa2b-5b9aee1a4841',1,'2018-11-12 08:53:21',1,'2018-12-19 10:34:02',0,NULL,NULL,NULL),
- (5,'Femmes enceintes ou allaitantes depistées positives nouvellement mises sous traitement ARV','DS5','5a35e688-ab91-454f-8f2a-2462af0e3336',1,'2018-12-09 12:35:50',NULL,NULL,0,NULL,NULL,NULL),
- (6,'Femmes déjà sous ARV contractant une nouvelle grossesse','DS6','8dbe3ab5-8925-4991-b4b2-e08bc8ebade3',1,'2018-12-09 12:37:10',1,'2018-12-09 12:55:19',0,NULL,NULL,NULL),
- (7,'Suivi des rendez-vous des enfants avant 2 mois','DS7','ee7867de-e5df-4dfe-a43f-911f340d730a',1,'2018-12-09 12:38:08',NULL,NULL,0,NULL,NULL,NULL);
+REPLACE INTO `ptme_reporting_dataset` (`dataset_id`,`name`,`code`,`uuid`,`creator`,`date_created`,`changed_by`,`date_changed`,`voided`,`voided_by`,`date_voided`,`void_reason`) VALUES
+ (1,'Conseil et d&eacute;pistage en CPN et en Maternit&eacute;','DS1','25357924-ab0b-4b5b-ba9d-1582e17831d7',1,'2018-11-05 19:29:59',1,'2019-01-15 09:18:50',0,NULL,NULL,NULL),
+ (2,'Suivi des m&egrave;res et des enfants n&eacute;s de m&egrave;res s&eacute;ropositives au VIH','DS2','27a53cfa-9c10-4d22-9c9e-d7138449dccc',1,'2018-11-09 19:53:48',1,'2019-01-15 09:19:36',0,NULL,NULL,NULL),
+ (3,'D&eacute;pistage du VIH chez les enfants n&eacute;s de m&egrave;re s&eacute;ropositive au VIH','DS3','da403c6b-57b9-49c2-84dd-2dc60dc67d4a',1,'2018-11-11 22:38:22',1,'2019-01-15 09:19:13',0,NULL,NULL,NULL),
+ (4,'D&eacute;pistage des conjoints des femmes enceintes','DS4','d483ae85-d669-41d5-aa2b-5b9aee1a4841',1,'2018-11-12 08:53:21',1,'2019-01-15 09:19:06',0,NULL,NULL,NULL),
+ (5,'Femmes enceintes ou allaitantes depist&eacute;es positives nouvellement mises sous traitement ARV','DS5','5a35e688-ab91-454f-8f2a-2462af0e3336',1,'2018-12-09 12:35:50',1,'2019-01-15 09:19:30',0,NULL,NULL,NULL),
+ (6,'Femmes d&eacute;j&agrave; sous ARV contractant une nouvelle grossesse','DS6','8dbe3ab5-8925-4991-b4b2-e08bc8ebade3',1,'2018-12-09 12:37:10',1,'2019-01-15 09:19:20',0,NULL,NULL,NULL),
+ (7,'Suivi des rendez-vous des enfants expos&eacute;s avant 2 mois','DS7','ee7867de-e5df-4dfe-a43f-911f340d730a',1,'2018-12-09 12:38:08',1,'2019-01-15 09:20:32',0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ptme_reporting_dataset` ENABLE KEYS */;
 
 
@@ -42,7 +41,7 @@ INSERT INTO `ptme_reporting_dataset` (`dataset_id`,`name`,`code`,`uuid`,`creator
 --
 
 /*!40000 ALTER TABLE `ptme_reporting_dataset_indicator` DISABLE KEYS */;
-INSERT INTO `ptme_reporting_dataset_indicator` (`indicator_id`,`dataset_id`) VALUES 
+REPLACE INTO `ptme_reporting_dataset_indicator` (`indicator_id`,`dataset_id`) VALUES
  (1,1),
  (2,1),
  (3,1),
@@ -89,13 +88,14 @@ INSERT INTO `ptme_reporting_dataset_indicator` (`indicator_id`,`dataset_id`) VAL
  (42,7);
 /*!40000 ALTER TABLE `ptme_reporting_dataset_indicator` ENABLE KEYS */;
 
+
 --
 -- Dumping data for table `ptme_reporting_report`
 --
 
 /*!40000 ALTER TABLE `ptme_reporting_report` DISABLE KEYS */;
-REPLACE INTO `ptme_reporting_report` (`report_id`,`report_label`,`description`,`reporting_template_id`,`uuid`,`creator`,`date_created`,`changed_by`,`date_changed`,`voided`,`voided_by`,`date_voided`,`void_reason`) VALUES 
- (1,'Rapport Mensuel de la Prévention de la Transmission Mère - Enfant (PTME)',NULL,1,'145c0d54-44fc-44a6-9fbd-bdb4cd897b82',1,'2018-11-05 19:37:31',1,'2018-11-12 08:53:54',0,NULL,NULL,NULL),
+REPLACE INTO `ptme_reporting_report` (`report_id`,`report_label`,`description`,`reporting_template_id`,`uuid`,`creator`,`date_created`,`changed_by`,`date_changed`,`voided`,`voided_by`,`date_voided`,`void_reason`) VALUES
+ (1,'Rapport Mensuel de la Pr&eacute;vention de la Transmission M&egrave;re - Enfant (PTME)',NULL,1,'145c0d54-44fc-44a6-9fbd-bdb4cd897b82',1,'2018-11-05 19:37:31',1,'2019-01-15 09:04:08',0,NULL,NULL,NULL),
  (2,'Rapport Mensuel de Suivi de Cohorte en PTME',NULL,2,'81d44e0e-380b-4b7a-a64d-6ba924cf2437',1,'2018-12-09 12:49:33',1,'2018-12-09 12:49:54',0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ptme_reporting_report` ENABLE KEYS */;
 
@@ -105,7 +105,7 @@ REPLACE INTO `ptme_reporting_report` (`report_id`,`report_label`,`description`,`
 --
 
 /*!40000 ALTER TABLE `ptme_reporting_report_dataset` DISABLE KEYS */;
-REPLACE INTO `ptme_reporting_report_dataset` (`report_id`,`dataset_id`) VALUES 
+REPLACE INTO `ptme_reporting_report_dataset` (`report_id`,`dataset_id`) VALUES
  (1,1),
  (1,2),
  (1,3),
@@ -114,6 +114,8 @@ REPLACE INTO `ptme_reporting_report_dataset` (`report_id`,`dataset_id`) VALUES
  (2,6),
  (2,7);
 /*!40000 ALTER TABLE `ptme_reporting_report_dataset` ENABLE KEYS */;
+
+
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

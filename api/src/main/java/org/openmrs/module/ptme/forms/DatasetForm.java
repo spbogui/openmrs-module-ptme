@@ -73,7 +73,7 @@ public class DatasetForm {
 
     public void getReportingDataSet(ReportingDataset rd) {
         this.setDatasetId(rd.getDatasetId());
-        this.setName(rd.getName());
+        this.setName(UsefullFunction.writeAccent(rd.getName()));
         this.setCode(rd.getCode());
 //        this.setDescription(rd.getDescription());
 //        for (ReportingIndicator ri :
@@ -85,7 +85,7 @@ public class DatasetForm {
 
     public ReportingDataset getReportingDataset(ReportingDataset reportingDataset) {
         reportingDataset.setDatasetId(this.getDatasetId());
-        reportingDataset.setName(this.getName());
+        reportingDataset.setName(UsefullFunction.escapeHTML(this.getName()));
 //        reportingDataset.setDescription(this.getDescription());
         reportingDataset.setCode(this.getCode());
 

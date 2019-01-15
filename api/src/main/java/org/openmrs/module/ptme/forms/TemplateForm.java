@@ -66,8 +66,8 @@ public class TemplateForm {
 
     public void setTemplate(ReportingTemplate template) {
         this. setTemplateId(template.getTemplateId());
-        this.setName(template.getName());
-        this.setDescription(template.getDescription());
+        this.setName(UsefullFunction.writeAccent(template.getName()));
+        this.setDescription(UsefullFunction.writeAccent(template.getDescription()));
         this.setContent(template.getContent());
 
     }
@@ -77,8 +77,8 @@ public class TemplateForm {
      }*/
     public ReportingTemplate getTemplate (ReportingTemplate template) throws IOException{
         template.setTemplateId(this.getTemplateId());
-        template.setName(this.getName());
-        template.setDescription(this.getDescription());
+        template.setName(UsefullFunction.escapeHTML(this.getName()));
+        template.setDescription(UsefullFunction.escapeHTML(this.getDescription()));
         template.setContent(this.getContent());
 
         if (template.getCreator() == null){

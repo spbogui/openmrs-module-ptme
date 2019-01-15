@@ -17,6 +17,7 @@ import org.openmrs.module.ptme.forms.validators.RunReportFormValidator;
 import org.openmrs.module.ptme.utils.ReportDataSetIndicatorRun;
 import org.openmrs.module.ptme.utils.ReportIndicatorValues;
 import org.openmrs.module.ptme.utils.ReportRunIndicatorValue;
+import org.openmrs.module.ptme.utils.UsefullFunction;
 import org.openmrs.web.WebConstants;
 import org.simpleframework.xml.transform.InvalidFormatException;
 import org.slf4j.Logger;
@@ -129,13 +130,13 @@ public class ReportingController {
                     //System.out.println(uuid);
 
                     ReportingDataset dataset = getPreventTransmissionService().getDatasetByUuid(uuid);
-                    dataSetIndicatorRun.setDataSetUuid(dataset.getName());
+                    dataSetIndicatorRun.setDataSetUuid(UsefullFunction.escapeHTML(dataset.getName()));
 
                     List<ReportRunIndicatorValue> reportRunIndicatorValues = new ArrayList<ReportRunIndicatorValue>();
 
                     for (ReportRunIndicatorValue indicatorValue : dataSetIndicatorRun.getReportRunIndicatorValues()) {
                         ReportingIndicator indicator = getPreventTransmissionService().getIndicatorByUuid(indicatorValue.getIndicatorUuid());
-                        indicatorValue.setIndicatorUuid(indicator.getName());
+                        indicatorValue.setIndicatorUuid(UsefullFunction.escapeHTML(indicator.getName()));
                         reportRunIndicatorValues.add(indicatorValue);
                     }
                     dataSetIndicatorRun.setReportRunIndicatorValues(reportRunIndicatorValues);
@@ -308,7 +309,7 @@ public class ReportingController {
 
                                 if (!hasReportTitle) {
                                     if (cell.getStringCellValue().equals("reportTitle")) {
-                                        cell.setCellValue(reportGeneration.getReport().getReportLabel());
+                                        cell.setCellValue(UsefullFunction.writeAccent(reportGeneration.getReport().getReportLabel()));
                                         hasReportTitle = true;
                                     }
                                 }
@@ -361,7 +362,7 @@ public class ReportingController {
                     sheet.getLastRowNum() //end row
             );
 
-            String filename = reportGeneration.getReport().getReportLabel().replace(" ", "_") +
+            String filename = UsefullFunction.writeAccent(reportGeneration.getReport().getReportLabel()).replace(" ", "_") +
                     "_" +  reportGeneration.getName().replace(" ", "_") + "_" +
                     dateFormatter.format(new Date())+ ".xlsx";
 

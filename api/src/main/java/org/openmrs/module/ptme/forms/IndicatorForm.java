@@ -71,16 +71,16 @@ public class IndicatorForm {
 
     public void setIndicator(ReportingIndicator indicator) {
         this.setIndicatorId(indicator.getIndicatorId());
-        this.setName(indicator.getName());
-        this.setDescription(indicator.getDescription());
+        this.setName(UsefullFunction.writeAccent(indicator.getName()));
+        this.setDescription(UsefullFunction.writeAccent(indicator.getDescription()));
         this.setIndicatorSqlScript(indicator.getIndicatorSqlScript());
         this.setTemplateCode(indicator.getTemplateCode());
     }
 
     public ReportingIndicator getIndicator(ReportingIndicator indicator) {
         indicator.setIndicatorId(this.getIndicatorId());
-        indicator.setName(this.getName());
-        indicator.setDescription(this.getDescription());
+        indicator.setName(UsefullFunction.escapeHTML(this.getName()));
+        indicator.setDescription(UsefullFunction.escapeHTML(this.getDescription()));
         indicator.setTemplateCode(this.getTemplateCode());
         indicator.setIndicatorSqlScript(this.getIndicatorSqlScript());
 
