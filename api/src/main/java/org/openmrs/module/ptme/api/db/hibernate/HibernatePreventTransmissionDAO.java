@@ -946,7 +946,33 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 
 		if (pcrType != null) {
 //			pcrTypeSql = "AND pcf.pcr"+ pcrType.toString() +"_sampling_date IS NULL AND ";
-			if (pcrType == 2) {
+            if (pcrType == 1) {
+                sqlQuery =
+                        "SELECT" +
+                                "  child_followup_number AS childFollowupNumber," +
+                                "  family_name familyName," +
+                                "  given_name AS givenName," +
+                                "  pc.birth_date As lastVisitDate," +
+                                "  AppointmentDate," +
+                                "  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
+                                "		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
+                                "		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
+                                "  passed " +
+                                "FROM" +
+                                " (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate, " +
+                                "      IF(ADDDATE(birth_date, INTERVAL 6 WEEK) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed  FROM ptme_child) pc" +
+                                "  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+                                "  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+                                "    ON SoutTel.person_id = pc.mother" +
+                                "  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
+                                "    ON SoutCel.person_id = pc.mother " +
+                                "WHERE" +
+                                "  pcf.pcr1_sampling_date IS NULL AND " +
+                                "  ((FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
+                                "  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL) OR " +
+                                "  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
+                                "  AND pcf.followup_result IS NULL ";
+            } else if (pcrType == 2) {
 				sqlQuery =
 						"SELECT" +
 						"  child_followup_number AS childFollowupNumber," +
@@ -983,32 +1009,6 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
                         "  AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9) OR " +
 						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1)) " +
 						"  AND pcf.followup_result IS NULL";
-			} else if (pcrType == 1) {
-				sqlQuery =
-						"SELECT" +
-						"  child_followup_number AS childFollowupNumber," +
-						"  family_name familyName," +
-						"  given_name AS givenName," +
-						"  pc.birth_date As lastVisitDate," +
-						"  AppointmentDate," +
-						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
-						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
-						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
-						"  passed " +
-						"FROM" +
-						" (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate, " +
-						"      IF(ADDDATE(birth_date, INTERVAL 6 WEEK) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed  FROM ptme_child) pc" +
-						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
-						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
-						"    ON SoutTel.person_id = pc.mother" +
-						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
-						"    ON SoutCel.person_id = pc.mother " +
-						"WHERE" +
-						"  pcf.pcr1_sampling_date IS NULL AND " +
-						"  ((FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
-						"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL) OR " +
-						"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
-						"  AND pcf.followup_result IS NULL ";
 			} else if (pcrType == 3) {
 				sqlQuery =
 						"SELECT" +
