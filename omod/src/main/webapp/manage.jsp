@@ -318,7 +318,9 @@
                             <th>Nom et Pr&eacute;noms</th>
                             <th>Contact M&egrave;re</th>
                             <th>Date de naissance</th>
-                            <th>Attendu depuis le</th>
+                            <th>Date dernier Test</th>
+                            <th>Dernier Test</th>
+                            <th>R&eacute;sultat dernier test</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -335,6 +337,8 @@
                                     <%--<td><fmt:formatDate type="date" value="${mother.lastVisitDate}" pattern="dd/MM/yyyy" /></td>--%>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr3.lastVisitDate}" pattern="dd/MM/yyyy" /></td>
                                 <td align="center"><fmt:formatDate type="date" value="${childPcr3.appointmentDate}" pattern="dd/MM/yyyy" /></td>
+                                <td align="center">${childPcr3.numberOfVisit == 1 ? "Serologique" : "PCR 1"}</td>
+                                <td align="center">${childPcr3.passed == 1 ? "Positif" : "Negatif"}</td>
                             </tr>
                         </c:forEach>
 
