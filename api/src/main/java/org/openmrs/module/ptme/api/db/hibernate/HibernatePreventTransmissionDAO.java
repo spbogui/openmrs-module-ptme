@@ -214,6 +214,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<Consultation>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ConsultationWithType> getConsultationsByDate(Date currentDate, Boolean voided) {
 		String sqlQuery =
@@ -306,6 +307,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<Postnatal>) sessionFactory.getCurrentSession().createCriteria(Postnatal.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Birth> getBirthConsultationsByDate(Date sDate, Date eDate) {
 		return (List<Birth>) sessionFactory.getCurrentSession()
@@ -324,6 +326,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				.setParameter("eDate", endDate).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Postnatal> getPostnatalConsultationsByDate(Date sDate, Date eDate) {
 		return (List<Postnatal>) sessionFactory.getCurrentSession()
@@ -347,11 +350,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (Postnatal) sessionFactory.getCurrentSession().get(Postnatal.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prenatal> getPrenatalConsultationsByPregnantPatientNumber(String pregnantNumber) {
 		return (List<Prenatal>) sessionFactory.getCurrentSession().createQuery("FROM Prenatal p WHERE p.pregnantPatient.pregnantNumber = '" + pregnantNumber + "'").list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Postnatal> getPostnatalConsultationsByPregnantPatientNumber(String pregnantNumber) {
 		return (List<Postnatal>) sessionFactory.getCurrentSession().createQuery("FROM Postnatal as p WHERE p.pregnantPatient.pregnantNumber = '" + pregnantNumber + "'").list();
@@ -379,6 +384,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return motherFollowup;
 	}
 
+	@Transactional
 	@Override
 	public void removeMotherFollowupVisit(MotherFollowupVisit motherFollowupVisit) {
 		sessionFactory.getCurrentSession().delete(motherFollowupVisit);
@@ -413,6 +419,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PregnantPatientToFollow> getPregnantPatientFollowupList() {
 		String sqlQuery ="SELECT " +
@@ -456,6 +463,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return patient;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MotherFollowupCurrentlyOn> getMotherFollowupCurrentlyOnList(Date startDate, String status, Integer pregnancyOutcome, Date endDate) {
 
@@ -526,6 +534,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<MotherFollowupCurrentlyOn>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Child> getChildList() {
 //		return (List<Child>) sessionFactory.getCurrentSession().createQuery(
@@ -559,12 +568,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return  (ChildFollowupVisit) sessionFactory.getCurrentSession().get(ChildFollowupVisit.class, childFollowupVisitId);
 	}
 
+	@Transactional
 	@Override
 	public ChildFollowup saveChildFollowup(ChildFollowup childFollowup) {
 		sessionFactory.getCurrentSession().saveOrUpdate(childFollowup);
 		return childFollowup;
 	}
 
+	@Transactional
 	@Override
 	public ChildFollowupVisit saveChildFollowupVisit(ChildFollowupVisit childFollowupVisit) {
 		sessionFactory.getCurrentSession().saveOrUpdate(childFollowupVisit);
@@ -579,6 +590,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				.setParameter("visitDate", visitDate).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildFollowupVisit> getChildFollowupVisitByChild(Integer childId) {
 		return (List<ChildFollowupVisit>) sessionFactory.getCurrentSession().createQuery("FROM " +
@@ -593,6 +605,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		sessionFactory.getCurrentSession().delete(childFollowupVisit);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildFollowupTransformer> getChildFollowupList(String status, Date startDate, Date endDate) {
 		String sqlQuery =
@@ -672,11 +685,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<ChildFollowupTransformer>) query.list();
 	}
 
+	@Transactional
 	@Override
 	public void deleteChildFollowup(ChildFollowup childFollowup) {
 		sessionFactory.getCurrentSession().delete(childFollowup);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MotherFollowupVisit> getMotherFollowupVisitByPatientAndFollowup(MotherFollowup motherFollowup) {
 		return (List<MotherFollowupVisit>) sessionFactory.getCurrentSession().createQuery("FROM " +
@@ -732,6 +747,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MotherFollowupAppointment> getPregnantPatientsAppointment() {
 
@@ -782,6 +798,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<MotherFollowupAppointment>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MotherFollowupAppointment> getPregnantPatientsAppointmentMissed() {
 		String sqlQuery =
@@ -827,6 +844,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<MotherFollowupAppointment>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildFollowupAppointment> getChildByAppointment() {
 		String sqlQuery =
@@ -877,6 +895,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<ChildFollowupAppointment>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildFollowupAppointment> getChildByAppointmentMissed() {
 		String sqlQuery =
@@ -920,6 +939,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<ChildFollowupAppointment>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildFollowupAppointment> getChildByAppointmentPcr(String pcrParams, Integer pcrType) {
 		/*
@@ -1115,6 +1135,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (List<ChildFollowupAppointment>) query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting() {
 		String sqlQuery =
@@ -1169,10 +1190,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				"WHERE o.person.personId = p.patient.patientId AND o.concept.conceptId = 1543 AND  p.patient = :patient AND " +
 				"o.voided = false")
 				.setParameter("patient", patient).uniqueResult();
-		if (pregnantPatient != null) {
-			return true;
-		}
-		return false;
+		return pregnantPatient != null;
 	}
 
 	@Override
@@ -1192,17 +1210,16 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 				"WHERE o.person.personId = p.patient.patientId AND o.concept.conceptId = 163511 AND  p.patient = :patient AND " +
 				"o.voided = false")
 				.setParameter("patient", patient).uniqueResult();
-		if (pregnantPatient != null) {
-			return true;
-		}
-		return false;
+		return pregnantPatient != null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingIndicator> getAllIndicators() {
 		return (List<ReportingIndicator>) sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingIndicator> getAllIndicators(Boolean includeVoided) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingIndicator.class);
@@ -1214,12 +1231,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return  (ReportingIndicator) sessionFactory.getCurrentSession().get(ReportingIndicator.class, indicatorId);
 	}
 
+	@Transactional
 	@Override
 	public ReportingIndicator saveReportingIndicator(ReportingIndicator indicator) {
 		sessionFactory.getCurrentSession().saveOrUpdate(indicator);
 		return indicator;
 	}
 
+	@Transactional
 	@Override
 	public Boolean removeIndicator(Integer indicatorId) {
 		if (getIndicatorById(indicatorId) != null){
@@ -1229,6 +1248,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public ReportingIndicator voidIndicator(Integer indicatorId) {
 		ReportingIndicator ri = (ReportingIndicator) sessionFactory.getCurrentSession().get(ReportingIndicator.class, indicatorId);
@@ -1244,11 +1264,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (ReportingIndicator) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingDataset> getAllDatasets() {
 		return (List<ReportingDataset>) sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingDataset> getAllDatasets(Boolean includeVoided) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingDataset.class);
@@ -1260,12 +1282,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return  (ReportingDataset) sessionFactory.getCurrentSession().get(ReportingDataset.class, indicatorId);
 	}
 
+	@Transactional
 	@Override
 	public ReportingDataset saveReportingDataset(ReportingDataset dataset) {
 		sessionFactory.getCurrentSession().saveOrUpdate(dataset);
 		return dataset;
 	}
 
+	@Transactional
 	@Override
 	public Boolean removeDataset(Integer datasetId) {
 		if (getDatasetById(datasetId) != null){
@@ -1275,6 +1299,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public ReportingDataset voidDataset(Integer indicatorId) {
 		ReportingDataset rd = (ReportingDataset) sessionFactory.getCurrentSession().get(ReportingDataset.class, indicatorId);
@@ -1284,11 +1309,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return rd;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingReport> getAllReports() {
 		return (List<ReportingReport>) sessionFactory.getCurrentSession().createCriteria(ReportingReport.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingReport> getAllReports(Boolean includeVoided) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingReport.class);
@@ -1300,12 +1327,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (ReportingReport) sessionFactory.getCurrentSession().get(ReportingReport.class, reportId);
 	}
 
+	@Transactional
 	@Override
 	public ReportingReport saveReportingReport(ReportingReport report) {
 		sessionFactory.getCurrentSession().saveOrUpdate(report);
 		return report;
 	}
 
+	@Transactional
 	@Override
 	public Boolean removeReport(Integer reportId) {
 		if (getDatasetById(reportId) != null){
@@ -1315,6 +1344,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public ReportingReport voidReport(Integer reportId) {
 		ReportingReport reportingReport = (ReportingReport) sessionFactory.getCurrentSession().get(ReportingReport.class, reportId);
@@ -1324,11 +1354,13 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return reportingReport;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingTemplate> getAllTemplates() {
 		return (List<ReportingTemplate>) sessionFactory.getCurrentSession().createCriteria(ReportingTemplate.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingTemplate> getAllTemplates(Boolean includeVoided) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ReportingTemplate.class);
@@ -1346,12 +1378,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (ReportingTemplate) criteria.add(Restrictions.eq("name", name)).uniqueResult();
 	}
 
+	@Transactional
 	@Override
 	public ReportingTemplate saveReportingTemplate(ReportingTemplate template) {
 		sessionFactory.getCurrentSession().saveOrUpdate(template);
 		return template;
 	}
 
+	@Transactional
 	@Override
 	public Boolean removeTemplate(Integer templateId) {
 		if (getTemplateById(templateId) != null){
@@ -1361,6 +1395,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public ReportingTemplate voidTemplate(Integer templateId) {
 		ReportingTemplate ri = (ReportingTemplate) sessionFactory.getCurrentSession().get(ReportingTemplate.class, templateId);
@@ -1381,17 +1416,20 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (SerializedData) criteria.add(Restrictions.eq("objectUuid", objectUuid)).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SerializedData> getAllSerializedData() {
 		return (List<SerializedData>) sessionFactory.getCurrentSession().createCriteria(SerializedData.class).list();
 	}
 
+	@Transactional
 	@Override
 	public SerializedData saveSerializedData(SerializedData serializedData) {
 		sessionFactory.getCurrentSession().saveOrUpdate(serializedData);
 		return serializedData;
 	}
 
+	@Transactional
 	@Override
 	public Boolean removeSerializedDataById(Integer id) {
 		if (getSerializedDataById(id) != null) {
@@ -1509,12 +1547,14 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return xStream.toXML(reportIndicatorValues);
 	}
 
+	@Transactional
 	@Override
 	public ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration) {
 		sessionFactory.getCurrentSession().saveOrUpdate(reportingReportGeneration);
 		return reportingReportGeneration;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided) {
 		return (List<ReportingReportGeneration>) sessionFactory.getCurrentSession().createCriteria(ReportingReportGeneration.class).list();
@@ -1526,6 +1566,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return (ReportingDataset) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Boolean removeGeneratedReport(Integer delId) {
 		if (getGeneratedReport(delId) != null){
@@ -1535,6 +1576,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MotherFollowupCurrentlyOn> getMotherFollowupList(Date startDate, Date endDate, String status, Integer pregnancyOutcome, String startOrEnd) {
 		String sqlQuery =
