@@ -1033,7 +1033,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
 						"  pcf.pcr3_sampling_date IS NULL AND " +
-						"  (pcf.pcr2_result = 1 AND (hiv_serology1_date IS NULL  OR pcf.hiv_serology1_result = 1 ) ) AND " +
+						"  (pcf.pcr2_result = 1 AND (hiv_serology1_date IS NULL OR pcf.hiv_serology1_result = 1)) AND " +
 						"  pcf.followup_result IS NULL ";
 			} else if (pcrType == 4) {
 				sqlQuery =
