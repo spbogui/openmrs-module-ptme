@@ -721,7 +721,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 
 	@Override
 	public Integer getNumberOfPrenatalConsultation(String prenatalConsultationRank, Date startDate, Date endDate) {
-		String sqlQuery = "SELECT COUNT(*) FROM ";
+		String sqlQuery = "SELECT COUNT(*) FROM ptme_prenatal";
 
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery);
 		return null;
@@ -765,7 +765,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) contact " +
 						"FROM" +
-						"  ptme_mother_followup pmf" +
+						"  (SELECT * FROM ptme_mother_followup WHERE voided = 0) pmf" +
 						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit WHERE voided = 0 GROUP BY mother_followup_id) lpmfv" +
 						"    ON pmf.mother_followup_id = lpmfv.mother_followup_id" +
 						"  LEFT JOIN (SELECT *," +
@@ -814,7 +814,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) contact " +
 						"FROM" +
-						"  ptme_mother_followup pmf" +
+						"  (SELECT * FROM ptme_mother_followup WHERE voided = 0) pmf" +
 						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY mother_followup_id) lpmfv" +
 						"    ON pmf.mother_followup_id = lpmfv.mother_followup_id" +
 						"  LEFT JOIN (SELECT *, ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate FROM ptme_mother_followup_visit) pmfv ON pmf.mother_followup_id = lpmfv.mother_followup_id AND lpmfv.lastVisitDate = pmfv.visit_date" +
@@ -861,7 +861,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact " +
 						"FROM" +
-						"  ptme_child pc" +
+						"  (SELECT * FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
 						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit GROUP BY child_id) lpcfv" +
 						"    ON pc.child_id = lpcfv.child_id" +
@@ -910,7 +910,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact " +
 						"FROM" +
-						"  ptme_child pc" +
+						"  (SELECT * FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
 						"  LEFT JOIN (SELECT MAX(visit_date) lastVisitDate, child_id FROM ptme_child_followup_visit GROUP BY child_id) lpcfv" +
 						"    ON pc.child_id = lpcfv.child_id" +
@@ -968,31 +968,31 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 //			pcrTypeSql = "AND pcf.pcr"+ pcrType.toString() +"_sampling_date IS NULL AND ";
             if (pcrType == 1) {
                 sqlQuery =
-                        "SELECT" +
-                                "  child_followup_number AS childFollowupNumber," +
-                                "  family_name familyName," +
-                                "  given_name AS givenName," +
-                                "  pc.birth_date As lastVisitDate," +
-                                "  AppointmentDate," +
-                                "  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
-                                "		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
-                                "		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
-                                "  passed, " +
+						"SELECT" +
+								"  child_followup_number AS childFollowupNumber," +
+								"  family_name familyName," +
+								"  given_name AS givenName," +
+								"  pc.birth_date As lastVisitDate," +
+								"  AppointmentDate," +
+								"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
+								"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
+								"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) motherContact, " +
+								"  passed, " +
 								" 0 AS numberOfVisit " +
-                                "FROM" +
-                                " (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate, " +
-                                "      IF(ADDDATE(birth_date, INTERVAL 6 WEEK) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed  FROM ptme_child) pc" +
-                                "  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
-                                "  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
-                                "    ON SoutTel.person_id = pc.mother" +
-                                "  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
-                                "    ON SoutCel.person_id = pc.mother " +
-                                "WHERE" +
-                                "  pcf.pcr1_sampling_date IS NULL AND " +
-                                "  ((FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
-                                "  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL) OR " +
-                                "  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
-                                "  AND pcf.followup_result IS NULL ";
+								"FROM" +
+								" (SELECT *, ADDDATE(birth_date, INTERVAL 6 WEEK) AppointmentDate, " +
+								"      IF(ADDDATE(birth_date, INTERVAL 6 WEEK) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 6 WEEK) = DATE(NOW()), 1, 2)) passed  FROM ptme_child WHERE voided = 0) pc" +
+								"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
+								"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+								"    ON SoutTel.person_id = pc.mother" +
+								"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
+								"    ON SoutCel.person_id = pc.mother " +
+								"WHERE" +
+								"  pcf.pcr1_sampling_date IS NULL AND " +
+								"  ((FLOOR(DATEDIFF(DATE(NOW()), birth_date) /7) >= 6 AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) <= 8" +
+								"  AND pcf.hiv_serology1_date IS NULL AND pcf.hiv_serology2_date IS NULL) OR " +
+								"  (FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) >= 9 AND pcf.hiv_serology1_result = 1))" +
+								"  AND pcf.followup_result IS NULL ";
             } else if (pcrType == 2) {
 				sqlQuery =
 						"SELECT" +
@@ -1007,7 +1007,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  IF(hiv_serology1_result IS NOT NULL, 1, 2 ) AS numberOfVisit," +
 						"  IF(hiv_serology1_result IS NOT NULL, hiv_serology1_result, pcr1_result ) AS passed " +
 						"FROM " +
-						"  (SELECT * FROM ptme_child) pc" +
+						"  (SELECT * FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id" +
 //						"  LEFT JOIN (SELECT MAX(visit_date) MaxVisiteDateAllt, child_id FROM ptme_child_followup_visit WHERE eating_type = 1 AND visit_date <= DATE(NOW()) AND voided = 0 GROUP BY child_id) MV" +
 //						"    ON pc.child_id = MV.child_id" +
@@ -1045,7 +1045,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"  2 AS passed, " +
 						"  0 AS numberOfVisit " +
 						"FROM" +
-						" (SELECT * FROM ptme_child) pc" +
+						" (SELECT * FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
 						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
 						"    ON SoutTel.person_id = pc.mother" +
@@ -1053,8 +1053,8 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
 						"  pcf.pcr3_sampling_date IS NULL AND " +
-						"  (pcf.pcr2_result = 1 AND (hiv_serology1_date IS NULL OR pcf.hiv_serology1_result = 1)) AND " +
-						"  pcf.followup_result IS NULL ";
+						"  ((pcf.pcr2_result = 1 AND pcf.pcr1_result = 0) OR (pcf.pcr1_result = 1 IS NULL AND pcf.pcr2_result = 0)) AND " +
+						"  pcf.followup_result IS NULL AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9";
 			} else if (pcrType == 4) {
 				sqlQuery =
 						"SELECT" +
@@ -1071,7 +1071,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 //						"  IF(IF(EarlistVisitDateNotBreastfeeding <= BirthDateAfter9Month, BirthDateAfter9Month, EarlistVisitDateNotBreastfeeding) > NOW(), 0, " +
 //								"IF(IF(EarlistVisitDateNotBreastfeeding <= BirthDateAfter9Month, BirthDateAfter9Month, EarlistVisitDateNotBreastfeeding) = DATE(NOW()), 1, 2)) passed  " +
 						"FROM" +
-						" (SELECT *, ADDDATE(birth_date, INTERVAL 9 MONTH) BirthDateAfter9Month FROM ptme_child) pc" +
+						" (SELECT *, ADDDATE(birth_date, INTERVAL 9 MONTH) BirthDateAfter9Month FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
 //						"  LEFT JOIN (SELECT MAX(visit_date) LastVisitDateBreastfeeding, child_id FROM ptme_child_followup_visit WHERE eating_type = 1 GROUP BY child_id) LVDB " +
 //						"    ON LVDB.child_id = pc.child_id " +
@@ -1107,7 +1107,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"FROM" +
 						" (SELECT *, ADDDATE(birth_date, INTERVAL 18 MONTH) AppointmentDate " +
 //						"			,IF(ADDDATE(birth_date, INTERVAL 18 MONTH) > NOW(), 0, IF(ADDDATE(birth_date, INTERVAL 9 MONTH) = DATE(NOW()), 1, 2)) passed " +
-						"		FROM ptme_child) pc" +
+						"		FROM ptme_child WHERE voided = 0) pc" +
 						"  LEFT JOIN ptme_child_followup pcf ON pc.child_id = pcf.child_followup_id " +
 						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
 						"    ON SoutTel.person_id = pc.mother" +
