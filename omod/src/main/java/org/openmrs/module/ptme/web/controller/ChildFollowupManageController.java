@@ -245,6 +245,15 @@ public class ChildFollowupManageController {
                     } else if (childFollowupForm.getFollowupResult() != null && childFollowupForm.getFollowupResultDate() == null) {
                         session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date du résultat final du suivi SVP");
                         hasErrors = true;
+                    }  else if (childFollowupForm.getArvProphylaxisGivenDate() != null) {
+                        if (childFollowupForm.getArvProphylaxisGivenDate().before(child.getBirthDate())) {
+                            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez saisi une date de remise de prophylaxie avant la naissance de l'enfant !");
+                            hasErrors = true;
+                        }
+                        if (childFollowupForm.getArvProphylaxisGivenDate().after(new Date())) {
+                            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez saisi une date de remise de prophylaxie supérieur à ce jour !");
+                            hasErrors = true;
+                        }
                     } else if (childFollowupForm.getFollowupResult() == null && childFollowupForm.getFollowupResultDate() != null) {
                         session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner le résultat final du suivi SVP");
                         hasErrors = true;
@@ -264,7 +273,7 @@ public class ChildFollowupManageController {
                             session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Résultat ne dit pas qu'il est positif veuillez le modifier SVP");
                             hasErrors = true;
                         } else {
-                            String childFollowupNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.childFollowupNumberFormat");
+                            String childFollowupNumberRegExp = Context.getAdministrationService().getGlobalProperty("ptme.motherFollowupNumberFormat");
                             Pattern pattern = Pattern.compile(childFollowupNumberRegExp, Pattern.CASE_INSENSITIVE);
                             if (!pattern.matcher(childFollowupForm.getHivCareNumber()).matches()) {
                                 session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Le numéro d'identification pour le résultat est invalide, le modifier SVP");
@@ -333,6 +342,46 @@ public class ChildFollowupManageController {
                 } else if (childFollowupForm.getHivSerology2Result() != null && childFollowupForm.getHivSerology2Date() == null) {
                     session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Veuillez renseigner la date de sérologie 2 SVP !");
                     hasErrors = true;
+                } else if (childFollowupForm.getHivSerology2Date() != null) {
+                    if (childFollowupForm.getHivSerology2Date().after(new Date())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "La date de sérologie 2 supérieure à ce jour ne peut être pris en compte !");
+                        hasErrors = true;
+                    } else if (childFollowupForm.getHivSerology2Date().before(child.getBirthDate())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez entré une date de sérologie 2 antérieure à la date de naissance de l'enfant !");
+                        hasErrors = true;
+                    }
+                } else if (childFollowupForm.getHivSerology1Date() != null) {
+                    if (childFollowupForm.getHivSerology1Date().after(new Date())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "La date de sérologie 1 supérieure à ce jour ne peut être pris en compte !");
+                        hasErrors = true;
+                    } else if (childFollowupForm.getHivSerology1Date().before(child.getBirthDate())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez entré une date de sérologie 1 antérieure à la date de naissance de l'enfant !");
+                        hasErrors = true;
+                    }
+                } else if (childFollowupForm.getPcr1SamplingDate() != null) {
+                    if (childFollowupForm.getPcr1SamplingDate().after(new Date())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "La date de PCR 1 supérieure à ce jour ne peut être pris en compte !");
+                        hasErrors = true;
+                    } else if (childFollowupForm.getPcr1SamplingDate().before(child.getBirthDate())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez entré une date de PCR 1 antérieure à la date de naissance de l'enfant !");
+                        hasErrors = true;
+                    }
+                } else if (childFollowupForm.getPcr2SamplingDate() != null) {
+                    if (childFollowupForm.getPcr2SamplingDate().after(new Date())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "La date de PCR 2 supérieure à ce jour ne peut être pris en compte !");
+                        hasErrors = true;
+                    } else if (childFollowupForm.getPcr2SamplingDate().before(child.getBirthDate())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez entré une date de PCR 2 antérieure à la date de naissance de l'enfant !");
+                        hasErrors = true;
+                    }
+                } else if (childFollowupForm.getPcr3SamplingDate() != null) {
+                    if (childFollowupForm.getPcr3SamplingDate().after(new Date())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "La date de PCR 3 supérieure à ce jour ne peut être pris en compte !");
+                        hasErrors = true;
+                    } else if (childFollowupForm.getPcr3SamplingDate().before(child.getBirthDate())) {
+                        session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Vous avez entré une date de PCR 3 antérieure à la date de naissance de l'enfant !");
+                        hasErrors = true;
+                    }
                 }
 
                 if (hasErrors){
@@ -507,6 +556,7 @@ public class ChildFollowupManageController {
                 child.setVoided(true);
                 child.setDateVoided(new Date());
                 getPreventTransmissionService().saveChild(child);
+                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Enfant exposé supprimé avec succès !");
             }
         }
 
@@ -583,7 +633,7 @@ public class ChildFollowupManageController {
                         Integer existingChildId = existingChild.getChildId();
                         Integer currentChildId = child.getChildId();
 
-                        if (existingChildId != currentChildId) {
+                        if (!existingChildId.equals(currentChildId)) {
                             session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Un autre enfant porte déjà ce numéro. Veuillez le modifier SVP !");
                             return null;
                         }
@@ -619,5 +669,7 @@ public class ChildFollowupManageController {
         }
         return null;
     }
+
+
 
 }

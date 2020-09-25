@@ -4,6 +4,15 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping>
+          <factory-entry name="ptme-omod" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -133,5 +142,16 @@
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.17" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.virtuald:curvesapi:1.04" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-common:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-1.8:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-1.9:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-1.10:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-1.11:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:webservices.rest-omod-2.0:2.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml.jackson.core:jackson-core:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.openmrs.module:webservices.rest-omod-common:tests:2.13" level="project" />
   </component>
 </module>

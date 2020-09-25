@@ -239,6 +239,11 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     }
 
     @Override
+    public void removeMotherFollowup(MotherFollowup motherFollowup) {
+        dao.removeMotherFollowup(motherFollowup);
+    }
+
+    @Override
     public MotherFollowup getMotherFollowupById(Integer motherFollowupId) {
         return dao.getMotherFollowupById(motherFollowupId);
     }
@@ -622,6 +627,66 @@ public class PreventTransmissionServiceImpl extends BaseOpenmrsService implement
     @Override
     public List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting() {
         return dao.getChildPcrResultWaiting();
+    }
+
+    @Override
+    public PregnantPatient getPregnantPatientByUuid(String s) {
+        return dao.getPregnantPatientByUuid(s);
+    }
+
+    @Override
+    public void removePregnantPatient(PregnantPatient pregnantPatient) {
+        dao.removePregnantPatient(pregnantPatient);
+    }
+
+    @Override
+    public ChildFollowup getChildFollowupByUuid(String s) {
+        return dao.getChildFollowupByUuid(s);
+    }
+
+    @Override
+    public Birth getBirthConsultationByUuid(String uuid) {
+        return dao.getBirthConsultationByUuid(uuid);
+    }
+
+    @Override
+    public Prenatal getPrenatalConsultationByUuid(String uuid) {
+        return dao.getPrenatalConsultationByUuid(uuid);
+    }
+
+    @Override
+    public Postnatal getPostnatalConsultationByUuid(String uuid) {
+        return dao.getPostnatalConsultationByUuid(uuid);
+    }
+
+    @Override
+    public HivService getHivServiceByUuid(String uuid) {
+        return dao.getHivServiceByUuid(uuid);
+    }
+
+    @Override
+    public ChildFollowupVisit getChildFollowupVisitByUuid(String uuid) {
+        return dao.getChildFollowupVisitByUuid(uuid);
+    }
+
+    @Override
+    public MotherFollowup getMotherFollowupByUuid(String uuid) {
+        return dao.getMotherFollowupByUuid(uuid);
+    }
+
+    @Override
+    public MotherFollowupVisit getMotherFollowupVisitByUuid(String uuid) {
+        return dao.getMotherFollowupVisitByUuid(uuid);
+    }
+
+    @Override
+    public Child getChildByUuid(String uuid) {
+        return dao.getChildByUuid(uuid);
+    }
+
+    @Override
+    public void removeChild(Child child) {
+        dao.removeChild(child);
     }
 
 }

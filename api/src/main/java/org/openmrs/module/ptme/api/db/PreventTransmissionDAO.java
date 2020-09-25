@@ -85,6 +85,7 @@ public interface PreventTransmissionDAO {
     MotherFollowupVisit getMotherFollowUpVisitById(Integer id);
     MotherFollowup saveMotherFollowup(MotherFollowup motherFollowup);
     void removeMotherFollowupVisit(MotherFollowupVisit motherFollowupVisit);
+    void removeMotherFollowup(MotherFollowup motherFollowup);
     MotherFollowupVisit saveMotherFollowupVisit(MotherFollowupVisit motherFollowupVisit);
     MotherFollowupVisit getPregnantPatientFollowupByDate(Integer pregnantPatientId, Date visitDate);
     MotherFollowupVisit getEarlierPregnantPatientFollowupVisitForFollowup(Integer motherFollowupId);
@@ -138,12 +139,10 @@ public interface PreventTransmissionDAO {
 
     List<MotherFollowupAppointment> getPregnantPatientsAppointment();
     List<MotherFollowupAppointment> getPregnantPatientsAppointmentMissed();
-
+    List<MotherFollowupAppointment> getPregnantPatientsAppointmentForCV();
     List<ChildFollowupAppointment> getChildByAppointment();
     List<ChildFollowupAppointment> getChildByAppointmentMissed();
-
     List<ChildFollowupAppointment> getChildByAppointmentPcr(String days, Integer pcrType);
-
     List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting();
 
     Boolean isDead(Patient patient);
@@ -203,24 +202,33 @@ public interface PreventTransmissionDAO {
     Boolean removeSerializedDataById(Integer id);
 
     ReportingReportGeneration getGeneratedReport(Integer generatedReportId);
-
     String getGeneratedReportXmlString(Date startDate, Date endDate, Integer reportId, String location);
-
     ReportingReportGeneration saveGenerationReport(ReportingReportGeneration reportingReportGeneration);
-
     List<ReportingReportGeneration> getAllGeneratedReport(Boolean includeVoided);
-
     ReportingDataset getDatasetByUuid(String uuid);
-
     Boolean removeGeneratedReport(Integer delId);
-
     Location getLocationByName(String name);
-
     ReportingIndicator getIndicatorByName(String name);
-
     ReportingIndicator getIndicatorByCode(String code);
-
     ReportingReportGeneration getGeneratedReportByName(String name);
-
     ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId);
+    Child getChildByUuid(String uuid);
+    void removeChild(Child child);
+
+    PregnantPatient getPregnantPatientByUuid(String s);
+    void removePregnantPatient(PregnantPatient pregnantPatient);
+
+    ChildFollowup getChildFollowupByUuid(String s);
+
+    Birth getBirthConsultationByUuid(String uuid);
+
+    Prenatal getPrenatalConsultationByUuid(String uuid);
+
+    Postnatal getPostnatalConsultationByUuid(String uuid);
+
+    HivService getHivServiceByUuid(String uuid);
+
+    ChildFollowupVisit getChildFollowupVisitByUuid(String uuid);
+    MotherFollowup getMotherFollowupByUuid(String uuid);
+    MotherFollowupVisit getMotherFollowupVisitByUuid(String uuid);
 }

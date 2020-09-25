@@ -536,7 +536,7 @@
                                  referencedTableName="location" referencedColumnNames="location_id"/>
     </changeSet>
 
-    <changeSet id="data-migration-prevent1-transmission-05-08-2018" author="BOGUI SERGE">
+    <changeSet id="data-migration-prevent1-transmission-31-03-2019" author="BOGUI SERGE">
 
         <preConditions onFail="MARK_RAN">
             <and>
@@ -545,6 +545,7 @@
                 <not>
                     <sqlCheck expectedResult="0">select count(*) from ptme_ptme</sqlCheck>
                 </not>
+                <sqlCheck expectedResult="0">select count(*) from ptme_consultation</sqlCheck>
             </and>
         </preConditions>
         <sql>
@@ -764,12 +765,16 @@
 
         </sql>
     </changeSet>
-    <changeSet id="data-migration-prevent2-transmission-05-08-2018" author="BOGUI SERGE">
+    <changeSet id="data-migration-prevent2-transmission-31-03-2019" author="BOGUI SERGE">
 
         <preConditions onFail="MARK_RAN">
-            <not>
-                <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 15</sqlCheck>
-            </not>
+            <and>
+                <not>
+                    <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 15</sqlCheck>
+                </not>
+                <sqlCheck expectedResult="0">select count(*) from ptme_mother_followup</sqlCheck>
+            </and>
+
         </preConditions>
         <sql>
 
@@ -851,12 +856,16 @@
 
         </sql>
     </changeSet>
-    <changeSet id="data-migration-prevent3-transmission-05-08-2018" author="BOGUI SERGE">
+    <changeSet id="data-migration-prevent3-transmission-30-03-2019" author="BOGUI SERGE">
 
         <preConditions onFail="MARK_RAN">
-            <not>
-                <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 14</sqlCheck>
-            </not>
+            <and>
+                <not>
+                    <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 14</sqlCheck>
+                </not>
+                <sqlCheck expectedResult="0">select count(*) from ptme_child</sqlCheck>
+            </and>
+
         </preConditions>
         <sql>
             INSERT INTO ptme_child (child_followup_number, birth_date, gender, family_name, given_name, mother/*, patient_id*/, location_id, uuid, creator, date_created, voided)
@@ -1071,7 +1080,7 @@
             ;
         </sql>
     </changeSet>
-    <changeSet id="data-migration-prevent3-transmission-07-17-2018" author="BOGUI SERGE">
+    <changeSet id="data-migration-prevent3-transmission-31-03-2019" author="BOGUI SERGE">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sqlCheck expectedResult="0">select count(*) from ptme_birth</sqlCheck>

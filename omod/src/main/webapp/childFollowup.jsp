@@ -149,7 +149,7 @@
                 <td class="colored-blue">${patientInfo.age} ans</td>
                 <td>|</td>
                 <td>Contact : </td>
-                <td class="colored-blue">${empty patientInfo.tel ? patientInfo.cel : patientInfo.tel }</td>
+                <td class="colored-blue">${not empty patientInfo.tel ? patientInfo.tel : (not empty patientInfo.cel ? patientInfo.cel : 'Pas de contact') }</td>
                 <td>|</td>
                 <td>Type de VIH : </td>
                 <td class="colored-blue">${patientInfo.hivType}</td>

@@ -94,6 +94,7 @@ public interface PreventTransmissionService extends OpenmrsService {
 
 	MotherFollowup getCurrentMotherFollowupByPregnantPatient(PregnantPatient pregnantPatient);
 	void removeMotherFollowupVisit(MotherFollowupVisit motherFollowupVisit);
+	void removeMotherFollowup(MotherFollowup motherFollowup);
     MotherFollowup getMotherFollowupById(Integer motherFollowupId);
 	MotherFollowupVisit getMotherFollowUpVisitById(Integer id);
 	MotherFollowup saveMotherFollowup(MotherFollowup motherFollowup);
@@ -114,25 +115,21 @@ public interface PreventTransmissionService extends OpenmrsService {
 
     Child getChildById(Integer childId);
 
+	Child getChildByUuid(String uuid);
+
+	void removeChild(Child child);
+
     Child saveChild(Child child);
 
 	ChildFollowup getChildFollowupById(Integer childFollowupId);
-
+	void deleteChildFollowup(ChildFollowup childFollowup);
 	ChildFollowupVisit getChildFollowupVisitById(Integer childFollowupVisitId);
-
 	ChildFollowup saveChildFollowup(ChildFollowup childFollowup);
-
 	ChildFollowupVisit saveChildFollowupVisit(ChildFollowupVisit childFollowupVisit);
-
-    ChildFollowupVisit getChildFollowupVisitByChildAndDate(Integer childId, Date visitDate);
-
+	ChildFollowupVisit getChildFollowupVisitByChildAndDate(Integer childId, Date visitDate);
 	List<ChildFollowupVisit> getChildFollowupVisitByChild(Integer childId);
-
 	void deleteChildFollowupVisit(ChildFollowupVisit childFollowupVisit);
-
 	List<ChildFollowupTransformer> getChildFollowupList(String status, Date startDate, Date endDate);
-
-    void deleteChildFollowup(ChildFollowup childFollowup);
 
     List<MotherFollowupVisit> getMotherFollowupVisitByPatientAndFollowup(MotherFollowup motherFollowup);
 
@@ -225,4 +222,22 @@ public interface PreventTransmissionService extends OpenmrsService {
     ReportingReportGeneration getGeneratedReportByNameAndReportId(String name, Integer reportId);
 
 	List<ChildPcrResultWaitingTransformer> getChildPcrResultWaiting();
+
+	PregnantPatient getPregnantPatientByUuid(String s);
+	void removePregnantPatient(PregnantPatient pregnantPatient);
+
+	ChildFollowup getChildFollowupByUuid(String s);
+
+    Birth getBirthConsultationByUuid(String uuid);
+
+	Prenatal getPrenatalConsultationByUuid(String uuid);
+
+	Postnatal getPostnatalConsultationByUuid(String uuid);
+
+    HivService getHivServiceByUuid(String uuid);
+
+    ChildFollowupVisit getChildFollowupVisitByUuid(String uuid);
+	MotherFollowup getMotherFollowupByUuid(String uuid);
+	MotherFollowupVisit getMotherFollowupVisitByUuid(String uuid);
+
 }

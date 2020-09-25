@@ -38,10 +38,6 @@ public class HivService extends PreventTransmissionAbstract {
     private Integer arvStatus;
     @Column(name = "arv_treatment")
     private Integer arvTreatment;
-//    @Column(name = "spousal_screening")
-//    private Integer spousalScreening;
-//    @Column(name = "spousal_screening_result")
-//    private Integer spousalScreeningResult;
     @ManyToOne
     @JoinColumn(nullable = false, name = "location_id")
     private Location location;
@@ -131,22 +127,6 @@ public class HivService extends PreventTransmissionAbstract {
     public void setArvTreatment(Integer arvTreatment) {
         this.arvTreatment = arvTreatment;
     }
-
-//    public Integer getSpousalScreening() {
-//        return spousalScreening;
-//    }
-//
-//    public void setSpousalScreening(Integer spousalScreening) {
-//        this.spousalScreening = spousalScreening;
-//    }
-//
-//    public Integer getSpousalScreeningResult() {
-//        return spousalScreeningResult;
-//    }
-//
-//    public void setSpousalScreeningResult(Integer spousalScreeningResult) {
-//        this.spousalScreeningResult = spousalScreeningResult;
-//    }
 
     public Integer getHivStatusAtReception() {
         return hivStatusAtReception;

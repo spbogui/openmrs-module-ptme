@@ -390,6 +390,11 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		sessionFactory.getCurrentSession().delete(motherFollowupVisit);
 	}
 
+	@Override
+	public void removeMotherFollowup(MotherFollowup motherFollowup) {
+		sessionFactory.getCurrentSession().delete(motherFollowup);
+	}
+
 	@Transactional
 	@Override
 	public MotherFollowupVisit saveMotherFollowupVisit(MotherFollowupVisit motherFollowupVisit) {
@@ -556,6 +561,73 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 	public Child saveChild(Child child) {
 		sessionFactory.getCurrentSession().saveOrUpdate(child);
 		return child;
+	}
+
+	@Override
+	public Child getChildByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Child.class);
+		return (Child)  criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public void removeChild(Child child) {
+		sessionFactory.getCurrentSession().delete(child);
+	}
+
+	@Override
+	public PregnantPatient getPregnantPatientByUuid(String s) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PregnantPatient.class);
+		return (PregnantPatient) criteria.add(Restrictions.eq("uuid", s)).uniqueResult();
+	}
+
+	@Override
+	public void removePregnantPatient(PregnantPatient pregnantPatient) {
+		sessionFactory.getCurrentSession().delete(pregnantPatient);
+	}
+
+	@Override
+	public ChildFollowup getChildFollowupByUuid(String s) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ChildFollowup.class);
+		return (ChildFollowup) criteria.add(Restrictions.eq("uuid", s)).uniqueResult();
+	}
+
+	@Override
+	public Birth getBirthConsultationByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Birth.class);
+		return (Birth) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public Prenatal getPrenatalConsultationByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prenatal.class);
+		return (Prenatal) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public Postnatal getPostnatalConsultationByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Postnatal.class);
+		return (Postnatal) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public HivService getHivServiceByUuid(String uuid) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HivService.class);
+		return (HivService) criteria.add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	}
+
+	@Override
+	public ChildFollowupVisit getChildFollowupVisitByUuid(String uuid) {
+		return null;
+	}
+
+	@Override
+	public MotherFollowup getMotherFollowupByUuid(String uuid) {
+		return null;
+	}
+
+	@Override
+	public MotherFollowupVisit getMotherFollowupVisitByUuid(String uuid) {
+		return null;
 	}
 
 	@Override
@@ -815,7 +887,52 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) contact " +
 						"FROM" +
 						"  (SELECT * FROM ptme_mother_followup WHERE voided = 0) pmf" +
-						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY mother_followup_id) lpmfv" +
+						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit GROUP BY mother_followup_id) lpmfv" +
+						"    ON pmf.mother_followup_id = lpmfv.mother_followup_id" +
+						"  LEFT JOIN (SELECT *, ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate FROM ptme_mother_followup_visit) pmfv ON pmf.mother_followup_id = lpmfv.mother_followup_id AND lpmfv.lastVisitDate = pmfv.visit_date" +
+						"  LEFT JOIN ptme_pregnant_patient ppp ON pmf.pregnant_patient_id = ppp.pregnant_patient_id" +
+						"  LEFT JOIN (SELECT COUNT(mother_followup_visit_id) numberOfVisit, mother_followup_id FROM ptme_mother_followup_visit WHERE visit_date < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) GROUP BY mother_followup_id) nbv" +
+						"    ON nbv.mother_followup_id = pmf.mother_followup_id " +
+						"  LEFT JOIN (SELECT person_id, value_text TelPatient FROM obs o WHERE concept_id = 164500) SoutTel" +
+						"    ON SoutTel.person_id = ppp.patient_id" +
+						"  LEFT JOIN (SELECT person_id, value_text CelPatient FROM obs o WHERE concept_id = 164501) SoutCel " +
+						"    ON SoutCel.person_id = ppp.patient_id " +
+						"WHERE" +
+						"  pmf.pregnancy_outcome IS NULL GROUP BY hiv_care_number " +
+						"HAVING ADDDATE(lastVisitDate, INTERVAL 1 MONTH) < DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')) AND " +
+						"  ADDDATE(lastVisitDate, INTERVAL 1 MONTH) >= ADDDATE(DATE(CONCAT_WS('-', YEAR(NOW()), MONTH(NOW()), '01')), INTERVAL -3 MONTH) " +
+						"ORDER BY lastVisitDate ";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
+				.addScalar("pregnantNumber", StandardBasicTypes.STRING)
+				.addScalar("hivCareNumber", StandardBasicTypes.STRING)
+				.addScalar("numberOfVisit", StandardBasicTypes.INTEGER)
+				.addScalar("familyName", StandardBasicTypes.STRING)
+				.addScalar("contact", StandardBasicTypes.STRING)
+				.addScalar("givenName", StandardBasicTypes.STRING)
+				.addScalar("appointmentDate", StandardBasicTypes.DATE)
+				.addScalar("lastVisitDate", StandardBasicTypes.DATE);
+
+		query.setResultTransformer(new AliasToBeanResultTransformer(MotherFollowupAppointment.class));
+		return (List<MotherFollowupAppointment>) query.list();
+	}
+
+	@Override
+	public List<MotherFollowupAppointment> getPregnantPatientsAppointmentForCV() {
+		String sqlQuery =
+				"SELECT" +
+						"  pregnant_number AS pregnantNumber," +
+						"  hiv_care_number AS hivCareNumber," +
+						"  lastVisitDate," +
+						"  numberOfVisit," +
+						"  AppointmentDate," +
+						"  family_name as familyName," +
+						"  given_name as givenName, " +
+						"  IF(TelPatient IS NOT NULL AND CelPatient IS NOT NULL, CONCAT_WS(' / ', CelPatient, TelPatient), " +
+						"		IF(TelPatient IS NULL AND CelPatient IS NOT NULL, CelPatient, " +
+						"		IF(TelPatient IS NOT NULL AND CelPatient IS NULL,TelPatient, NULL))) contact " +
+						"FROM" +
+						"  (SELECT * FROM ptme_mother_followup WHERE voided = 0) pmf" +
+						"  INNER JOIN (SELECT MAX(visit_date) lastVisitDate, mother_followup_id FROM ptme_mother_followup_visit GROUP BY mother_followup_id) lpmfv" +
 						"    ON pmf.mother_followup_id = lpmfv.mother_followup_id" +
 						"  LEFT JOIN (SELECT *, ADDDATE(visit_date, INTERVAL 1 MONTH) AppointmentDate FROM ptme_mother_followup_visit) pmfv ON pmf.mother_followup_id = lpmfv.mother_followup_id AND lpmfv.lastVisitDate = pmfv.visit_date" +
 						"  LEFT JOIN ptme_pregnant_patient ppp ON pmf.pregnant_patient_id = ppp.pregnant_patient_id" +
@@ -1053,7 +1170,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 						"    ON SoutCel.person_id = pc.mother " +
 						"WHERE" +
 						"  pcf.pcr3_sampling_date IS NULL AND " +
-						"  ((pcf.pcr2_result = 1 AND pcf.pcr1_result = 0) OR (pcf.pcr1_result = 1 IS NULL AND pcf.pcr2_result = 0)) AND " +
+						"  ((pcf.pcr2_result = 1 AND pcf.pcr1_result = 0) OR (pcf.pcr1_result = 1 AND pcf.pcr2_result = 0)) AND " +
 						"  pcf.followup_result IS NULL AND FLOOR(DATEDIFF(DATE(NOW()), birth_date) /30) < 9";
 			} else if (pcrType == 4) {
 				sqlQuery =
@@ -1384,6 +1501,7 @@ public class HibernatePreventTransmissionDAO implements PreventTransmissionDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(template);
 		return template;
 	}
+
 
 	@Transactional
 	@Override

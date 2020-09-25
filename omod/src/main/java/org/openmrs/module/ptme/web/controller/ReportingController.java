@@ -226,7 +226,8 @@ public class ReportingController {
 
             //System.out.println("************************************ Report ID = "+runReportForm.getReportId());
 
-            String generatedReportXmlString = getPreventTransmissionService().getGeneratedReportXmlString(runReportForm.getReportPeriodStartDate(), runReportForm.getReportPeriodEndDate(), runReportForm.getReportId(), runReportForm.getReportLocation());
+            String generatedReportXmlString = getPreventTransmissionService().getGeneratedReportXmlString(runReportForm.getReportPeriodStartDate(),
+                    runReportForm.getReportPeriodEndDate(), runReportForm.getReportId(), runReportForm.getReportLocation());
 
             //System.out.println(generatedReportXmlString);
 

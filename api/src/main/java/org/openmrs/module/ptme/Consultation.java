@@ -53,11 +53,6 @@ public abstract class Consultation extends PreventTransmissionAbstract {
 
 	public Consultation() {
 		setUuid(UUID.randomUUID().toString());
-//		setCreator(Context.getAuthenticatedUser());
-//		setDateCreated(UsefullFunction.formatDateToddMMyyyy(new Date()));
-//		setVoided(false);
-//		String location = Context.getAdministrationService().getGlobalProperty("default_location");
-//		setLocation(Context.getLocationService().getLocation(location));
 	}
 
 	@Override

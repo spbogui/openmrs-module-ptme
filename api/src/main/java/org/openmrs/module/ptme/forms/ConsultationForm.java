@@ -319,8 +319,11 @@ public class ConsultationForm {
             }
         }
         pregnantPatient.setMaritalStatus(this.maritalStatus);
-        pregnantPatient.setSpousalScreening(this.spousalScreening);
-        pregnantPatient.setSpousalScreeningResult(this.spousalScreeningResult);
+        
+        if (this.spousalScreening != null && (this.spousalScreening == 0 || this.spousalScreening == 1)) {
+            pregnantPatient.setSpousalScreening(this.spousalScreening);
+            pregnantPatient.setSpousalScreeningResult(this.spousalScreeningResult);
+        }
 
         if(pregnantPatient.getLocation() == null) {
             pregnantPatient.setLocation(getChosenLocation(null));

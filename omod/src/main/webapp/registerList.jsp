@@ -245,6 +245,9 @@
                                 <tr>
                                     <td class="boldText"><spring:message code="ptme.spousal.screening.result" /> :</td>
                                     <td>
+                                        <c:if test="">
+
+                                        </c:if>
                                         <form:radiobutton path="spousalScreeningResult" value="0" label="Negatif" />
                                         <form:radiobutton path="spousalScreeningResult" value="1" label="${resultPositive}" />
                                         <form:radiobutton path="spousalScreeningResult" value="2" label="N/A" />
@@ -340,18 +343,38 @@
                                             <tr>
                                                 <td class="boldText"><spring:message code="ptme.spousal.screening" /> :</td>
                                                 <td>
-                                                    <form:radiobutton path="spousalScreening" value="0" label="Non" />
-                                                    <form:radiobutton path="spousalScreening" value="1" label="Oui" />
-                                                    <form:radiobutton path="spousalScreening" value="2" label="Ne sait pas" />
+                                                    <c:choose>
+                                                        <c:when test="${ (pregnantPatient.spousalScreening == 1 || pregnantPatient.spousalScreening == 0)
+                                                                   && empty consultationForm.consultationId}">
+                                                            <form:radiobutton path="spousalScreening" value="0" label="Non" disabled="true" />
+                                                            <form:radiobutton path="spousalScreening" value="1" label="Oui" disabled="true" />
+                                                            <form:radiobutton path="spousalScreening" value="2" label="Ne sait pas" disabled="true" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <form:radiobutton path="spousalScreening" value="0" label="Non" />
+                                                            <form:radiobutton path="spousalScreening" value="1" label="Oui" />
+                                                            <form:radiobutton path="spousalScreening" value="2" label="Ne sait pas" />
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td><form:errors cssClass="error" path="spousalScreening"/></td>
                                             </tr>
                                             <tr>
                                                 <td class="boldText"><spring:message code="ptme.spousal.screening.result" /> :</td>
                                                 <td>
-                                                    <form:radiobutton path="spousalScreeningResult" value="0" label="Negatif" />
-                                                    <form:radiobutton path="spousalScreeningResult" value="1" label="Positif" />
-                                                    <form:radiobutton path="spousalScreeningResult" value="2" label="N/A" />
+                                                    <c:choose>
+                                                        <c:when test="${ (pregnantPatient.spousalScreening == 1 || pregnantPatient.spousalScreening == 0)
+                                                                   && empty consultationForm.consultationId}">
+                                                            <form:radiobutton path="spousalScreeningResult" value="0" label="Negatif" disabled="true" />
+                                                            <form:radiobutton path="spousalScreeningResult" value="1" label="Positif" disabled="true" />
+                                                            <form:radiobutton path="spousalScreeningResult" value="2" label="N/A" disabled="true" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <form:radiobutton path="spousalScreeningResult" value="0" label="Negatif" />
+                                                            <form:radiobutton path="spousalScreeningResult" value="1" label="Positif" />
+                                                            <form:radiobutton path="spousalScreeningResult" value="2" label="N/A" />
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td><form:errors cssClass="error" path="spousalScreeningResult"/></td>
                                             </tr>
@@ -420,12 +443,12 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <c:if test="${ empty consultation.consultationId }">
+                        <c:if test="${ empty consultationForm.consultationId }">
                             <button type="submit" name="action">
                                 Enregistrer
                             </button>
                         </c:if>
-                        <c:if test="${ not empty consultation.consultationId }">
+                        <c:if test="${ not empty consultationForm.consultationId }">
                             <button type="submit" name="action">
                                 Modifier
                             </button>

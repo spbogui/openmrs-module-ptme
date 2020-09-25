@@ -556,7 +556,7 @@
                             <br><br>
 
                             Numero d'identification <br>unique : <br>
-                                <span class="colored-blue">${currentChild.patient.getPatientIdentifier.identifier}</span><br><br>
+                                <span class="colored-blue">${currentChild.patient.patientIdentifier.identifier}</span><br><br>
                             Date du statut final : <br>
                             <span class="center colored-blue boldText">
                                 <fmt:formatDate type="date" value="${ childFollowup.followupResultDate }" pattern="dd/MM/yyyy" />
