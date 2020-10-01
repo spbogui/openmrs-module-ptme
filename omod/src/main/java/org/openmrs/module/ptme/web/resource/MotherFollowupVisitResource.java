@@ -12,6 +12,7 @@ import org.openmrs.module.webservices.rest.web.representation.FullRepresentation
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/motherFollowupVisit",
@@ -62,13 +63,28 @@ public class MotherFollowupVisitResource extends DelegatingCrudResource<MotherFo
     }
 
     private DelegatingResourceDescription getDelegatingResourceDescription() {
-        DelegatingResourceDescription description;
-        description = new DelegatingResourceDescription();
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
         description.addProperty("visitDate");
         description.addProperty("gestationalAge");
         description.addProperty("continuingArv");
         description.addProperty("continuingCtx");
         description.addProperty("uuid");
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+        description.addRequiredProperty("motherFollowup");
+        description.addRequiredProperty("location");
+        description.addRequiredProperty("visitDate");
+
+        description.addProperty("visitDate");
+        description.addProperty("gestationalAge");
+        description.addProperty("continuingArv");
+        description.addProperty("continuingCtx");
+        description.addProperty("uuid");
+
         return description;
     }
 

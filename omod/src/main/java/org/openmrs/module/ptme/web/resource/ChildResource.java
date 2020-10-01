@@ -14,10 +14,11 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.response.ConversionException;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/child",
-        supportedClass = Child.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*", "1.12.*"})
+        supportedClass = Child.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*", "1.11.*", "1.12.*"})
 public class ChildResource extends DelegatingCrudResource<Child> {
     @Override
     public Child getByUniqueId(String s) {
@@ -108,6 +109,24 @@ public class ChildResource extends DelegatingCrudResource<Child> {
             description.addProperty("voidReason");
             description.addSelfLink();
         }
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+
+        description.addRequiredProperty("childFollowupNumber");
+        description.addRequiredProperty("birthDate");
+        description.addRequiredProperty("gender");
+        description.addRequiredProperty("familyName");
+        description.addRequiredProperty("givenName");
+        description.addRequiredProperty("location");
+
+        description.addProperty("mother");
+        description.addProperty("patient");
+        description.addProperty("uuid");
+
         return description;
     }
 

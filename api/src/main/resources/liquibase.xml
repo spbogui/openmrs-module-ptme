@@ -773,6 +773,9 @@
                     <sqlCheck expectedResult="0">select count(*) from encounter WHERE encounter_type = 16 AND form_id = 15</sqlCheck>
                 </not>
                 <sqlCheck expectedResult="0">select count(*) from ptme_mother_followup</sqlCheck>
+                <not>
+                    <sqlCheck expectedResult="0">select count(*) from ptme_pregnant_patient</sqlCheck>
+                </not>
             </and>
 
         </preConditions>

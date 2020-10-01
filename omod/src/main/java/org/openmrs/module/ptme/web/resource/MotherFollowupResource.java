@@ -12,6 +12,7 @@ import org.openmrs.module.webservices.rest.web.representation.FullRepresentation
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/motherFollowup",
@@ -65,6 +66,25 @@ public class MotherFollowupResource extends DelegatingCrudResource<MotherFollowu
     private DelegatingResourceDescription getDelegatingResourceDescription() {
         DelegatingResourceDescription description;
         description = new DelegatingResourceDescription();
+        description.addRequiredProperty("pregnantPatient");
+        description.addRequiredProperty("startDate");
+        description.addRequiredProperty("arvStatusAtRegistering");
+        description.addRequiredProperty("location");
+
+        description.addProperty("endDate");
+        description.addProperty("estimatedDeliveryDate");
+        description.addProperty("spousalScreeningResult");
+        description.addProperty("spousalScreeningDate");
+        description.addProperty("pregnancyOutcome");
+        description.addProperty("deliveryType");
+        description.addProperty("motherFollowupVisits");
+        description.addProperty("uuid");
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
         description.addProperty("startDate");
         description.addProperty("endDate");
         description.addProperty("arvStatusAtRegistering");

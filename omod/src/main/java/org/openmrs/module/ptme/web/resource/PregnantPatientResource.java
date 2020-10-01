@@ -13,6 +13,7 @@ import org.openmrs.module.webservices.rest.web.representation.FullRepresentation
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/pregnantPatient",
@@ -77,6 +78,24 @@ public class PregnantPatientResource extends DelegatingCrudResource<PregnantPati
             description.addSelfLink();
         }
         return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+        description.addRequiredProperty("pregnantNumber");
+        description.addRequiredProperty("age");
+        description.addRequiredProperty("location");
+
+        description.addProperty("familyName");
+        description.addProperty("givenName");
+        description.addProperty("uuid");
+        description.addProperty("screeningNumber");
+        description.addProperty("hivCareNumber");
+        description.addProperty("maritalStatus");
+        description.addProperty("patient");
+
+        return super.getCreatableProperties();
     }
 
     protected PreventTransmissionService getService() {

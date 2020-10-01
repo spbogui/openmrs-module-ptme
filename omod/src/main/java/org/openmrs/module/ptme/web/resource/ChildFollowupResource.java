@@ -12,6 +12,7 @@ import org.openmrs.module.webservices.rest.web.representation.FullRepresentation
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/childFollowup",
@@ -110,6 +111,47 @@ public class ChildFollowupResource extends DelegatingCrudResource<ChildFollowup>
             description.addProperty("uuid");
             description.addSelfLink();
         }
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+        description.addRequiredProperty("child");
+        description.addRequiredProperty("location");
+
+        description.addProperty("arvProphylaxisGiven");
+        description.addProperty("arvProphylaxisGivenDate");
+        description.addProperty("pcr1SamplingDate");
+        description.addProperty("ageInMonthOnPcr1Sampling");
+        description.addProperty("ageInWeekOnPcr1Sampling");
+        description.addProperty("pcr1Result");
+        description.addProperty("pcr2SamplingDate");
+        description.addProperty("ageInMonthOnPcr2Sampling");
+        description.addProperty("ageInWeekOnPcr2Sampling");
+        description.addProperty("pcr2Result");
+        description.addProperty("pcr3SamplingDate");
+        description.addProperty("ageInMonthOnPcr3Sampling");
+        description.addProperty("ageInWeekOnPcr3Sampling");
+        description.addProperty("pcr3Result");
+        description.addProperty("ctxInitiationDate");
+        description.addProperty("ageInMonthOnCtxInitiation");
+        description.addProperty("ageInWeekOnCtxInitiation");
+        description.addProperty("inhInitiationDate");
+        description.addProperty("ageInMonthOnInhInitiation");
+        description.addProperty("ageInWeekOnInhInitiation");
+        description.addProperty("hivSerology1Date");
+        description.addProperty("ageInMonthOnHivSerology1");
+        description.addProperty("ageInWeekOnHivSerology1");
+        description.addProperty("hivSerology1Result");
+        description.addProperty("hivSerology2Date");
+        description.addProperty("ageInMonthOnHivSerology2");
+        description.addProperty("ageInWeekOnHivSerology2");
+        description.addProperty("hivSerology2Result");
+        description.addProperty("followupResult");
+        description.addProperty("followupResultDate");
+        description.addProperty("referenceLocation");
+        description.addProperty("uuid");
         return description;
     }
 

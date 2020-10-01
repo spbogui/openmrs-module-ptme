@@ -14,6 +14,7 @@ import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/prenatal",
@@ -75,6 +76,24 @@ public class PrenatalResource extends DelegatingCrudResource<Prenatal> {
             description.addProperty("uuid");
             description.addSelfLink();
         }
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+
+        description.addRequiredProperty("pregnantPatient");
+        description.addRequiredProperty("consultationDate");
+        description.addRequiredProperty("rank");
+        description.addRequiredProperty("location");
+        description.addRequiredProperty("weekOfAmenorrhea");
+        description.addRequiredProperty("appointmentDate");
+
+        description.addProperty("spousalScreening");
+        description.addProperty("spousalScreeningResult");
+        description.addProperty("uuid");
+
         return description;
     }
 

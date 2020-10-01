@@ -18,7 +18,7 @@ public class MotherFollowupVisit extends PreventTransmissionAbstract {
     @Column(name = "mother_followup_visit_id")
     private Integer motherFollowupVisitId;
     @ManyToOne
-    @JoinColumn(name = "mother_followup_id")
+    @JoinColumn(name = "mother_followup_id", nullable = false)
     private MotherFollowup motherFollowup;
     @Column(nullable = false, name = "visit_date")
     private Date visitDate;

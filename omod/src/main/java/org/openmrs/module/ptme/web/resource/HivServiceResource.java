@@ -13,6 +13,7 @@ import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PreventTransmissionResourceController.PTME_REST_NAMESPACE + "/hivService",
@@ -70,6 +71,24 @@ public class HivServiceResource extends DelegatingCrudResource<HivService> {
         description.addProperty("testResult");
         description.addProperty("resultAnnouncement");
         description.addProperty("arvDiscount");
+        description.addProperty("childArvProphylaxis");
+        description.addProperty("arvStatus");
+        description.addProperty("arvTreatment");
+        description.addProperty("uuid");
+        return description;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+        DelegatingResourceDescription description = new DelegatingResourceDescription();
+        description.addRequiredProperty("consultation");
+        description.addRequiredProperty("hivStatusAtReception");
+        description.addRequiredProperty("testProposal");
+        description.addRequiredProperty("testResult");
+        description.addRequiredProperty("resultAnnouncement");
+        description.addRequiredProperty("arvDiscount");
+        description.addRequiredProperty("location");
+
         description.addProperty("childArvProphylaxis");
         description.addProperty("arvStatus");
         description.addProperty("arvTreatment");
